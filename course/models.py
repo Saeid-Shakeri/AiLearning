@@ -22,6 +22,7 @@ class Comment(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField()
     score = models.PositiveIntegerField(default=0)
+    reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
 
     class Meta:
         verbose_name = 'Comment'
