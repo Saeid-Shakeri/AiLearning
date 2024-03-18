@@ -49,13 +49,17 @@ class Category(models.Model):
 class Course(models.Model):
     category = models.ForeignKey(to=Category,default=None,on_delete=models.SET_DEFAULT)
     comment = models.ForeignKey(to=Comment, on_delete=models.PROTECT, null=True, blank=True)
-    title = models.CharField(max_length=50, help_text="Name of Course")
+    name = models.CharField(max_length=50, help_text="Name of Course")
     image = models.FileField(null=True, default=None, upload_to='static/course/course/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='static/course/course/file/')
     body = models.TextField()
     professor = models.ManyToManyField(to=Professor)
     score = models.PositiveIntegerField(default=0)
     date = models.DateField()
+    slug = models.SlugField(default="", null=False)
+
+    def __str__(self):
+        return f"{self.name}"
 
     class Meta:
         verbose_name = 'Course'
@@ -67,13 +71,15 @@ class Course(models.Model):
 
 class Lesson(models.Model):
     comment = models.ForeignKey(to=Comment, on_delete=models.PROTECT, null=True, blank=True)
-    title = models.CharField(max_length=50, help_text="Name of Lesson")
+    name = models.CharField(max_length=50, help_text="Name of Lesson")
     image = models.FileField(null=True, default=None, upload_to='static/course/lesson/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='static/course/lesson/file/')
     body = models.TextField( null=True, blank=True)
     score = models.PositiveIntegerField(default=0)
     date = models.DateTimeField()
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
+    slug = models.SlugField(default="", null=False)
+
 
 
     class Meta:
@@ -81,7 +87,7 @@ class Lesson(models.Model):
         verbose_name_plural = 'Lessons'
 
     def __str__(self):
-        return f"{self.title} "
+        return f"{self.name} "
 
 
 
