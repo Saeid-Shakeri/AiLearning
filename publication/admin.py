@@ -6,4 +6,6 @@ from .models import Article
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    exclude = ('score')
+    exclude = ('score',)
+    search_fields = ['name']
+
