@@ -12,6 +12,7 @@ class Professor(models.Model):
     class Meta:
         verbose_name = ("Professor")
         verbose_name_plural = ("Professors")
+        
 
     def __str__(self):
         return self.name
