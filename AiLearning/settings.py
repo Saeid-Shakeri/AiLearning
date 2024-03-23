@@ -4,7 +4,7 @@ JAZZMIN_SETTINGS = {
 
     # Title on the brand, and login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "Ai Learning",
-    "site_logo": 'logo2.png',
+    "site_logo": 'logo.png',
     # Welcome text on the login screen
     "welcome_sign": "Welcome to Ai Learning panel! :)",
 
@@ -12,7 +12,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "Ai Learning",
 
     # The model admin to search from the search bar, search bar omitted if excluded
-    "search_model": ["user.User","course.Course"],
+    #"search_model": ["user.User","course.Course"],
 
     # Field name on user model that contains avatar image
     "user_avatar": None,
@@ -27,7 +27,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # model admin to link to (Permissions checked against model)
-        {"model": "user.User"},
+        #{"model": "user.User"},
     ],
 
     #############
@@ -60,7 +60,10 @@ JAZZMIN_SETTINGS = {
         "course.Course": "fa fa-th-list",
         "course.Lesson": "fa fa-book",
         "course.Category": "fa fa-clone",
-        "user.User": "fa fa-regular fa-user"
+        "user.User": "fas fa-address-card",
+        "course.Professor": "fa fa-regular fa-user",
+        
+
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -141,7 +144,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin'
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -151,7 +154,7 @@ INSTALLED_APPS = [
 
     'course',
     'publication',
-    'user'
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -215,7 +218,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "user.User"
-LOGIN_URL = '/user/login'
+#LOGIN_URL = '/user/login'
 
 
 

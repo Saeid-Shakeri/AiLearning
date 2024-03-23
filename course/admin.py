@@ -4,11 +4,13 @@ from .models import Course, Lesson, Category, Professor
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    exclude = ('score')
+    exclude = ('score',)
+    search_fields = ['name']
+
 
 @admin.register(Lesson)
-class CourseAdmin(admin.ModelAdmin):
-    exclude = ('score')
+class LessonAdmin(admin.ModelAdmin):
+    exclude = ('score',)
 
 
 @admin.register(Category)

@@ -4,4 +4,4 @@ from .models import User
 
 @admin.register(User)
 class Userdmin(admin.ModelAdmin):
-    pass
+    search_fields = ['username']
