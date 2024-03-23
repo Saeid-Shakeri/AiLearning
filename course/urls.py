@@ -3,7 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', IndexView , name='landing'),
-    #path('courses/',       , name='courses'),
+    path('courses/', CourseListView.as_view(), name='courses'),
     #path('course/details/<slug:slug>/',       , name='course_details'),
    
 

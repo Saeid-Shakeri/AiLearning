@@ -22,3 +22,5 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProfessorAdmin(admin.ModelAdmin):
     
     exclude = ('score',)
+    ordering = ['name']
+

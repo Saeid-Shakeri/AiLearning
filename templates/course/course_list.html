@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+{% for course in course_list %}
+{% if course.image %}
+<img src="{{ course.image.url }} " height="200" width="200">
+{% endif %}
+<h3>{{course.name}}</h3>
+
+
+{% endfor %}
+{% endblock %}
