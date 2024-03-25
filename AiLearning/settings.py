@@ -18,7 +18,7 @@ JAZZMIN_SETTINGS = {
     "user_avatar": None,
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["course","publication"],
+    "order_with_respect_to": ["course.Course", "course.Lesson", "publication"],
 
     # Links to put along the top menu
     "topmenu_links": [
