@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+
+{% block title %}   {% endblock %}
+
+{% block content %}
+
+<ul>
+  <li><a href="/courses/"> دوره های آموزشی</a>
+
+
+</ul>
+
+<p>
+  
+<h2>
+  <u>
+  {% for t in category %}
+  <li>{{ t.name }}</li>
+  <br>
+  
+  {% endfor %}
+  </u>
+  </h2>
+</p>  
+
+<p><h2>جدیدترین دوره ها :</h2>
+</p>
+
+<h2>
+{% for t in course %}
+<p>{{ t.name }}</p>
+
+
+{% endfor %}
+
+</h2>
+
+
+{% endblock %}
