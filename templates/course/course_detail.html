@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+
+{% if course.image %}
+    <img src="{{ course.image.url }} " height="200" width="200">
+{% endif %}
+
+<h1>{{ course.name }}</h1>
+<p>{{ course.body }}</p>
+
+{% for prof in prof %}
+  <p>{{ prof.name }}</p>
+  {% if prof.image %}
+  <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+  {% endif %}
+
+{% endfor %} 
+
+
+{% endblock %}
