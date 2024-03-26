@@ -5,8 +5,7 @@
 {% block content %}
 
 <ul>
-  <li><a href="/courses/"> دوره های آموزشی</a>
-
+  <li><a href="/courses/"> دوره های آموزشی</a></li>
 
 </ul>
 
@@ -14,24 +13,36 @@
   
 <h2>
   <u>
+    کتگوری ها :
   {% for t in category %}
   <li>{{ t.name }}</li>
   <br>
-  
   {% endfor %}
   </u>
   </h2>
 </p>  
 
-<p><h2>جدیدترین دوره ها :</h2>
+<p>
+  <h2>جدیدترین دوره ها :</h2>
 </p>
 
 <h2>
-{% for t in course %}
-<p>{{ t.name }}</p>
+  {% for t in course %}
+    <p>{{ t.name }}</p>
 
+  {% endfor %}
 
-{% endfor %}
+</h2>
+
+<p>
+  <h2>جدیدترین مقاله ها :</h2>
+</p>
+
+<h2>
+  {% for t in article %}
+    <p>{{ t.name }}</p>
+
+  {% endfor %}
 
 </h2>
 

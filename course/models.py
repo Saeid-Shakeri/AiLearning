@@ -57,7 +57,7 @@ class Course(models.Model):
     professor = models.ManyToManyField(to=Professor)
     score = models.PositiveIntegerField(default=0)
     date = models.DateField()
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -70,13 +70,14 @@ class Course(models.Model):
 class Lesson(models.Model):
     comment = models.ForeignKey(to=Comment, on_delete=models.PROTECT, null=True, blank=True)
     name = models.CharField(max_length=50, help_text="Name of Lesson")
-    image = models.FileField(null=True, default=None, upload_to='media/course/lesson/image/', blank=True)
+    image = models.ImageField(null=True, default=None, upload_to='media/course/lesson/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='media/course/lesson/file/')
     body = models.TextField( null=True, blank=True)
     score = models.PositiveIntegerField(default=0)
     date = models.DateTimeField()
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
+    video = models.FileField(null=True,blank=True,upload_to='media/course/lesson/video/')
 
 
 
