@@ -40,13 +40,13 @@ def Login(request):
     return render(request, 'user/login.html', context={'form': form, 'message': message})
 
 
-@login_required(login_url='/user/login')
+@login_required(login_url='/user/login/')
 def Logout(request):
     logout(request)
     return redirect('login')
 
 
-@login_required(login_url='/user/login')
+@login_required(login_url='/user/login/')
 def dashboard(request):
     if request.method == 'GET':
         context ={}
@@ -54,7 +54,7 @@ def dashboard(request):
         return render(request, "user/dashboard.html", context)
 
 
-@login_required(login_url='/user/login')
+@login_required(login_url='/user/login/')
 def edit_profile(request):
     if request.method == 'GET':
         user = User.objects.get(id=request.user.id)
@@ -69,7 +69,7 @@ def edit_profile(request):
       return HttpResponse("Something went wrong")
 
 
-@login_required(login_url='/user/login')
+@login_required(login_url='/user/login/')
 def change_password(request):  
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
