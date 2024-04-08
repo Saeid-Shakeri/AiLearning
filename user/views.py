@@ -66,7 +66,7 @@ def edit_profile(request):
       if form.is_valid():
          form.save()     
          return redirect('dashboard')  
-      return HttpResponse("Something went wrong")
+      return HttpResponse("Please correct the error below.")
 
 
 @login_required(login_url='/user/login/')
