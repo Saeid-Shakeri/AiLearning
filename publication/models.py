@@ -22,4 +22,4 @@ class Article(models.Model):
         verbose_name_plural = ("Articles")
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
