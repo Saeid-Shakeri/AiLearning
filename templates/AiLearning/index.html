@@ -4,47 +4,42 @@
 
 {% block content %}
 
-<ul>
-  <li><a href="course/courses/"> دوره های آموزشی</a></li>
-  <li><a href="user/dashboard/"> داشبورد </a></li>
-</ul>
+  <ul>
+    <li><a href="course/courses/"> دوره های آموزشی</a></li>
+    <li><a href="user/dashboard/"> داشبورد </a></li>
+  </ul>
 
-<p>jnljklnlkm;
-  
-<h2>
-  <u>
-    کتگوری ها :
-  {% for t in category %}
-  <li>{{ t.name }}</li>
-  <br>
-  {% endfor %}
-  </u>
-  </h2>
-</p>  
+    
+  <h4>
+      کتگوری ها :
+    {% for t in category %}
+      <p>{{ t.name }}</p>
+    {% endfor %}
+  </h4>
 
-<p>
-  <h2>جدیدترین دوره ها :</h2>
-</p>
+  <p>
+    <h3>جدیدترین دوره ها :</h3>
+  </p>
 
-<h2>
-  {% for t in course %}
-    <p>{{ t.name }}</p>
+  <h3>
+    {% for t in course %}
+      <p>{{ t.name }}</p>
 
-  {% endfor %}
+    {% endfor %}
 
-</h2>
+  </h3>
 
-<p>
-  <h2>جدیدترین مقاله ها :</h2>
-</p>
+  <p>
+    <h3>جدیدترین مقاله ها :</h3>
+  </p>
 
-<h2>
-  {% for t in article %}
-    <p>{{ t.name }}</p>
+  <h3>
+    {% for t in article %}
+      <p>{{ t.name }}</p>
 
-  {% endfor %}
+    {% endfor %}
 
-</h2>
+  </h3>
 
 
 {% endblock %}
