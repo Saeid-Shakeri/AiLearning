@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <p>{{message}}</p>
+
+    <form action="" method="post" id="large">
+        {% csrf_token %}
+        <p>
+            <label for="username"> نام کاربری :</label>
+            <input id="username" type="text" name="username" placeholder="{{user.username}}" value="{{user.username}}">
+        </p>
+        <p>
+            <label for="first">نام:  </label>
+            <input id="first" type="text" name="first_name" placeholder="{{user.first_name}}" value="{{user.first_name}}">
+        </p>
+        <p>
+            <label for="last"> نام خانوادگی </label>
+            <input id="last" type="text" name="last_name" placeholder="{{user.last_name}}" value="{{user.last_name}}">
+        </p>
+        <p>
+            <label for="email"> ایمیل </label>
+            <input id="email" type="text" name="email" placeholder="{{user.email}}" value="{{user.email}}"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            title="فرمت وارد شده نادرست است. " >
+        </p>
+        <p>
+            <label for="phone"> شماره تلفن </label>
+            <input id="phone" type="text" name="phone" placeholder="{{user.phone}}" value="{{user.phone}}"
+                            pattern="[0]{1}[9]{1}[0-9]{9}"
+                            title=" شماره تلفن همراه باید با 09 شروع شود و یازده رقم باشد. ">
+        </p>
+        <p><br><input type="submit" value= "اعمال تغییرات  "></p>
+    </form>
+
+</div>
+
+
+
+{% endblock %}

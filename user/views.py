@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth import update_session_auth_hash
+# from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 
 
@@ -54,24 +54,10 @@ def Login(request):
                     username=username, password=password)
         if authed_user:
             login(request, authed_user)
-
-        # username = request.POST.get('username')
-        # user = User.objects.filter(username=username)
-        # if not user:
-        #     message = 'نام کاربری اشتباه است. دوباره تلاش کنید.'
-        #     return render(request,'user/login.html',{'message':message})
-
-        # print(user)
-        # print(username)
-        # if username != user[0].username :
-        #     message = 'نام کاربری اشتباه است. دوباره تلاش کنید.'
-        #     return render(request,'user/login.html',{'message':message})
-        # password = request.POST.get('password')
-        # if  user[0].check_password(password) :
-        #     message = 'رمز عبور اشتباه است. دوباره تلاش کنید'
-        #     return render(request,'user/login.html',{'message':message})
-        # login(request, user[0])
-        return redirect('user:dashboard')
+            return redirect('user:dashboard')
+        else :
+            message = 'رمز عبور یا نام کاربری اشتباه است. دوباره تلاش کنید'
+            return render(request,'user/login.html',{'message':message})
 
 
     
@@ -91,19 +77,36 @@ def dashboard(request):
         return render(request, "user/dashboard.html", context)
 
 
-# @login_required(login_url='/user/login/')
-# def edit_profile(request):
-#     if request.method == 'GET':
-#         user = User.objects.get(id=request.user.id)
-#         profile = EditProfile(instance = user)
-#         return render(request, 'user/edit_profile.html', {'profile': profile})
 
-#     if request.method == 'POST':
-#       form = EditProfile(request.POST,instance=user)
-#       if form.is_valid():
-#          form.save()     
-#          return redirect('dashboard')  
-#       return HttpResponse("Please correct the error below.")
+@login_required(login_url='/user/login/')
+def edit_profile(request):
+   
+    user = request.user
+
+    if request.method == 'GET':
+        return render(request, 'user/edit_profile.html', {'user':user})
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        u = User.objects.filter(username=username)
+        if username in u :
+            message = 'این نام کاربری موجود است لطفا یک نام دیگر را امتحان کنید.'
+            return render(request,'user/edit_profile.html',{'message':message}) 
+        else :
+            user.username = username
+        if user.first_name !=  request.POST.get("first_name"):
+            user.first_name = request.POST.get("first_name")
+        if user.last_name != request.POST.get("last_name"):
+            user.last_name = request.POST.get("last_name")
+        if user.phone !=  request.POST.get("phone"):
+            user.phone = request.POST.get("phone")
+        if user.email !=  request.POST.get("email"):
+            user.email = request.POST.get("email")
+        
+        user.save()
+        return redirect('user:dashboard')  
+
+
 
 
 @login_required(login_url='/user/login/')
@@ -130,28 +133,7 @@ def change_password(request):
             return render(request,'user/change_password.html',{'message':message})
         user.set_password(password1)
         user.save()
-        #3 update_session_auth_hash(request, user)
-        # user.set_password(password1)
-        # user.username = request.user.username
-        # user.save()
         login(request, user)
         return redirect('user:dashboard')
         
-
-
-
-
-
-        # form = PasswordChangeForm(request.user, request.POST)
-    #     if form.is_valid():
-    #         user = form.save()
-    #         update_session_auth_hash(request, user)  # Important!
-    #         return redirect('dashboard')
-    #     else:
-    #         HttpResponse('Please correct the error below.')
-    # else:
-    #     form = PasswordChangeForm(request.user)
-    # return render(request, 'user/change_password.html', {'form': form})
-
-
 
