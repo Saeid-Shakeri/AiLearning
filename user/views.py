@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 
@@ -41,21 +40,41 @@ def signup(request):
     # return render(request, 'user/signup.html', {'form': form})
 
 
-# def Login(request):
+def Login(request):
 
-#     message = ''
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             user = authenticate(
-#                 username=form.cleaned_data['username'],
-#                 password=form.cleaned_data['password'],
-#             )
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('dashboard')
-#         message = 'Login failed!'
-#     return render(request, 'user/login.html', context={'form': form, 'message': message})
+    message = ''
+    if request.method == 'GET':
+        return render(request, 'user/login.html', {})
+
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        authed_user = authenticate(
+                    username=username, password=password)
+        if authed_user:
+            login(request, authed_user)
+
+        # username = request.POST.get('username')
+        # user = User.objects.filter(username=username)
+        # if not user:
+        #     message = 'نام کاربری اشتباه است. دوباره تلاش کنید.'
+        #     return render(request,'user/login.html',{'message':message})
+
+        # print(user)
+        # print(username)
+        # if username != user[0].username :
+        #     message = 'نام کاربری اشتباه است. دوباره تلاش کنید.'
+        #     return render(request,'user/login.html',{'message':message})
+        # password = request.POST.get('password')
+        # if  user[0].check_password(password) :
+        #     message = 'رمز عبور اشتباه است. دوباره تلاش کنید'
+        #     return render(request,'user/login.html',{'message':message})
+        # login(request, user[0])
+        return redirect('user:dashboard')
+
+
+    
 
 
 @login_required(login_url='/user/login/')
@@ -97,8 +116,8 @@ def change_password(request):
 
     elif request.method == 'POST':
         oldpassword = request.POST.get('oldpassword')
-        user = User.objects.get(id=request.user.id)
-        if user.check_password(oldpassword) :
+        user = request.user
+        if  user.check_password(oldpassword) :
             message = 'رمز قبلی را اشتباه نوشته اید. دوباره تلاش کنید. '
             return render(request,'user/change_password.html',{'message':message})
         password1 = request.POST.get('password1')
@@ -111,6 +130,10 @@ def change_password(request):
             return render(request,'user/change_password.html',{'message':message})
         user.set_password(password1)
         user.save()
+        #3 update_session_auth_hash(request, user)
+        # user.set_password(password1)
+        # user.username = request.user.username
+        # user.save()
         login(request, user)
         return redirect('user:dashboard')
         
