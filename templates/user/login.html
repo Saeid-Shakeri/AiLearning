@@ -1,20 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base/base.html" %}
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Login">
-        <p>Don't have an account? <a href="{% url 'singup' %}">Create One</a> </p>
+{% block title %}
+    AiLearning| Login
+{% endblock %}
 
-    </form>
-    
-</body>
-</html>
+{% block content %}
+    <div>
+        <p>{{message}}</p>
+        <form action="" method="post">
+            {% csrf_token %}
+                <p>
+                    <label for="username"> نام کاربری :</label>
+                    <input id="username" type="text" name="username" placeholder="نام کاربریتان را اینجا بنویسید">
+                </p>
+                <p>
+                    <label for="pass"> رمز عبور: </label>
+                    <input id="pass" type="password" name="password" placeholder=" رمز عبورتان را اینجا بنویسید">
+                </p>
+            <input type="submit" value="Login">
+            <p>اکانت ندارید؟ یکی بسازید  <a href="{% url 'user:signup' %}">  ساخت اکانت  </a> </p>
+
+        </form>
+    </div>
+
+{% endblock %}
+
