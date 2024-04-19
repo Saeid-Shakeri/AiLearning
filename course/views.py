@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
@@ -7,7 +7,6 @@ from django.http import HttpResponse
 from .models import Course, Category
 from publication.models import Article
 from user.models import Attend
-# Create your views here.
 
 
 class CourseListView(ListView):
@@ -42,4 +41,10 @@ def add_course(request, **kwargs):
     Attend.objects.create(user=user,course=course)
     return HttpResponse('the course added to your profile')
         
-    
+
+class CategoryListView(ListView):
+    pass
+
+
+class CategoryDetailView(DetailView):
+    pass
