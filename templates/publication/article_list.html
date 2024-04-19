@@ -4,12 +4,13 @@
 
 {% block content %}
 
-{% for article in article_list %}
-<a href="{% url 'article_details' article.slug %}">
-    {% if article.image %}
-    <img src="{{ article.image.url }} " height="200" width="200">
-    {% endif %}<h3>{{article.name}}</h3>
+    {% for article in article_list %}
+        <a href="{% url 'article_details' article.slug %}">
+            {% if article.image %}
+            <img src="{{ article.image.url }} " height="200" width="200">
+            {% endif %}
+            <h3>{{article.name}}</h3>
 
 
-{% endfor %}
+    {% endfor %}
 {% endblock %}

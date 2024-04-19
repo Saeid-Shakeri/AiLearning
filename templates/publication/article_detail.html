@@ -1,23 +1,36 @@
 {% extends "base/base.html" %}
 
-{% block title %}{{ section.title }}{% endblock %}
+{% block title %}
+AiLearning | {{article.slug}}
+{% endblock %}
 
 {% block content %}
 
-{% if article.image %}
-    <img src="{{ article.image.url }} " height="200" width="200">
-{% endif %}
-
-<h1>{{ article.name }}</h1>
-<p>{{ article.body }}</p>
-
-{% for prof in prof %}
-  <p>{{ prof.name }}</p>
-  {% if prof.image %}
-  <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+  {% if article.image %}
+      <img src="{{ article.image.url }} " height="300" width="300">
   {% endif %}
 
-{% endfor %} 
+  <h1>{{ article.name }}</h1>
+  <p>{{ article.body }}</p>
+  مدرس: <br>
+  {% for prof in prof %}
+    {{ prof.name }}  <br><br>
 
+    {% if prof.image %}
+    <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+    {% endif %}
+    <br><br>
+  
+
+  {% endfor %} 
+  <p>
+    {% if article.file  %}
+
+    <a href="{{article.file.url}}">  مشاهده آنلاین    </a> <p></p>
+
+    <a href="{{article.file.url}}" download>  دانلود  </a> 
+
+    {% endif %}
+  </p>
 
 {% endblock %}
