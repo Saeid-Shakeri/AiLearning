@@ -38,6 +38,7 @@ class Category(models.Model):
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Parent Category', null=True, blank=True)
     image = models.FileField(null=True, default=None, upload_to='media/category/', blank=True)
     score = models.PositiveIntegerField(default=0)
+    slug = models.SlugField(unique=True)
 
     class Meta:
         verbose_name = 'Category'
