@@ -1,20 +1,24 @@
 {% extends "base/base.html" %}
 
-{% block title %}   {% endblock %}
+{% block title %} AiLearning  {% endblock %}
 
 {% block content %}
 
   <ul>
     <li><a href="course/courses/"> دوره های آموزشی</a></li>
+    <li><a href="publication/articles/">  مقاله ها  </a></li>
     <li><a href="user/dashboard/"> داشبورد </a></li>
   </ul>
 
     
   <h4>
-      کتگوری ها :
-    {% for t in category %}
-      <p>{{ t.name }}</p>
-    {% endfor %}
+ :دسته بندی ها 
+    {% for c in category %}
+    {% comment %} <a href="{% url 'course:course_details' c.slug %}">
+      {% if c.image %}
+        <img src="{{ c.image.url }} " height="200" width="200">
+      {% endif %}  {% endcomment %}
+      <h3>{{c.name}}</h3>    {% endfor %}
   </h4>
 
   <p>
@@ -22,11 +26,14 @@
   </p>
 
   <h3>
-    {% for t in course %}
-      <p>{{ t.name }}</p>
-
+    {% for c in course %}
+    <a href="{% url 'course:course_details' c.slug %}">
+      {% if c.image %}
+        <img src="{{ c.image.url }} " height="200" width="200">
+      {% endif %} 
+      <h3>{{c.name}}</h3>
+    </a>
     {% endfor %}
-
   </h3>
 
   <p>
@@ -34,9 +41,12 @@
   </p>
 
   <h3>
-    {% for t in article %}
-      <p>{{ t.name }}</p>
-
+    {% for a in article %}
+    <a href="{% url 'article_details' a.slug %}">
+      {% if a.image %}
+      <img src="{{ a.image.url }} " height="200" width="200">
+      {% endif %}
+      <h3>{{a.name}}</h3>
     {% endfor %}
 
   </h3>

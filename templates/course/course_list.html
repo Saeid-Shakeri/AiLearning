@@ -4,12 +4,13 @@
 
 {% block content %}
 
-{% for course in course_list %}
-<a href="{% url 'course_details' course.slug %}">
-    {% if course.image %}
-    <img src="{{ course.image.url }} " height="200" width="200">
-    {% endif %}<h3>{{course.name}}</h3>
+    {% for course in course_list %}
+        <a href="{% url 'course:course_details' course.slug %}">
+            {% if course.image %}
+                <img src="{{ course.image.url }} " height="200" width="200">
+            {% endif %} 
+            <h3>{{course.name}}</h3>
+        </a>
 
-
-{% endfor %}
+    {% endfor %}
 {% endblock %}

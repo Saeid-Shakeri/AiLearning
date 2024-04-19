@@ -1,13 +1,13 @@
 {% extends "base/base.html" %}
 
 {% block title %}
-AiLearning | {{article.slug}}
+  AiLearning | {{article.slug}}
 {% endblock %}
 
 {% block content %}
 
   {% if article.image %}
-      <img src="{{ article.image.url }} " height="300" width="300">
+      <img src="{{ article.image.url }} " height="300" width="300" alt="article-img">
   {% endif %}
 
   <h1>{{ article.name }}</h1>
@@ -17,18 +17,17 @@ AiLearning | {{article.slug}}
     {{ prof.name }}  <br><br>
 
     {% if prof.image %}
-    <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+      <img src="{{ prof.image.url }} " alt="prof-image" height="200" width="200">
     {% endif %}
     <br><br>
   
-
   {% endfor %} 
   <p>
     {% if article.file  %}
 
-    <a href="{{article.file.url}}">  مشاهده آنلاین    </a> <p></p>
+      <a href="{{article.file.url}}">  مشاهده آنلاین    </a> <p></p>
 
-    <a href="{{article.file.url}}" download>  دانلود  </a> 
+      <a href="{{article.file.url}}" download>  دانلود  </a> 
 
     {% endif %}
   </p>

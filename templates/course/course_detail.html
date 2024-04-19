@@ -1,24 +1,31 @@
 {% extends "base/base.html" %}
 
-{% block title %}{{ section.title }}{% endblock %}
+{% block title %}
+AiLearning | {{course.slug}}
+{% endblock %}
 
 {% block content %}
 
-{% if course.image %}
+  {% if course.image %}
     <img src="{{ course.image.url }} " height="200" width="200">
-{% endif %}
-<p>{{ course.video }}</p>
-
-<h1>{{ course.name }}</h1>
-<p>{{ course.body }}</p>
-مدرس:
-{% for prof in prof %}
-  <p>{{ prof.name }}</p>
-  {% if prof.image %}
-  <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
   {% endif %}
+  <p>{{ course.video }}</p>
+  <h1>{{ course.name }}</h1>
+  <p>{{ course.body }}</p>
+  مدرس:
+  {% for prof in prof %}
+    <p>{{ prof.name }}</p>
+    {% if prof.image %}
+      <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+    {% endif %}
 
-{% endfor %} 
+  {% endfor %} 
+
+    <form action="addcourse/" method="post">
+      {% csrf_token %}
+      <input type="hidden" value="{{course.id}}" name="course_id">  
+      <input type="submit" value=" افزودن دوره به پروفایل ">
+    </form>
 
 
 {% endblock %}

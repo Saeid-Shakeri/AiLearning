@@ -1,7 +1,6 @@
 {% extends "base/base.html" %}
-
 {% block title %}
-    AiLearning| Login
+AiLearning | ورود
 {% endblock %}
 
 {% block content %}
@@ -18,10 +17,8 @@
                     <input id="pass" type="password" name="password" placeholder=" رمز عبورتان را اینجا بنویسید">
                 </p>
             <input type="submit" value="Login">
-            <p>اکانت ندارید؟ یکی بسازید  <a href="{% url 'user:signup' %}">  ساخت اکانت  </a> </p>
-
         </form>
+        <p>اکانت ندارید؟ یکی بسازید  <a href="{% url 'user:signup' %}">  ساخت اکانت  </a> </p>
     </div>
 
 {% endblock %}
-

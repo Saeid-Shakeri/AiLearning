@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+AiLearning | داشبورد
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            نام کاربری:  {{user.username}}<br>
+            نام:  {{user.first_name}}<br>
+            نام خانوادگی: {{user.last_name}}<br>
+            ایمیل: {{user.email}}<br>
+            موبایل: {{user.phone}}<br>
+        </p>
+    </div>
+    <div>
+        <p>
+            {% comment %} <a href="{% url 'user:courses' %}"> <button type="submit"> دوره های شما </button> </a> {% endcomment %}
+
+            <a href="{% url 'user:edit_profile' %}"> <button type="submit">ویرایش اطلاعات کاربری </button> </a>
+            <a href="{% url 'user:change_password' %}"> <button type="submit"> تغییر رمز عبور</button> </a>
+            <a href="{% url 'user:logout' %}"> <button type="submit"> خروج از حساب کاربری </button> </a>
+
+        </p>
+
+
+    </div>
+    <div>
+        <h2> دوره های شما </h2>
+        {% for c in courses %}
+            <a href="{% url 'course:course_details' c.course.slug %}"> 
+                {% if c.course.image %}
+                    <img src="{{ c.course.image.url }} " height="200" width="200">
+                {% endif %} 
+                <h3>{{c.course.name}}</h3>
+                {% if c.progress == 0 %}
+                    <button type="submit"> آغاز یادگیری   </button> 
+                {% elif c.progress == 100 %}
+                    <button type="submit"> کامل شده   </button> 
+                {% else %}
+                    <button type="submit"> ادامه یادگیری </button>
+                {% endif %}
+            </a>
+        <br><br>
+        {% endfor %}
+    </div>
+    
+    <div>
+        <h2> دوره های پیشنهادی </h2>
+    </div>
+
+
+{% endblock %}
