@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<style>
+    div.k1 {
+        display: flex;
+        flex-direction:row;
+    }
+     div.k{
+
+        display: flex;
+        flex-direction: row;
+    } 
+</style>
+
+    {% comment %} {% for category in category_list %}
+     {% if category.image %}
+    <img src="{{ category.image.url }} " height="200" width="200">
+{% endif %} 
+<div class="k">
+        <a href="{% url 'course:category_courses' category.slug %}">
+        {% if category.image %}
+            <img src="{{ category.image.url }} " height="200" width="200"> 
+        {% endif %} </a>
+        <div class="k">
+            <a href="{% url 'course:category_courses' category.slug %}">
+
+                <h3>{{category.name}}</h3>
+    
+            </a>
+        </div>
+    
+</div>
+    {% endfor %}
+    {% endcomment %}
+
+
+
+    {% for category in category_list %}
+
+        <a href="{% url 'course:category_courses' category.slug %}">
+            {% if category.image %}
+                <img src="{{ category.image.url }} " height="200" width="200">
+                <h3>{{category.name}}</h3>
+ 
+            {% endif %}
+            
+        </a>
+    {% endfor %}
+{% endblock %}
