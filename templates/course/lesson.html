@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}
+AiLearning | {{lesson.name}}
+{% endblock %}
+
+{% block content %}
+{{lesson.image}}
+    {{lesson.name}}
+
+    <p>
+    <video controls height="400" width="400">
+        <source src="{{lesson.video.url}}" type="video/mp4">
+    </video>
+    </p>
+{{lesson.body}}
+    <p>
+    {% if lesson.file  %}
+    
+        <a href="{{lesson.file.url}}">   مشاهده آنلاین فایل   </a> <p></p>
+    
+        <a href="{{lesson.file.url}}" download>  دانلود فایل </a> 
+    
+    {% endif %}<p>
+{% endblock %}
