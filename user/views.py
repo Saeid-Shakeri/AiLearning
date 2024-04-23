@@ -34,11 +34,6 @@ def signup(request):
         return redirect('user:dashboard')
 
 
-        
-        
-    
-    # return render(request, 'user/signup.html', {'form': form})
-
 
 def Login(request):
 
@@ -60,9 +55,7 @@ def Login(request):
             return render(request,'user/login.html',{'message':message})
 
 
-    
-
-
+ 
 @login_required(login_url='/user/login/')
 def Logout(request):
     logout(request)
@@ -74,6 +67,7 @@ def dashboard(request):
     if request.method == 'GET':
         context ={}
         context["user"] = User.objects.get(id=request.user.id)
+        context ['courses'] = Attend.objects.filter(user=request.user)
         return render(request, "user/dashboard.html", context)
 
 
