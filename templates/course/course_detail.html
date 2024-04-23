@@ -21,11 +21,35 @@ AiLearning | {{course.slug}}
 
   {% endfor %} 
 
-    <form action="addcourse/" method="post">
-      {% csrf_token %}
-      <input type="hidden" value="{{course.id}}" name="course_id">  
-      <input type="submit" value=" افزودن دوره به پروفایل ">
-    </form>
+  <form action="addcourse/" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{course.id}}" name="course_id">  
+    <input type="submit" value=" افزودن دوره به پروفایل ">
+  </form>
+  محتوای دوره : 
+{% for lesson in lessons %}
+<p>
+  <a href="{% url 'course:lesson' lesson.slug %}">{{ lesson }}</p>
 
+{% comment %} <p>
+  {% if lesson.file  %}
+
+    <a href="{{lesson.file.url}}">   مشاهده آنلاین فایل   </a> <p></p>
+
+    <a href="{{lesson.file.url}}" download>  دانلود فایل </a> 
+
+  {% endif %}<p>
+
+  {% if lesson.video  %}
+
+  <a href="{% url 'course:lesson' lesson.slug %}">   مشاهده و دانلود فیلم آموزشی این جلسه   
+  </a>
+
+{% endif %}  {% endcomment %}
+</p>
+</p>
+{% endfor %}
+
+<p>  <input type="submit" value=" ادامه یادگیری "></p>
 
 {% endblock %}

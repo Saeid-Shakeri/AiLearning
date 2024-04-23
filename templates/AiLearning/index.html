@@ -14,27 +14,34 @@
   <h4>
  :دسته بندی ها 
     {% for c in category %}
-    {% comment %} <a href="{% url 'course:course_details' c.slug %}">
-      {% if c.image %}
-        <img src="{{ c.image.url }} " height="200" width="200">
-      {% endif %}  {% endcomment %}
-      <h3>{{c.name}}</h3>    {% endfor %}
-  </h4>
+        <a href="{% url 'course:category_courses' c.slug %}">
+            {% if c.image %}
+                <img src="{{ c.image.url }} " height="200" width="200">
+            {% endif %} 
+            <h3>{{c.name}}</h3>
+        </a>
 
+    {% endfor %}
+  </h4>
+<br><br>
+<div>
   <p>
     <h3>جدیدترین دوره ها :</h3>
   </p>
-
+</div>
   <h3>
     {% for c in course %}
     <a href="{% url 'course:course_details' c.slug %}">
-      {% if c.image %}
+      <figure>{% if c.image %}
         <img src="{{ c.image.url }} " height="200" width="200">
       {% endif %} 
       <h3>{{c.name}}</h3>
+     &nbsp;   
+      </figure>
     </a>
     {% endfor %}
   </h3>
+<br><br>
 
   <p>
     <h3>جدیدترین مقاله ها :</h3>
