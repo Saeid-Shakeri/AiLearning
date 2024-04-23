@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 
-from .models import Course, Category
+from .models import Course, Category, Lesson
 from publication.models import Article
 from user.models import Attend
 
@@ -22,8 +22,10 @@ class CourseListView(ListView):
 def CourseDetailView(request, slug):
     course = Course.objects.get(slug=slug)
     prof = course.professor.all()
+    lessons = Lesson.objects.filter(course=course.id)
+
     context={
-        'course':course, 'prof': prof
+        'course': course, 'prof': prof, 'lessons': lessons,
     }
     return render(request,'course/course_detail.html',context)
 
@@ -43,8 +45,26 @@ def add_course(request, **kwargs):
         
 
 class CategoryListView(ListView):
-    pass
+    model = Category
+    queryset = Category.objects.all()
+    context_object_name = 'category_list'
+    template_name = 'course/category_list.html'
 
 
-class CategoryDetailView(DetailView):
-    pass
+def category_courses(request, slug):
+    cat = Category.objects.get(slug=slug)
+    courses = Course.objects.filter(category=cat.id)
+    context={
+        'courses':courses ,
+        'title':slug
+    }
+    return render(request,'course/category_courses.html',context)
+
+
+def lesson(request, slug):
+    lesson = Lesson.objects.get(slug=slug)
+    context = {
+        'lesson' : lesson
+
+       }
+    return render(request,'course/lesson.html',context)
