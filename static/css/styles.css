@@ -1,3 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+===================
+icon & fonts
+===================
+*/
+
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 @font-face {
@@ -10,7 +22,29 @@
          url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.ttf") format("truetype");
   }
 
+/*
+=================
+Variables
+=================
+*/
 
+:root {  
+    --clr-primary: #e2711d;
+    --clr-primary-light: #ffb627;
+    --clr-grey-1: #102a42;
+    --clr-grey-5: #617d98;
+    --clr-grey-10: #f1f5f8;
+    --clr-white: #fff;
+    --ff-primary: "vazir", sans-serif;
+}
+
+body {
+    font-family: var(--ff-primary);
+    background: var(--clr-white);
+    color: var(--clr-grey-1);
+    text-align: right;
+    font-size: 1rem;
+}
 
 p {
     font-family: 'vazir',-apple-system, BlinkMacSystemFont, 'Segoe UI',Roboto, monospace;
