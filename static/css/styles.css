@@ -36,6 +36,8 @@ Variables
     --clr-grey-10: #f1f5f8;
     --clr-white: #fff;
     --ff-primary: "vazir", sans-serif;
+    --transition: all 0.3s linear;
+
 }
 
 body {
@@ -52,4 +54,63 @@ p {
 
 a {
     text-decoration: none;
+}
+
+h1{
+    font-size: 1.75rem;
+
+}
+
+@media screen and (min-width: 800px) {
+
+    h1{
+        font-size: 2rem;
+
+    }
+
+
+
+}
+
+.btn {
+    background: var(--clr-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    color: var(--clr-white);
+    transition: var(--transition);
+}
+
+.btn:hover{
+    background: var(--clr-primary-light);
+    color: var(--clr-primary);
+
+}
+
+/*
+===================
+header
+===================
+*/
+
+.header{
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.3)) ,url(../images/2.png) center/cover no-repeat fixed;
+    position: relative;
+}
+
+.banner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(180%, -50%);
+    text-align: center;
+}
+
+.banner h1{
+    color: var(--clr-primary);
+    margin-bottom: 2rem;
+}
+
+.btn-banner{
+    border-radius: 0.75rem;
 }
