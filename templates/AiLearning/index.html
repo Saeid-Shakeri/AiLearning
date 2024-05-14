@@ -6,6 +6,7 @@
 
 <!-- header -->
 <header class="header">
+<!-- navbar -->
 
 <br>
 <ul>
@@ -16,8 +17,9 @@
     <li style="float:right"><a  href="user/login/"> ورود </a></li>
     <li style="float:right"><a  href="user/signup/"> ثبت نام </a></li>
   {% endif %}
-
 </ul>
+<!-- end of navbar -->
+
   <div class="banner">
 
     <h1> lorem </h1>
@@ -42,41 +44,54 @@
 
 <br><br><br><br>
 <br><br>
-<br><br>
+
+
+
+
+  <h3>جدیدترین دوره ها :</h3>
+
+<h3>
+  {% for c in course %}
+  <div class="course">
+  <a href="{% url 'course:course_details' c.slug %}">
+    {% if c.image %}
+      <img src="{{ c.image.url }} ">
+    {% endif %} 
+    <h3 class="course-name"> {{c.name}} </h3>
+  </a>
+
+</div>
+  {% endfor %}
+
+</h3>
 
 
     <br><br>
+    <br><br>
+    <br><br>
 
-  <h4>
- :دسته بندی ها 
-    {% for c in category %}
-        <a href="{% url 'course:category_courses' c.slug %}">
-            {% if c.image %}
-                <img src="{{ c.image.url }} " height="200" width="200">
-            {% endif %} 
-            <h3>{{c.name}}</h3>
-        </a>
 
-    {% endfor %}
-  </h4>
-<br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <br><br>
+    <br><br>
+    <br><br>
 <div>
-  <p>
-    <h3>جدیدترین دوره ها :</h3>
-  </p>
-</div>
-  <h3>
-    {% for c in course %}
-    <a href="{% url 'course:course_details' c.slug %}">
-      <figure>{% if c.image %}
-        <img src="{{ c.image.url }} " height="200" width="200">
-      {% endif %} 
-      <h3>{{c.name}}</h3>
-     &nbsp;   
-      </figure>
-    </a>
-    {% endfor %}
-  </h3>
+  
 <br><br>
 
   <p>
@@ -93,6 +108,24 @@
     {% endfor %}
 
   </h3>
-
+  <script>
+    var slideIndex = 1;
+    showDivs(slideIndex);
+    
+    function plusDivs(n) {
+      showDivs(slideIndex += n);
+    }
+    
+    function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length}
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+      }
+      x[slideIndex-1].style.display = "block";  
+    }
+    </script>
 
 {% endblock %}
