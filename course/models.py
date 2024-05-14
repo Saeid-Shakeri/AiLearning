@@ -18,20 +18,33 @@ class Professor(models.Model):
         return self.name
 
 
-class Comment(models.Model):
+class CourseComment(models.Model):
     content = models.CharField(max_length=250, null=True, help_text="Comment text")
-    name = models.CharField(max_length=50)
     email = models.EmailField()
     score = models.PositiveIntegerField(default=0)
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = 'Course Comment'
+        verbose_name_plural = 'Course Comments'
 
     def __str__(self):
         return f"Comment: {self.content}"
 
+
+
+class LessonComment(models.Model):
+    content = models.CharField(max_length=250, null=True, help_text="Comment text")
+    email = models.EmailField()
+    score = models.PositiveIntegerField(default=0)
+    reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Lesson Comment'
+        verbose_name_plural = 'Lesson Comments'
+
+    def __str__(self):
+        return f"Comment: {self.content}"
 
 class Category(models.Model):
     name = models.CharField(max_length=50, help_text="Name of Category")
@@ -49,8 +62,8 @@ class Category(models.Model):
         return f"{self.name}"
 
 class Course(models.Model):
-    category = models.ForeignKey(to=Category,default=None,on_delete=models.SET_DEFAULT)
-    comment = models.ForeignKey(to=Comment, on_delete=models.PROTECT, null=True, blank=True)
+    category = models.ForeignKey(to=Category,on_delete=models.PROTECT,null=True)
+    comment = models.ForeignKey(to=CourseComment, on_delete=models.PROTECT, null=True, blank=True)
     name = models.CharField(max_length=50, help_text="Name of Course")
     image = models.FileField(null=True, default=None, upload_to='media/course/course/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='media/course/course/file/')
@@ -69,7 +82,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    comment = models.ForeignKey(to=Comment, on_delete=models.PROTECT, null=True, blank=True)
+    comment = models.ForeignKey(to=LessonComment, on_delete=models.PROTECT, null=True, blank=True)
     name = models.CharField(max_length=50, help_text="Name of Lesson")
     image = models.ImageField(null=True, default=None, upload_to='media/course/lesson/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='media/course/lesson/file/')

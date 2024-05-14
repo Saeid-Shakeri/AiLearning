@@ -1,7 +1,20 @@
 from django.db import models
-from course.models import Professor, Category, Comment
+from course.models import Professor, Category
 # Create your models here.
 
+
+class ArticleComment(models.Model):
+    content = models.CharField(max_length=250, null=True, help_text="Comment text")
+    email = models.EmailField()
+    score = models.PositiveIntegerField(default=0)
+    reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Article Comment'
+        verbose_name_plural = 'Article Comments'
+
+    def __str__(self):
+        return f"Comment: {self.content}"
 class Article(models.Model):
     name = models.CharField(max_length=150,help_text='The titile of Article')
     body = models.TextField( null=True, blank=True)
@@ -10,8 +23,8 @@ class Article(models.Model):
     file = models.FileField(null=True,blank=True,upload_to='media/article/file/')
     image = models.ImageField(null=True,blank=True,upload_to='media/article/image/')
     score = models.PositiveIntegerField(default=0)
-    category = models.ForeignKey(to=Category,default='Free',on_delete=models.SET_DEFAULT)
-    comment = models.ForeignKey(to=Comment,on_delete=models.PROTECT, null=True, blank=True)
+    category = models.ForeignKey(to=Category,on_delete=models.PROTECT,null=True)
+    comment = models.ForeignKey(to=ArticleComment,on_delete=models.PROTECT, null=True, blank=True)
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/article/video/')
 
