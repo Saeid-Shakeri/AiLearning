@@ -15,12 +15,12 @@ icon & fonts
 @font-face {
     font-family: "vazir";
     src: url("../fonts/vazir/Vazir-Medium.woff2") format("woff2"),
-         url("../fonts/vazir/Vazir-Medium.woff") format("woff"),
-         url("../fonts/vazir/Vazir-Medium.ttf") format("truetype"),
-         url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff2") format("woff2"),
-         url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff") format("woff"),
-         url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.ttf") format("truetype");
-  }
+        url("../fonts/vazir/Vazir-Medium.woff") format("woff"),
+        url("../fonts/vazir/Vazir-Medium.ttf") format("truetype"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff2") format("woff2"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.woff") format("woff"),
+        url("../fonts/vazir/Farsi-Digits-Without-Latin/Vazir-Medium-FD-WOL.ttf") format("truetype");
+}
 
 /*
 =================
@@ -28,7 +28,7 @@ Variables
 =================
 */
 
-:root {  
+:root {
     --clr-primary: #e2711d;
     --clr-primary-light: #ffb627;
     --clr-grey-1: #102a42;
@@ -49,21 +49,21 @@ body {
 }
 
 p {
-    font-family: 'vazir',-apple-system, BlinkMacSystemFont, 'Segoe UI',Roboto, monospace;
+    font-family: 'vazir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
 }
 
 a {
     text-decoration: none;
 }
 
-h1{
+h1 {
     font-size: 1.75rem;
 
 }
 
 @media screen and (min-width: 800px) {
 
-    h1{
+    h1 {
         font-size: 2rem;
 
     }
@@ -80,7 +80,7 @@ h1{
     transition: var(--transition);
 }
 
-.btn:hover{
+.btn:hover {
     background: var(--clr-primary-light);
     color: var(--clr-primary);
 
@@ -92,13 +92,47 @@ header
 ===================
 */
 
-.header{
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--clr-grey-1);
+}
+
+li {
+    float: left;
+
+}
+
+li a {
+    display: block;
+    color: rgb(211, 196, 196);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: var(--transition);
+
+}
+
+/* Change the link color to ... on hover */
+li a:hover {
+    background-color: rgb(209, 162, 59);
+    
+}
+
+
+.active {
+    background-color: #04AA6D;
+}
+
+.header {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.3)) ,url(../images/2.png) center/cover no-repeat fixed;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url(../images/2.png) center/cover no-repeat fixed;
     position: relative;
 }
 
-.banner{
+.banner {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -106,11 +140,17 @@ header
     text-align: center;
 }
 
-.banner h1{
+.banner h1 {
     color: var(--clr-primary);
     margin-bottom: 2rem;
 }
 
-.btn-banner{
+.btn-banner {
     border-radius: 0.75rem;
+}
+
+/* divider */
+.content-divider {
+    height: 0.5rem;
+    background: linear-gradient(to left, var(--clr-primary), var(--clr-primary-light), var(--clr-primary));
 }
