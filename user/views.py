@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-# from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 
 
@@ -29,7 +28,9 @@ def signup(request):
         if password1 != password2 :
             message = 'رمز عبور مطابقت ندارد دوباره تلاش کنید.'
             return render(request,'user/signup.html',{'message':message})
-        user = User.objects.create(username=username,password=password1)
+        user = User.objects.create(username=username)
+        user.set_password(password1)
+        user.save()
         login(request, user)
         return redirect('user:dashboard')
 
@@ -114,7 +115,7 @@ def change_password(request):
     elif request.method == 'POST':
         oldpassword = request.POST.get('oldpassword')
         user = request.user
-        if  user.check_password(oldpassword) :
+        if  not user.check_password(oldpassword) :
             message = 'رمز قبلی را اشتباه نوشته اید. دوباره تلاش کنید. '
             return render(request,'user/change_password.html',{'message':message})
         password1 = request.POST.get('password1')
