@@ -1,7 +1,12 @@
 {% extends "base/base.html" %}
 
-{% block title %} AiLearning  {% endblock %}
+{% block title %} AiLearning | Home {% endblock %}
 
+
+{% block navbar %}
+
+
+{% endblock %}
 {% block content %}
 
 <!-- header -->
@@ -10,7 +15,8 @@
 
 <br>
 <ul>
-  <li><a class="active" href="course/courses/"> دوره های آموزشی</a></li>
+  <li><a class="active" href="index/"> صفحه اصلی </a></li>
+  <li><a href="course/courses/"> دوره های آموزشی</a></li>
   <li><a href="publication/articles/">  مقاله ها  </a></li>
   <li><a href="user/dashboard/"> داشبورد </a></li>
   {% if user is None %}
@@ -38,12 +44,7 @@
 <!-- end of header -->
 
 
-
-
-
-
 <br><br><br><br>
-<br><br>
 
 
 
@@ -52,80 +53,45 @@
 
 <h3>
   {% for c in course %}
-  <div class="course">
-  <a href="{% url 'course:course_details' c.slug %}">
-    {% if c.image %}
-      <img src="{{ c.image.url }} ">
-    {% endif %} 
-    <h3 class="course-name"> {{c.name}} </h3>
-  </a>
-
-</div>
+    <div class="course">
+      <a href="{% url 'course:course_details' c.slug %}">
+        {% if c.image %}
+          <img src="{{ c.image.url }} ">
+        {% endif %} 
+        <h3 class="course-name"> {{c.name}} </h3>
+      </a>
+    </div>
   {% endfor %}
-
 </h3>
 
-
     <br><br>
     <br><br>
     <br><br>
-
-
     <br><br>
     <br><br>
     <br><br>
-
+    <br><br>
     <br><br>
     <br><br>
     <br><br>
 
-    <br><br>
-    <br><br>
-    <br><br>
 
-    <br><br>
-    <br><br>
-    <br><br>
+<h3>جدیدترین مقاله ها :</h3>
 
-    <br><br>
-    <br><br>
-    <br><br>
-<div>
-  
-<br><br>
+  {% for a in article %}
+    <div class="course">
+      <a href="{% url 'article_details' a.slug %}">
+        {% if a.image %}
+        <img src="{{ a.image.url }}">
+        {% endif %} 
+        <h3 class="course-name"> {{a.name}} </h3>
+      </a>
+    </div>
+  {% endfor %}
 
-  <p>
-    <h3>جدیدترین مقاله ها :</h3>
-  </p>
 
-  <h3>
-    {% for a in article %}
-    <a href="{% url 'article_details' a.slug %}">
-      {% if a.image %}
-      <img src="{{ a.image.url }} " height="200" width="200">
-      {% endif %}
-      <h3>{{a.name}}</h3>
-    {% endfor %}
 
-  </h3>
-  <script>
-    var slideIndex = 1;
-    showDivs(slideIndex);
-    
-    function plusDivs(n) {
-      showDivs(slideIndex += n);
-    }
-    
-    function showDivs(n) {
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      if (n > x.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = x.length}
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";  
-      }
-      x[slideIndex-1].style.display = "block";  
-    }
-    </script>
+
+
 
 {% endblock %}
