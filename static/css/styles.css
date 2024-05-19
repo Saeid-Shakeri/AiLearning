@@ -10,7 +10,7 @@ icon & fonts
 ===================
 */
 
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+/* @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"); */
 
 @font-face {
     font-family: "vazir";
@@ -50,10 +50,17 @@ body {
 
 p {
     font-family: 'vazir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+    margin: 0.5rem;
+    
 }
 
 a {
     text-decoration: none;
+}
+
+hr {
+    color: #ccc;
+
 }
 
 h1 {
@@ -180,7 +187,7 @@ li a:hover {
 
 .course {
     margin: 3rem;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     float: right;
     width: 16rem;
     height: 16rem;
@@ -188,7 +195,7 @@ li a:hover {
 }
 
 .course:hover {
-    border: 1px solid #777; 
+    border: 1px solid #777;
 }
 
 .course img {
@@ -214,4 +221,76 @@ li a:hover {
         padding: 1rem 1rem;
     }
 
+}
+
+/* footer  */
+footer {
+    background-color: #5d7186;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.footer-section ul {
+    background-color: inherit;
+    list-style-type: disclosure-closed;
+    text-align: right;
+    overflow: visible;
+}
+
+.footer-section li {
+    float: none;
+}
+
+.footer-section li::marker {
+    color: #ffffff;
+    font-size: 1.2rem
+;}
+
+
+.footer-section a {
+    /* display: block; */
+    color: #d9dcdf;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+
+.footer-section li a {
+    background-color: inherit;
+    text-align: right;
+
+}
+
+.footer-section li a:hover {
+    background-color: inherit;
+    text-decoration: underline;
+
+}
+
+.footer-bottom hr{
+    height: 0.25rem;
+    background-color: #ccc;
+    margin: 0.5rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin: 1rem;
+    /* border-top: 0.2rem solid #dee2e6; */
+    padding: 1rem;
 }
