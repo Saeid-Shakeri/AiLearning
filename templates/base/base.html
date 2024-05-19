@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
+  <head>
     {% load static %}
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="/static/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css" />
 
-    <title>{% block title %}My amazing site{% endblock %}</title>
-</head>
-
-<body>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-        {% endblock %}
-    </div>
-
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+    <title>
+      {% block title %}
+        My amazing site
+      {% endblock %}
+    </title>
+  </head>
+  <body>
     
-</body>
+    {% block content %}
+
+    {% endblock %}
+  </body>
 </html>
