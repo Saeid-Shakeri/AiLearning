@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+# from django.http impor
 
 
 from .models import Course, Category, Lesson
