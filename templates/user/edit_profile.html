@@ -4,6 +4,22 @@
 AiLearning | ویرایش پروفایل
 {% endblock %}
 
+
+    <!-- navbar -->
+    {% block navbar %}
+    <ul>
+      <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+      <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+      <li style="float:right"><a class="active" href="{% url 'dashboard' %}"> داشبورد </a></li>
+      {% if user is None %}
+      <li><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+      {% endif %}
+    </ul>
+    {% endblock %}
+      <!-- end of navbar -->
+
 {% block content %}
 
 <div>

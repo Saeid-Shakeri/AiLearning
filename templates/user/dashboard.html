@@ -4,6 +4,22 @@
 AiLearning | داشبورد
 {% endblock %}
 
+
+    <!-- navbar -->
+    {% block navbar %}
+    <ul>
+      <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+      <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+      <li style="float:right"><a class="active" href="{% url 'dashboard' %}"> داشبورد </a></li>
+      {% if user is None %}
+      <li><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+      {% endif %}
+    </ul>
+    {% endblock %}
+      <!-- end of navbar -->
+
 {% block content %}
     <div>
         <p>
@@ -18,9 +34,9 @@ AiLearning | داشبورد
         <p>
             {% comment %} <a href="{% url 'user:courses' %}"> <button type="submit"> دوره های شما </button> </a> {% endcomment %}
 
-            <a href="{% url 'user:edit_profile' %}"> <button type="submit">ویرایش اطلاعات کاربری </button> </a>
-            <a href="{% url 'user:change_password' %}"> <button type="submit"> تغییر رمز عبور</button> </a>
-            <a href="{% url 'user:logout' %}"> <button type="submit"> خروج از حساب کاربری </button> </a>
+            <a href="{% url 'edit_profile' %}"> <button type="submit">ویرایش اطلاعات کاربری </button> </a>
+            <a href="{% url 'change_password' %}"> <button type="submit"> تغییر رمز عبور</button> </a>
+            <a href="{% url 'logout' %}"> <button type="submit"> خروج از حساب کاربری </button> </a>
 
         </p>
 
@@ -29,7 +45,7 @@ AiLearning | داشبورد
     <div>
         <h2> دوره های شما </h2>
         {% for c in courses %}
-            <a href="{% url 'course:course_details' c.course.slug %}"> 
+            <a href="{% url 'course_details' c.course.slug %}"> 
                 {% if c.course.image %}
                     <img src="{{ c.course.image.url }} " height="200" width="200">
                 {% endif %} 

@@ -7,26 +7,12 @@
 
 <!-- header -->
 <header class="header">
-<!-- navbar -->
-
-<br>
-<ul>
-  <li><a class="active" href="index/"> صفحه اصلی </a></li>
-  <li><a href="course/courses/"> دوره های آموزشی</a></li>
-  <li><a href="publication/articles/">  مقاله ها  </a></li>
-  <li><a href="user/dashboard/"> داشبورد </a></li>
-  {% if user is None %}
-    <li style="float:right"><a  href="user/login/"> ورود </a></li>
-    <li style="float:right"><a  href="user/signup/"> ثبت نام </a></li>
-  {% endif %}
-</ul>
-<!-- end of navbar -->
 
   <div class="banner">
 
     <h1>  </h1>
     {% for c in category %}
-      <p><a class="btn btn-banner" href="{% url 'course:category_courses' c.slug %}">
+      <p><a class="btn btn-banner" href="{% url 'category_courses' c.slug %}">
         {{c.name}}
       </a></p><br>
 
@@ -50,7 +36,7 @@
 <h3>
   {% for c in course %}
     <div class="course">
-      <a href="{% url 'course:course_details' c.slug %}">
+      <a href="{% url 'course_details' c.slug %}">
         {% if c.image %}
           <img src="{{ c.image.url }} ">
         {% endif %} 
@@ -96,50 +82,9 @@
   <br><br>
   <br><br>
 
-<!-- footer -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>  بخش های سایت  </h4>
-        <hr><br>
-        <ul class="footer">
-          <li><a href="course/courses"> دوره های آموزشی </a></li>
-          <li><a href="course/categories">دسته بندی ها </a></li>
-          <li><a href="publication/articles/"> مقالات آموزشی </a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4> درباره ما </h4>
-        <hr><br>
-        <ul class="footer">
-          <li><a href="#"> فعالیت های ما  </a></li>
-          <li><a href="#"> همکاری با ما </a></li>
-          <li><a href="#"> قوانین و مقررات </a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4> شبکه های اجتماعی </h4>
-        <hr><br>
-          <!-- Add font awesome icons -->
-          <a href="https://www.youtube.com/" class="fa-solid  fa fa-youtube " style="font-size: 3em; margin:1rem;"> </a>
-          <a href="https://www.telegram.org/" class="fa-solid fa fa-telegram" style="font-size: 3em; margin:1rem;"> </a><br>
-          <a href="https://www.linkedin.com/" class="fa-solid fa fa-linkedin " style="font-size: 3em; margin:1rem;"></a>  
-          <a href="https://www.github.com/" class="fa-solid fa fa-github " style="font-size: 3em; margin:1rem;"></a>
-          <!-- Add more icons as needed -->
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <hr><br>
-      <p>
-        کليه حقوق محصولات و محتوای اين سایت متعلق به 
-        AiLearning.ir می باشد
-         و هر گونه کپی برداری از محتوا و محصولات سایت غیر مجاز و بدون رضایت ماست.
-      </p>
-    </div>
-  </footer>
-<!-- end of footer -->
 
 
+  {% comment %} <a href="#" class="top">Back to Top &#8593;</a> {% endcomment %}
 
 
 {% endblock %}

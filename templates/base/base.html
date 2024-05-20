@@ -12,9 +12,94 @@
     </title>
   </head>
   <body>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+    <!-- navbar -->
+    {% block navbar %}
+    <ul>
+      <li style="float:right"><a class="active" href="{% url 'index' %}"> صفحه اصلی </a></li>
+      <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+      <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
+      {% if user is None %}
+      <li><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+      {% endif %}
+    </ul>
+    {% endblock %}
+      <!-- end of navbar -->
+
     
     {% block content %}
 
     {% endblock %}
+<br>
+{% block footer %}
+<!-- footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>  بخش های سایت  </h4>
+        <hr><br>
+        <ul class="footer">
+          <li><a href="{% url 'courses' %}"> دوره های آموزشی </a></li>
+          <li><a href="{% url 'category_list' %}">دسته بندی ها </a></li>
+          <li><a href="{% url 'articles'}"> مقالات آموزشی </a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4> درباره ما </h4>
+        <hr><br>
+        <ul class="footer">
+          <li><a href="#"> فعالیت های ما  </a></li>
+          <li><a href="#"> همکاری با ما </a></li>
+          <li><a href="#"> قوانین و مقررات </a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4> شبکه های اجتماعی </h4>
+        <hr><br>
+          <!-- Add font awesome icons -->
+          <a href="https://www.youtube.com/" class="fa-solid  fa fa-youtube " style="font-size: 3em; margin:1rem;"> </a>
+          <a href="https://www.telegram.org/" class="fa-solid fa fa-telegram" style="font-size: 3em; margin:1rem;"> </a><br>
+          <a href="https://www.linkedin.com/" class="fa-solid fa fa-linkedin " style="font-size: 3em; margin:1rem;"></a>  
+          <a href="https://www.github.com/" class="fa-solid fa fa-github " style="font-size: 3em; margin:1rem;"></a>
+          <!-- Add more icons as needed -->
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <hr><br>
+      <p>
+        کليه حقوق محصولات و محتوای اين سایت متعلق به 
+        AiLearning.ir می باشد
+         و هر گونه کپی برداری از محتوا و محصولات سایت غیر مجاز و بدون رضایت ماست.
+      </p>
+    </div>
+  </footer>
+<!-- end of footer -->
+{% endblock %}
+
+
+<script>
+// Get the button
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
   </body>
 </html>
