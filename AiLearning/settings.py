@@ -219,7 +219,40 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "user.User"
-#LOGIN_URL = '/user/login'
+LOGIN_URL = '/user/login/'
+
+
+#logger settings
+LOGGING = {
+    "version": 1,  # the dictConfig format version
+    "disable_existing_loggers": False,  # retain the default loggers
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "general.log",
+            "level": "DEBUG",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "user":{
+            "handlers": ["file"],
+        },
+    },
+   "formatters": {
+        "verbose": {
+            "format": "{name} {module} {levelname} {asctime} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+
+
+
+}
 
 
 
