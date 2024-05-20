@@ -7,10 +7,15 @@ from .models import Article
 # Create your views here.
 class ArticleListView(ListView):
     model = Article
-    context_object_name = 'article_list'
-    queryset = Article.objects.order_by('-date')
-    template_name = 'publication/article_list.html'
+    
     #paginate_by = 5
+    def get(self, request):
+        context = {}
+        context ['user'] = request.user.id
+        article_list = Article.objects.order_by('-date')
+        context ['article_list'] = article_list
+        return render(request,'publication/article_list.html',context)
+
 
 
 class ArticleDetailView(View):
@@ -21,6 +26,8 @@ class ArticleDetailView(View):
         context={
             'article':article, 'prof': prof
         }
+        context["user"] = request.user.id
+
         return render(request,'publication/article_detail.html',context)
 
 

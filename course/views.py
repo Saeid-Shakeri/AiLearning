@@ -25,8 +25,9 @@ def CourseDetailView(request, slug):
     lessons = Lesson.objects.filter(course=course.id)
 
     context={
-        'course': course, 'prof': prof, 'lessons': lessons,
+        'course': course, 'prof': prof, 'lessons': lessons, 
     }
+    context["user"] = request.user.id
     return render(request,'course/course_detail.html',context)
 
 
@@ -58,6 +59,7 @@ def category_courses(request, slug):
         'courses':courses ,
         'title':slug
     }
+    context["user"] = request.user.id
     return render(request,'course/category_courses.html',context)
 
 
@@ -67,4 +69,5 @@ def lesson(request, slug):
         'lesson' : lesson
 
        }
+    context["user"] = request.user.id
     return render(request,'course/lesson.html',context)
