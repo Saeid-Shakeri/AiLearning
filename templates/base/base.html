@@ -12,7 +12,8 @@
     </title>
   </head>
   <body>
-    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <button onclick="topFunction()" id="myBtn" 
+            style="font-size:2.5rem; width:4rem; height:4rem; padding: none; border-radius:3rem; ">&#8593;</button>
 
     <!-- navbar -->
     {% block navbar %}
@@ -44,7 +45,7 @@
         <ul class="footer">
           <li><a href="{% url 'courses' %}"> دوره های آموزشی </a></li>
           <li><a href="{% url 'category_list' %}">دسته بندی ها </a></li>
-          <li><a href="{% url 'articles'}"> مقالات آموزشی </a></li>
+          <li><a href="{% url 'article_list' %}"> مقالات آموزشی </a></li>
         </ul>
       </div>
       <div class="footer-section">
