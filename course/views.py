@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 # from django.http impor
 
 
@@ -10,11 +11,19 @@ from user.models import Attend
 
 
 class CourseListView(ListView):
-    model = Course
-    context_object_name = 'course_list'
-    queryset = Course.objects.order_by('-date')
-    template_name = 'course/course_list.html'
-    # paginate_by = 5
+    # model = Course
+    # context_object_name = 'course_list'
+    # queryset = Course.objects.order_by('-date')
+    # template_name = 'course/course_list.html'
+    # # paginate_by = 5
+
+    def get(self, request):
+        context = {}
+        context['user'] = request.user.id
+        course_list = Course.objects.order_by('-date')
+        context ['course_list'] = course_list
+        return render(request,'course/course_list.html',context)
+
 
 
 
@@ -50,6 +59,17 @@ class CategoryListView(ListView):
     queryset = Category.objects.all()
     context_object_name = 'category_list'
     template_name = 'course/category_list.html'
+
+
+    def get(self, request):
+        context = {}
+        context['user'] = request.user.id
+        category_list = Category.objects.all()
+        context ['category_list'] = category_list
+        return render(request, 'course/category_list.html',context)
+
+
+
 
 
 def category_courses(request, slug):
