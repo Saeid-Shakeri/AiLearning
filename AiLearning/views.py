@@ -14,3 +14,8 @@ def index(request):
         context["user"] = request.user.id
         return render(request, "AiLearning/index.html", context)
         
+
+def contactus(request):
+    if request.method == 'GET':
+        return render(request, "AiLearning/contactus.html", {})
+
