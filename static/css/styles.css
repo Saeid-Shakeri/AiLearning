@@ -329,6 +329,27 @@ Contact Us
 ===================
 */
 
+
+.clearfix::after,
+.clearfix::before {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.section-center {
+    padding: 4rem 0;
+    width: 85vw;
+    margin: 0 auto;
+    max-width: 1170px;
+}
+
+@media screen and (min-width: 992px) {
+    .section-center {
+        width: 95vw;
+    }
+}
+
 .contact {
     background: var(--clr-grey-10);
 
@@ -354,7 +375,7 @@ Contact Us
 
 .contact-form {
     background: var(--clr-white);
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
@@ -384,7 +405,7 @@ Contact Us
     padding: 0.75rem 1rem;
     border: none;
     background: var(--clr-grey-10);
-    border-radius: 2rem;
+    border-radius: 0.6rem;
 }
 
 .form-control::placeholder {
@@ -402,9 +423,9 @@ Contact Us
 
 
 @media screen and (min-width:992px) {
-    .contact article{
+    .contact article {
         float: right;
         width: 50%;
     }
-    
+
 }
