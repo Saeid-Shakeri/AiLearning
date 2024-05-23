@@ -329,7 +329,7 @@ Contact Us
 ===================
 */
 
-
+/* 
 .clearfix::after,
 .clearfix::before {
     content: "";
@@ -342,13 +342,14 @@ Contact Us
     width: 85vw;
     margin: 0 auto;
     max-width: 1170px;
+    float: inline-end;
 }
 
 @media screen and (min-width: 992px) {
     .section-center {
         width: 95vw;
     }
-}
+} */
 
 .contact {
     background: var(--clr-grey-10);
@@ -358,6 +359,18 @@ Contact Us
 
 .contact article {
     margin: 1rem 0;
+    /* float: left;
+    display: inline; */
+
+}
+
+
+@media screen and (min-width: 992px) {
+    .contact article {
+        float: right;
+        width: 50%;
+    }
+
 }
 
 .contect-item {
@@ -421,11 +434,3 @@ Contact Us
     font-family: var(--ff-primary);
 }
 
-
-@media screen and (min-width:992px) {
-    .contact article {
-        float: right;
-        width: 50%;
-    }
-
-}
