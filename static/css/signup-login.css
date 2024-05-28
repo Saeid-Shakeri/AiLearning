@@ -44,7 +44,8 @@ p{
 }
 
 .heading {
-    color: green;
+    color: rgb(235, 140, 90);
+    font-weight: normal;
 }
 
 .title {
