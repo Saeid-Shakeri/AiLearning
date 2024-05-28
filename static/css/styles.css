@@ -57,6 +57,20 @@ p {
 
 a {
     text-decoration: none;
+
+}
+
+a:link {
+    color: var(--clr-grey-1);
+
+}
+
+a:visited {
+    color: var(--clr-grey-1);
+}
+
+a:hover {
+    color: var(--clr-grey-5);
 }
 
 hr {
@@ -178,6 +192,11 @@ li a:hover {
 }
 
 /* The latest courses */
+
+.section-title {
+    padding: 2rem;
+}
+
 
 
 .course-name {
@@ -335,7 +354,7 @@ Contact Us
     content: "";
     clear: both;
     display: block;
-}
+} */
 
 .section-center {
     padding: 4rem 0;
@@ -349,7 +368,7 @@ Contact Us
     .section-center {
         width: 95vw;
     }
-} */
+}
 
 .contact {
     background: var(--clr-grey-10);
@@ -365,7 +384,7 @@ Contact Us
 }
 
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 800px) {
     .contact article {
         float: right;
         width: 50%;
@@ -375,11 +394,13 @@ Contact Us
 
 .contect-item {
     margin-bottom: 1.7rem;
+    padding: 5px 5px;
 }
 
 .contact-title {
     color: var(--clr-primary);
-    font-weight: 400;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .contact-text {
@@ -433,4 +454,3 @@ Contact Us
     border: none;
     font-family: var(--ff-primary);
 }
-
