@@ -10,7 +10,9 @@ def index(request):
         context ={}
         context["category"] = Category.objects.all()
         context["course"] = Course.objects.order_by('-date')[:5]
-        context["article"] = Article.objects.order_by('-date')[:3]
+        context["article"] = Article.objects.order_by('-date')[:5]
+        context["popular_courses"] = Course.objects.order_by('-score')[:5]
+        context["popular_articles"] = Article.objects.order_by('-score')[:5]
         context["user"] = request.user.id
         return render(request, "AiLearning/index.html", context)
         
