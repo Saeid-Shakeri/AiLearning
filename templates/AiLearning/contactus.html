@@ -1,71 +1,89 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl" >
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<title>AiLearning | contact us</title>
+{% extends "base/base.html" %}
+
+{% block head %}
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 	<link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">    
+    
+    {% block title %}
+        <title>AiLearning | contact us</title>
+    {% endblock  %}
 
-</head>
+{% endblock %}
+{% comment %} 
+contact form
+style="top: 50%; left: 50%;
+                transform: translate(-120%, -65%); {% endcomment %}
 
-<body>
 
-    <section claas="contact">
-            <article class="contact-info">
+{% block navbar %}
+{% endblock %} 
 
-                <div class="contact-item">
-                    <h4 claas="contact-title">  </h4>
+{% block content %}
+    <section claas="contact" style="padding: 20px; margin: 20px ;">
+        <div claas="section-center clearfix">
+            <article class="contact-info" style=" display: inline;">
+
+                <div class="contact-item" style="">
                     <span class="contact-icon">
                         <i class="bi bi-geo-alt-fill"></i>
                     </span>
-                    آدرس
-                    <h4 class="contact-text">lorem5
+                    <h4 claas="contact-title" style="display: inline;"> آدرس </h4>
+                    <h4 class="contact-text">
+                        لورم ایپسوم 
+                        <br>
+                        متن ساختگی نامفهوم صنعت چاپ
                     </h4>
                 </div>
+                <br>
 
                 <div class="contact-item">
-                    <h4 claas="contact-title">  </h4>
+                    
                     <span class="contact-icon">
                         <i class="bi bi-envelope-fill"></i>
                     </span>
-                    آدرس
-                    <h4 class="contact-text">lorem5
+                    <h4 claas="contact-title"  style=" display: inline;">  ایمیل </h4>
+
+                    <h4 class="contact-text">
+                        fake@example.org
                     </h4>
                 </div>
+                <br>
 
                 <div class="contact-item">
-                    <h4 claas="contact-title">  </h4>
+                    
                     <span class="contact-icon">
                         <i class="bi bi-telephone-fill"></i>
                     </span>
-                    آدرس
-                    <h4 class="contact-text">lorem5
+                    <h4 claas="contact-title" style="display: inline;"> شماره تماس </h4>
+                    <h4 class="contact-text">
+                        ۰۹۱۲۰۰۰۰۰۰۰
                     </h4>
                 </div>
-            
+                <br>         
 
             </article>
             <br>
-            
+                
             <article class="contact-form">
-                <h3>  lnl </h3>
+                <h3>  تماس با ما </h3>
                 <form action="" method="post">
                     <div class="form-group">
-                        <input class="form-control" name="name" placeholder="kjn" type="text" requierd>
-                        <input class="form-control" name="email" placeholder="kjnbjk" type="email" requierd>
-                        <textarea class="form-control" name="message" placeholder="jnln" type="message" row="5" requierd></textarea>
+                        <input class="form-control" name="name" placeholder="نام" type="text" requierd>
+                        <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
+                        <textarea class="form-control" name="message" placeholder="متن پیام" type="message" rows="10" requierd></textarea>
                     </div>
-                
-                    <button class="btn submit-btn" type="submit"> knnlkn   </button>
-
+                    
+                    <button class="btn submit-btn" type="submit"> ارسال  </button>
 
                 </form>
 
             </article>
-            
-
+        </div>
     </section>
 
-</body>
-</html>
+{% endblock%}
+
+{% block footer %}
+{% endblock %}
