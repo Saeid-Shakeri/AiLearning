@@ -60,19 +60,6 @@ a {
 
 }
 
-a:link {
-    color: var(--clr-grey-1);
-
-}
-
-a:visited {
-    color: var(--clr-grey-1);
-}
-
-a:hover {
-    color: var(--clr-grey-5);
-}
-
 hr {
     color: #ccc;
 
@@ -143,7 +130,7 @@ li {
 
 li a {
     display: block;
-    color: rgb(211, 196, 196);
+    color: var(--clr-white);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -153,7 +140,7 @@ li a {
 
 /* Change the link color to ... on hover */
 li a:hover {
-    background-color: rgb(145, 67, 145);
+    background-color: #04AA6D;
 
 }
 
@@ -206,13 +193,27 @@ li a:hover {
 }
 
 .course {
-    margin: 3rem;
+    margin: 2rem;
     border: 1px solid #ccc;
     float: right;
     width: 16rem;
     height: 16rem;
     padding: 1rem 1rem;
 }
+
+.course a:link {
+    color: var(--clr-grey-1);
+
+}
+
+.course a:visited {
+    color: var(--clr-grey-1);
+}
+
+.course a:hover {
+    color: var(--clr-grey-5);
+}
+
 
 .course:hover {
     border: 1px solid #777;
