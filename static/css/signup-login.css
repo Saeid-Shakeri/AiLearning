@@ -44,7 +44,9 @@ p{
 }
 
 .heading {
-    color: rgb(235, 140, 90);
+    color: linear-gradient(to right,
+        rgb(255, 195, 110),
+        rgb(255, 146, 91));
     font-weight: normal;
 }
 
