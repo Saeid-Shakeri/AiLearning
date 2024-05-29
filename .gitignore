@@ -1,3 +1,5 @@
 migrations/
 __pycache__/
 update-commit.sh
+
+my_env/
