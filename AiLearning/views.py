@@ -1,6 +1,7 @@
 from django.shortcuts import render
-
+from django.http import HttpResponse
 from course.models import Category, Course
+from user.models import ContactUs
 from publication.models import Article
 
 
@@ -20,4 +21,10 @@ def index(request):
 def contactus(request):
     if request.method == 'GET':
         return render(request, "AiLearning/contactus.html", {})
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        context = request.POST.get('message')
+        ContactUs.objects.create(name=name,email=email,context=context)
+        return HttpResponse('your message send successfuly!')
 

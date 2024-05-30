@@ -11,18 +11,12 @@
     {% endblock  %}
 
 {% endblock %}
-{% comment %} 
-contact form
-style="top: 50%; left: 50%;
-                transform: translate(-120%, -65%); {% endcomment %}
-
-
 {% block navbar %}
 {% endblock %} 
 
 {% block content %}
     <section claas="contact" style="padding: 20px; margin: 20px ;">
-        <div claas="section-center clearfix">
+        <div claas="section-center">
             <article class="contact-info" style=" display: inline;">
 
                 <div class="contact-item" style="">
@@ -66,9 +60,11 @@ style="top: 50%; left: 50%;
             </article>
             <br>
                 
-            <article class="contact-form">
+            <article class="contact-form" style="top: 50%; left: 50%;
+                                                transform: translate(-120%, -65%);">
                 <h3>  تماس با ما </h3>
                 <form action="" method="post">
+                    {% csrf_token %}
                     <div class="form-group">
                         <input class="form-control" name="name" placeholder="نام" type="text" requierd>
                         <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
