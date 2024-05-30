@@ -2,9 +2,8 @@
 
 {% block title %} AiLearning | Courses {% endblock %}
 
-
-    <!-- navbar -->
-    {% block navbar %}
+  <!-- navbar -->
+  {% block navbar %}
     <ul>
       <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
       <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
@@ -17,17 +16,53 @@
     </ul>
     {% endblock %}
       <!-- end of navbar -->
-
 {% block content %}
-
+<br>
+<h3 class="section-title">  محبوب ترین دوره ها:  </h3>
     {% for course in course_list %}
+    <div class="course">
         <a href="{% url 'course_details' course.slug %}">
             {% if course.image %}
-                <img src="{{ course.image.url }} " height="200" width="200">
+                <img src="{{ course.image.url }} ">
             {% endif %} 
-            <h2>{{course.name}}</h2>
+            <h3 class="course-name">{{course.name}}</h3>
         </a>
-
+    </div>
     {% endfor %}
+
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
+
+<h3 class="section-title">   همه دوره ها:  </h3>
+{% for course in course_list %}
+<div class="course">
+    <a href="{% url 'course_details' course.slug %}">
+        {% if course.image %}
+            <img src="{{ course.image.url }} ">
+        {% endif %} 
+        <h3 class="course-name">{{course.name}}</h3>
+    </a>
+</div>
+{% endfor %}
+
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+
+<br><br>
+
+
 
 {% endblock %}

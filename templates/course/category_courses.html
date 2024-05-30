@@ -1,34 +1,49 @@
 {% extends "base/base.html" %}
 
 {% block title %} 
-AiLearning | {{title}}
+  AiLearning | {{title}}
 {% endblock %}
 
     <!-- navbar -->
     {% block navbar %}
-    <ul>
-      <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
-      <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
-      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
-      <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
-      {% if user is None %}
-        <li><a  href="{% url 'login' %}"> ورود </a></li>
-        <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
-      {% endif %}
-    </ul>
+      <ul>
+        <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+        <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+        <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+        <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
+        {% if user is None %}
+          <li><a  href="{% url 'login' %}"> ورود </a></li>
+          <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+        {% endif %}
+      </ul>
     {% endblock %}
       <!-- end of navbar -->
-
+<br><br>
 {% block content %}
+<br> 
+ 
+<h3 claas="section-title">  rekvle  </h3>
+<h3>
 {% for course in courses %}
+<div class="course">
 
 <a href="{% url 'course_details' course.slug %}">
     {% if course.image %}
         <img src="{{ course.image.url }} " height="200" width="200">
     {% endif %} 
-    <h3>{{course.name}}</h3>
+    <h3 claas="course-name">{{course.name}}</h3>
 </a>
+</div>
 
 {% endfor %}
+</h3>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
   
 {% endblock %}

@@ -6,15 +6,13 @@
 
   <!-- header -->
   <header class="header">
-
     <div class="banner">
       {% for c in category %}
-        <p>
-            <a class="btn btn-banner" href="{% url 'category_courses' c.slug %}">
+            <a class="btn btn-banner" href="{% url 'category_courses' c.slug %}" >
               {{c.name}}
             </a>
-        </p> 
-        <br>
+        <br><br>
+
 
       {% endfor %} 
     </div>
@@ -25,10 +23,9 @@
 
   <!-- end of header -->
 
-  <br><br><br><br>
+  <br><br>
 
   <h3 class="section-title">جدیدترین دوره ها :</h3>
-  <h3>
     {% for c in course %}
       <div class="course">
         <a href="{% url 'course_details' c.slug %}">
@@ -39,7 +36,6 @@
         </a>
       </div>
     {% endfor %}
-  </h3>
 
     <br><br>
     <br><br>

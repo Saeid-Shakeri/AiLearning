@@ -1,10 +1,10 @@
 {% extends 'base/base.html' %}
 
-{% block title %} AiLearning| Categories {% endblock %}
+{% block title %} AiLearning| Categories 
+{% endblock %}
 
-
-    <!-- navbar -->
-    {% block navbar %}
+  <!-- navbar -->
+  {% block navbar %}
     <ul>
       <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
       <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
@@ -16,42 +16,52 @@
       {% endif %}
     </ul>
     {% endblock %}
-      <!-- end of navbar -->
-{% block content %}
-  <style>
-    div.k1 {
-      display: flex;
-      flex-direction: row;
-    }
-    div.k {
-      display: flex;
-      flex-direction: row;
-    }
-  </style>
+    <!-- end of navbar -->
 
-  {% comment %} {% for category in category_list %}
-    {% if category.image %}
-      <img src="{{ category.image.url }} " height="200" width="200" />
-    {% endif %}
-    <div class="k">
-      <a href="{% url 'course:category_courses' category.slug %}">
+  {% block content %}
+    <br><br>
+    <h3 class="section-title">  محبوب ترین دسته بندی ها:  </h3>
+    {% for category in category_list %}
+    <div class="course">
+      <a href="{% url 'category_courses' category.slug %}">
         {% if category.image %}
           <img src="{{ category.image.url }} " height="200" width="200" />
+          <h3 class="course-name">{{ category.name }}</h3>
         {% endif %}
       </a>
-      <div class="k">
-        <a href="{% url 'course:category_courses' category.slug %}"><h3>{{ category.name }}</h3></a>
-      </div>
     </div>
-  {% endfor %}
-  {% endcomment %}
+    {% endfor %}
 
-  {% for category in category_list %}
-    <a href="{% url 'category_courses' category.slug %}">
-      {% if category.image %}
-        <img src="{{ category.image.url }} " height="200" width="200" />
-        <h3>{{ category.name }}</h3>
-      {% endif %}
-    </a>
-  {% endfor %}
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
+    <h3 class="section-title">  همه دسته بندی ها:  </h3>
+    {% for category in category_list %}
+    <div class="course">
+      <a href="{% url 'category_courses' category.slug %}">
+        {% if category.image %}
+          <img src="{{ category.image.url }} " height="200" width="200" />
+          <h3 class="course-name">{{ category.name }}</h3>
+        {% endif %}
+      </a>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
 {% endblock %}
