@@ -27,3 +27,13 @@ class Attend(models.Model):
         return f"{self.user}--{self.course}"
 
         
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    context = models.TextField()
+    checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name}'
+    
