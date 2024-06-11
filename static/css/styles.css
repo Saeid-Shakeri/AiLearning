@@ -77,22 +77,6 @@ h1 {
         font-size: 2rem;
 
     }
-
-    .course-name {
-        padding: 1.5rem 1.5rem;
-        margin: 1rem;
-    }
-
-
-    .course {
-        margin: 1rem;
-        border: 1px solid #ccc;
-        float: right;
-        width: 16rem;
-        height: 16rem;
-        padding: 1rem 1rem;
-    }
-
 }
 
 .btn {
@@ -191,10 +175,15 @@ li a:hover {
 
 
 .course-name {
-    padding: 1.5rem;
+    padding: 0rem 1.5rem;
     text-align: center;
     /* margin: 1rem; */
 }
+
+.course-prof{
+    text-align: right;
+}
+
 
 .course {
     margin: 2rem;
@@ -232,7 +221,7 @@ li a:hover {
 @media screen and (min-width: 800px) {
 
     .course-name {
-        padding: 1.5rem 1.5rem;
+        padding: 1.5rem 0rem 0rem 0rem;
         margin: 1rem;
     }
 
