@@ -72,9 +72,17 @@ class Course(models.Model):
     score = models.PositiveIntegerField(default=0)
     date = models.DateField()
     slug = models.SlugField(unique=True)
+    attends = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.name}"
+    
+
+    def add_attend(self):
+        self.attends += 1
+        self.save()
+        return True
+
 
     class Meta:
         verbose_name = 'Course'
