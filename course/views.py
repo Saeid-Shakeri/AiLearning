@@ -49,9 +49,9 @@ def add_course(request, **kwargs):
     for c in user_objects:
         if c.course == course:
             return HttpResponse('you attended in this course')
-    
     Attend.objects.create(user=user,course=course)
-    return HttpResponse('the course added to your profile')
+    if course.add_attend():
+        return HttpResponse('the course added to your profile')
         
 
 class CategoryListView(ListView):
