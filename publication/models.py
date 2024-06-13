@@ -1,6 +1,7 @@
 from django.db import models
 from course.models import Professor, Category
 from django.core.validators import MaxValueValidator, MinValueValidator
+from user.models import User
 
 # Create your models here.
 
@@ -15,6 +16,7 @@ class Article(models.Model):
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/article/video/')
     rates = models.PositiveIntegerField(default=0)
+    readers = models.PositiveIntegerField(default=0)
     score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
@@ -31,6 +33,10 @@ class Article(models.Model):
     def __str__(self):
         return f'{self.name}'
     
+
+class ArticleRates(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.PROTECT)
+    article = models.ForeignKey(to=Article,on_delete=models.CASCADE)
 
 
 class ArticleComment(models.Model):

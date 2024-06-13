@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from user.models import User
+
 class Professor(models.Model):
     name = models.CharField(max_length=50)
     degree = models.TextField(null=True,blank=True)
@@ -22,7 +24,12 @@ class Professor(models.Model):
         
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
+    
+
+class ProfRates(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.PROTECT)
+    prof = models.ForeignKey(to=Professor,on_delete=models.CASCADE)
 
 
 class Category(models.Model):
@@ -45,6 +52,12 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+    
+
+class CategoryRates(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.PROTECT)
+    category = models.ForeignKey(to=Category,on_delete=models.CASCADE)
+
 
 class Course(models.Model):
     category = models.ForeignKey(to=Category,on_delete=models.PROTECT,null=True)
@@ -61,9 +74,14 @@ class Course(models.Model):
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
-        ]
+        ],
+        
     )
 
+
+    def save(self, *args, **kwargs):
+        self.score = round(self.score, 1)
+        super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name}"
@@ -78,6 +96,11 @@ class Course(models.Model):
     class Meta:
         verbose_name = 'Course'
         verbose_name_plural = 'Courses'
+
+
+class CourseRates(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.PROTECT)
+    course = models.ForeignKey(to=Course,on_delete=models.CASCADE)
 
 
 class Lesson(models.Model):
@@ -132,6 +155,15 @@ class CourseComment(models.Model):
         return f"Comment: {self.content}"
 
 
+
+class Attend(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.CASCADE)
+    course = models.ForeignKey(to=Course,on_delete=models.PROTECT)
+    progress = models.DecimalField(max_digits=3,default=0,decimal_places=3)
+
+    
+    def __str__(self) -> str:
+        return f"{self.user}--{self.course}"
 
 class LessonComment(models.Model):
     content = models.CharField(max_length=250, null=True, help_text="Comment text")
