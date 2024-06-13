@@ -8,7 +8,8 @@ urlpatterns = [
     path('details/<slug:slug>/addcourse/',add_course , name='addcourse'),
     path('categories/<slug:slug>/', category_courses, name='category_courses'),
     path('categories/', CategoryListView.as_view(), name='category_list'),
-    path('lesson/<slug:slug>/', lesson, name='lesson')
+    path('lesson/<slug:slug>/', lesson, name='lesson'),
+    path('rate-course/', rate_course, name='rate_course'),
 
    
 
