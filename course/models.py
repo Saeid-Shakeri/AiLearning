@@ -1,13 +1,19 @@
 from django.db import models
- 
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Professor(models.Model):
     name = models.CharField(max_length=50)
     degree = models.TextField(null=True,blank=True)
     bio = models.CharField(max_length=200,null=True,blank=True)
     image = models.ImageField(null=True,blank=True,upload_to='media/professor/')
-    score = models.PositiveIntegerField(default=0)
     email = models.EmailField(null=True,blank=True)
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
+
 
     class Meta:
         verbose_name = ("Professor")
@@ -22,7 +28,12 @@ class Category(models.Model):
     name = models.CharField(max_length=50, help_text="Name of Category")
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Parent Category', null=True, blank=True)
     image = models.FileField(null=True, default=None, upload_to='media/category/', blank=True)
-    score = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
     slug = models.SlugField(unique=True)
 
     class Meta:
@@ -40,10 +51,16 @@ class Course(models.Model):
     file = models.FileField(null=True,blank=True,upload_to='media/course/course/file/')
     body = models.TextField()
     professor = models.ManyToManyField(to=Professor)
-    score = models.PositiveIntegerField(default=0)
     date = models.DateField()
     slug = models.SlugField(unique=True)
     attends = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
+
 
     def __str__(self):
         return f"{self.name}"
@@ -65,11 +82,17 @@ class Lesson(models.Model):
     image = models.ImageField(null=True, default=None, upload_to='media/course/lesson/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='media/course/lesson/file/')
     body = models.TextField( null=True, blank=True)
-    score = models.PositiveIntegerField(default=0)
     date = models.DateTimeField()
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/course/lesson/video/')
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
+
 
 
     class Meta:
@@ -84,10 +107,16 @@ class Lesson(models.Model):
 class CourseComment(models.Model):
     content = models.CharField(max_length=250, null=True, help_text="Comment text")
     email = models.EmailField()
-    score = models.PositiveIntegerField(default=0)
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     course = models.ForeignKey(to=Course, on_delete=models.PROTECT, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
+
 
 
     class Meta:
@@ -102,10 +131,16 @@ class CourseComment(models.Model):
 class LessonComment(models.Model):
     content = models.CharField(max_length=250, null=True, help_text="Comment text")
     email = models.EmailField()
-    score = models.PositiveIntegerField(default=0)
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     lesson = models.ForeignKey(to=Lesson, on_delete=models.PROTECT,null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    score = models.PositiveIntegerField(default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(5),
+        ]
+    )
+
 
 
     class Meta:
