@@ -14,7 +14,8 @@ class Article(models.Model):
     category = models.ForeignKey(to=Category,on_delete=models.PROTECT,null=True)
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/article/video/')
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -38,13 +39,13 @@ class ArticleComment(models.Model):
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     article = models.ForeignKey(to=Article,on_delete=models.PROTECT, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
         ]
     )
-
 
     class Meta:
         verbose_name = 'Article Comment'

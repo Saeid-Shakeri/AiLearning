@@ -7,7 +7,8 @@ class Professor(models.Model):
     bio = models.CharField(max_length=200,null=True,blank=True)
     image = models.ImageField(null=True,blank=True,upload_to='media/professor/')
     email = models.EmailField(null=True,blank=True)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -28,7 +29,8 @@ class Category(models.Model):
     name = models.CharField(max_length=50, help_text="Name of Category")
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Parent Category', null=True, blank=True)
     image = models.FileField(null=True, default=None, upload_to='media/category/', blank=True)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -54,7 +56,8 @@ class Course(models.Model):
     date = models.DateField()
     slug = models.SlugField(unique=True)
     attends = models.PositiveIntegerField(default=0)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -86,7 +89,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/course/lesson/video/')
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -110,7 +114,8 @@ class CourseComment(models.Model):
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     course = models.ForeignKey(to=Course, on_delete=models.PROTECT, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
@@ -134,13 +139,13 @@ class LessonComment(models.Model):
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     lesson = models.ForeignKey(to=Lesson, on_delete=models.PROTECT,null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    score = models.PositiveIntegerField(default=0,
+    rates = models.PositiveIntegerField(default=0)
+    score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
         ]
     )
-
 
 
     class Meta:
@@ -149,5 +154,4 @@ class LessonComment(models.Model):
 
     def __str__(self):
         return f"Comment: {self.content}"
-
 
