@@ -180,9 +180,10 @@ li a:hover {
     /* margin: 1rem; */
 }
 
-.course-prof{
+.course-prof {
     text-align: right;
     color: #626262;
+    display: inline;
 }
 
 
@@ -194,6 +195,8 @@ li a:hover {
     height: 16rem;
     padding: 1rem 1rem;
     transition: var(--transition);
+    border-radius: 1.3rem;
+
 }
 
 .course a:link {
@@ -212,15 +215,31 @@ li a:hover {
 
 .course:hover {
     border: 1px solid #777;
-    box-shadow: 0px 5px 15px  rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
 
 }
 
 .course img {
     width: 100%;
     height: 50%;
+    border-radius: 1.1rem;
+
 }
 
+.student{
+    color:#777;
+    display: inline;
+}
+
+.star{
+    color: var(--clr-primary-light);
+    padding: 0.5rem;
+}
+
+.rates-number{
+    display: inline;
+    color: #777;
+}
 
 @media screen and (min-width: 800px) {
 
@@ -327,19 +346,19 @@ footer {
     font-size: 18px;
     border: none;
     outline: none;
-    background-color: rgb(146, 68, 68);
+    background-color: var(--clr-primary);
     color: white;
     cursor: pointer;
     /* padding: 15px; */
     border-radius: 4px;
+    transition: var(--transition);
+
 
 }
 
 #myBtn:hover {
-    background-color: #555;
+    background-color: var(--clr-primary-light);
 }
-
-
 
 /*
 ===================
@@ -452,4 +471,15 @@ Contact Us
     width: 100%;
     border: none;
     font-family: var(--ff-primary);
+}
+
+/* end of contact us  */
+
+.checked {
+    color: orange;
+}
+
+.star-btn{
+    background-color: inherit;
+    border: 0;
 }
