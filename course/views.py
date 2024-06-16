@@ -1,13 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, View, DetailView
+from django.views.generic import ListView, View
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
-# from django.http impor
-
+from django.http import HttpResponse
 
 from .models import *
 from publication.models import Article
-# from user.models import Attend
 
 
 class CourseListView(ListView):
@@ -20,8 +17,10 @@ class CourseListView(ListView):
     def get(self, request):
         context = {}
         context['user'] = request.user.id
-        course_list = Course.objects.order_by('-date')
-        context ['course_list'] = course_list
+        context ['new_courses'] = Course.objects.order_by('-date')
+        context ['popular_courses'] = Course.objects.order_by('-score')[:5]
+        context ['best_courses'] = Course.objects.order_by('-attends')[:5]
+        context ['course_list'] = Course.objects.order_by('date')
         return render(request,'course/course_list.html',context)
 
 
@@ -91,23 +90,3 @@ def lesson(request, slug):
        }
     context["user"] = request.user.id
     return render(request,'course/lesson.html',context)
-
-
-@login_required(login_url='/user/login/')
-def rate_course(request):
-    if request.method == 'POST':
-        element_id = request.POST.get('el_id')
-        val = request.POST.get('val')
-        course = Course.objects.get(id=element_id)
-        d = CourseRates.objects.filter(user=request.user,course=course).count()
-        if d >= 1:
-            return JsonResponse({'success':'false',})
-        else :
-            CourseRates.objects.create(user=request.user,course=course)
-            course.rates += 1 
-            course.save()
-            avg = (course.score * course.rates + int(val)) / course.rates 
-            course.score = avg
-            course.save()
-            return JsonResponse({'success':'true'}, safe=False)
-    return JsonResponse({'success':'false'})
