@@ -111,13 +111,17 @@ if ( one ){
             e.preventDefault()
             const id = e.target.id
             const val_num = getNumericValue(val)
+            // const obj_type = document.getElementById('type').val()
+            var obj_type = $('input[name="type"]').val();
+            console.log(obj_type)
             $.ajax({
                 type:'POST',
-                url:'/course/rate-course/',
+                url:'/rate/',
                 data:{
                     'csrfmiddlewaretoken':csrf[0].value,
                     'el_id':id,
-                    'val': val_num
+                    'val': val_num,
+                    'obj_type': obj_type,
 
                 },
                 success: function(response){
@@ -138,3 +142,4 @@ if ( one ){
     
     }))
 }
+
