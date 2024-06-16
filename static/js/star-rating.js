@@ -1,12 +1,11 @@
 
+const one = document.getElementById('first')
+const two =  document.getElementById('second')
+const three =  document.getElementById('third')
+const four =  document.getElementById('fourth')
+const five =  document.getElementById('fifth') 
+
 function showScore() { 
-
-  const one = document.getElementById('first')
-  const two =  document.getElementById('second')
-  const three =  document.getElementById('third')
-  const four =  document.getElementById('fourth')
-  const five =  document.getElementById('fifth')
-
   let score = $('input[name="score"]').val();
   score =  Math.round(Number(score));
   switch (score) {
@@ -18,7 +17,7 @@ function showScore() {
           five.classList.remove('checked')
           return
       }
-      case '2' : {
+      case 2 : {
           one.classList.add('checked')
           two.classList.add('checked')
           three.classList.remove('checked')
@@ -61,14 +60,6 @@ function showScore() {
   }
 } 
 
-
-
-
-const one = document.getElementById('first')
-const two =  document.getElementById('second')
-const three =  document.getElementById('third')
-const four =  document.getElementById('fourth')
-const five =  document.getElementById('fifth')
 
 const form = document.querySelector('.rate-form')
 const confirmBox = document.getElementById('confirm-box')

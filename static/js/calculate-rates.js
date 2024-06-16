@@ -1,4 +1,4 @@
-window.onload = function exampleFunction() { 
+window.onload = function showScore() { 
 
     const one = document.getElementById('first')
     const two =  document.getElementById('second')
@@ -9,14 +9,6 @@ window.onload = function exampleFunction() {
     let score = $('input[name="score"]').val();
     score =  Math.round(Number(score));
     switch (score) {
-        case 0 : {
-            one.classList.add('checked')
-            two.classList.remove('checked')
-            three.classList.remove('checked')
-            four.classList.remove('checked')
-            five.classList.remove('checked')
-            return
-        }
         case 1 : {
             one.classList.add('checked')
             two.classList.remove('checked')
@@ -25,7 +17,7 @@ window.onload = function exampleFunction() {
             five.classList.remove('checked')
             return
         }
-        case '2' : {
+        case 2 : {
             one.classList.add('checked')
             two.classList.add('checked')
             three.classList.remove('checked')
@@ -58,12 +50,11 @@ window.onload = function exampleFunction() {
             return
         }
         default :{
-            console.log('default is here........')
-            one.classList.add('checked')
-            two.classList.add('checked')
-            three.classList.add('checked')
-            four.classList.add('checked')
-            five.classList.add('checked')
+            one.classList.remove('checked')
+            two.classList.remove('checked')
+            three.classList.remove('checked')
+            four.classList.remove('checked')
+            five.classList.remove('checked')
             return
         }
     }
