@@ -1,4 +1,69 @@
 
+function showScore() { 
+
+  const one = document.getElementById('first')
+  const two =  document.getElementById('second')
+  const three =  document.getElementById('third')
+  const four =  document.getElementById('fourth')
+  const five =  document.getElementById('fifth')
+
+  let score = $('input[name="score"]').val();
+  score =  Math.round(Number(score));
+  switch (score) {
+      case 1 : {
+          one.classList.add('checked')
+          two.classList.remove('checked')
+          three.classList.remove('checked')
+          four.classList.remove('checked')
+          five.classList.remove('checked')
+          return
+      }
+      case '2' : {
+          one.classList.add('checked')
+          two.classList.add('checked')
+          three.classList.remove('checked')
+          four.classList.remove('checked')
+          five.classList.remove('checked')
+          return
+      } 
+      case 3 : {
+          one.classList.add('checked')
+          two.classList.add('checked')
+          three.classList.add('checked')
+          four.classList.remove('checked')
+          five.classList.remove('checked')
+          return
+      } 
+      case 4 : {
+          one.classList.add('checked')
+          two.classList.add('checked')
+          three.classList.add('checked')
+          four.classList.add('checked')
+          five.classList.remove('checked')
+          return
+      } 
+      case 5 : {
+          one.classList.add('checked')
+          two.classList.add('checked')
+          three.classList.add('checked')
+          four.classList.add('checked')
+          five.classList.add('checked')
+          return
+      }
+      default :{
+          one.classList.remove('checked')
+          two.classList.remove('checked')
+          three.classList.remove('checked')
+          four.classList.remove('checked')
+          five.classList.remove('checked')
+          return
+      }
+  }
+} 
+
+
+
+
 const one = document.getElementById('first')
 const two =  document.getElementById('second')
 const three =  document.getElementById('third')
@@ -105,15 +170,17 @@ if ( one ){
     arr.forEach(item=> item.addEventListener('mouseover',(event)=>{
         handleSelect(event.target.id)
     }))
+
+    arr.forEach(item=> item.addEventListener('mouseout',(event)=>{
+      showScore() 
+    }))
     arr.forEach(item=> item.addEventListener('click', (event)=>{
         const val = event.target.id
         form.addEventListener('submit',e=>{
             e.preventDefault()
             const id = e.target.id
             const val_num = getNumericValue(val)
-            // const obj_type = document.getElementById('type').val()
-            var obj_type = $('input[name="type"]').val();
-            console.log(obj_type)
+            const obj_type = $('input[name="type"]').val();
             $.ajax({
                 type:'POST',
                 url:'/rate/',
@@ -126,15 +193,18 @@ if ( one ){
                 },
                 success: function(response){
                     if ( response.success === 'false'){
-                        confirmBox.innerHTML = '<h3>  قبلا امتیاز داده اید.! </h3>'
+                      alert(' شما قبلا امتیاز داده اید.! ')
+                        // confirmBox.innerHTML = '<h3>  قبلا امتیاز داده اید.! </h3>'
   
                      }
                       else{
-                       confirmBox.innerHTML = '<h3> امتیاز شما ثبت شد! </h3>'
+                        alert(' .امتیاز شما ثبت شد!')
+                      //  confirmBox.innerHTML = '<h3> امتیاز شما ثبت شد! </h3>'
                       }
                 },
                 error:function(error){
-                    confirmBox.innerHTML = '<h3> مشکلی پیش آمد! </h3>'
+                  alert('مشکلی پیش آمد!')
+                    // confirmBox.innerHTML = '<h3> مشکلی پیش آمد! </h3>'
                 }
             })
 
