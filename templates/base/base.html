@@ -9,7 +9,7 @@
       <script type="text/javascript" src="/static/js/star-rating.js" defer></script> 
       <script type="text/javascript" src="/static/js/scroll-btn.js" defer></script> 
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <title>
         {% block title %}
           My amazing site
@@ -55,9 +55,9 @@
             <h4> درباره ما </h4>
             <hr><br>
             <ul class="footer">
+              <li><a href="{% url 'contactus' %}"> ارتباط با ما </a></li>
               <li><a href="#"> فعالیت های ما  </a></li>
               <li><a href="{% url 'contactus' %}"> همکاری با ما </a></li>
-              <li><a href="#"> قوانین و مقررات </a></li>
             </ul>
           </div>
           <div class="footer-section">
@@ -75,7 +75,7 @@
           <hr><br>
           <p>
             کليه حقوق محصولات و محتوای اين سایت متعلق به 
-            AiLearning.irمی باشد.
+            AiLearning.ir می باشد.
             <br>
              هر گونه کپی برداری از محتوا و محصولات سایت غیر مجاز و بدون رضایت ماست.
           </p>
