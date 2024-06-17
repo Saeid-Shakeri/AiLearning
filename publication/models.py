@@ -24,6 +24,9 @@ class Article(models.Model):
         ]
     )
 
+    def save(self, *args, **kwargs):
+        self.score = round(self.score, 1)
+        super(Article, self).save(*args, **kwargs)
 
 
     class Meta:
