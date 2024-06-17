@@ -21,6 +21,32 @@
       <!-- end of navbar -->
 
 {% block content %}
+<br><br>
+
+
+<div style="direction: ltr;margin-right:1rem; display:inline; float:right;">
+  {% if not rate %}
+    <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
+    <form class="rate-form" action="" method="POST" id="{{article.id}}" style="display:inline; margin:0.5rem;">
+      {% csrf_token %}
+      <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
+      <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
+      <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
+      <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
+      <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
+    </form>
+  {% endif %}
+  <div style="direction: ltr;margin-right:1rem; display:inline; float:right;">&nbsp;
+    <h3 style="display:inline; font-weight:100;">({{article.score}}
+    <button type="submit" class="fa fa-star fa-1x star-btn checked" style="color:#ffb627;" id="first"></button>)
+    </h3>
+  </div>
+  <div id="confirm-box"></div>
+  <input id="type" name="type" value="article" hidden>
+  <input id="score" name="score" value="{{course.score}}" hidden>
+</div>
+<br><br>
+
 
   {% if article.image %}
       <img src="{{ article.image.url }} " height="300" width="300" alt="article-img">
@@ -47,5 +73,6 @@
 
     {% endif %}
   </p>
+  <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
 
 {% endblock %}

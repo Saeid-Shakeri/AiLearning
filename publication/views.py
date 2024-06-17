@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
-from .models import Article
+from .models import *
 
 
 # Create your views here.
@@ -27,8 +29,7 @@ class ArticleDetailView(View):
             'article':article, 'prof': prof
         }
         context["user"] = request.user.id
+        context["rate"] = ArticleRates.objects.filter(user=request.user.id,article=article)
 
         return render(request,'publication/article_detail.html',context)
 
-
-    
