@@ -1,11 +1,22 @@
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DetailView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-
+from math import ceil
 from .models import *
 from publication.models import Article
 
+
+
+
+def get_lesson(request, slug):
+    lesson = Lesson.objects.get(slug=slug)
+    context = {
+        'lesson' : lesson
+
+       }
+    context["user"] = request.user.id
+    return render(request,'course/lesson.html',context)
 
 class CourseListView(ListView):
     # model = Course
@@ -26,17 +37,44 @@ class CourseListView(ListView):
 
 
 
-    
 def CourseDetailView(request, slug):
     course = Course.objects.get(slug=slug)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment = request.POST.get('comment')
+        CourseComment.objects.create(name=name,email=email,content=comment,course=course)
     prof = course.professor.all()
     lessons = Lesson.objects.filter(course=course.id)
-
+    comments = CourseComment.objects.filter(course=course).order_by('-id')
+    # commentanswer = CourseCommentAnswer.objects.filter(comment=comment)
     context={
-        'course': course, 'prof': prof, 'lessons': lessons, 
+        'course': course, 'prof': prof, 'lessons': lessons, 'comments': comments,
+        # 'commentanswer':commentanswer,
     }
     context["user"] = request.user.id
+    context["rate"] = CourseRates.objects.filter(user=request.user.id,course=course)
+    context["attend"] = list(Attend.objects.filter(user=request.user.id,course=course)[:1])[0]
+    
+
     return render(request,'course/course_detail.html',context)
+
+
+
+@login_required(login_url='/user/login/')
+def continue_course(request, **kwargs):
+    course = request.POST.get('course_id')
+    user = request.user.id
+    pk = request.POST.get('attend_id')
+    attend = Attend.objects.get(id=pk)
+    lessons = Lesson.objects.filter(course=course).count()
+    i = ceil(attend.progress * lessons / 100)
+    i -= 1
+
+    lesson = Lesson.objects.filter(course=course)
+    lesson[i].slug
+    return get_lesson(request, lesson[i].slug)
+
 
 
 @login_required(login_url='/user/login/')
@@ -70,7 +108,6 @@ class CategoryListView(ListView):
 
 
 
-
 def category_courses(request, slug):
     cat = Category.objects.get(slug=slug)
     courses = Course.objects.filter(category=cat.id)
@@ -82,11 +119,4 @@ def category_courses(request, slug):
     return render(request,'course/category_courses.html',context)
 
 
-def lesson(request, slug):
-    lesson = Lesson.objects.get(slug=slug)
-    context = {
-        'lesson' : lesson
 
-       }
-    context["user"] = request.user.id
-    return render(request,'course/lesson.html',context)
