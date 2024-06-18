@@ -1,13 +1,12 @@
 {% extends "base/base.html" %}
 
 {% block title %}
-AiLearning | {{course.slug}}
+  AiLearning | {{course.name}}
 {% endblock %}
 
-
-    <!-- navbar -->
-    {% block navbar %}
-    <ul>
+  <!-- navbar -->
+  {% block navbar %}
+    <ul id="navbar">
       <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
       <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
       <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
@@ -17,55 +16,178 @@ AiLearning | {{course.slug}}
         <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
       {% endif %}
     </ul>
-    {% endblock %}
-      <!-- end of navbar -->
+  {% endblock %}
+  <!-- end of navbar -->
 
 {% block content %}
+  <br>
+  <div style="direction: ltr;margin-right:1rem; display:inline; float:right;">
+    {% if not rate %}
+      <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
+      <form class="rate-form" action="" method="POST" id="{{course.id}}" style="display:inline; margin:0.5rem;">
+        {% csrf_token %}
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
+      </form>
+    {% endif %}
+    <div style="direction: ltr;margin-right:1rem; display:inline; float:right;">&nbsp;
+      <h3 style="display:inline; font-weight:100;">
+        ({{course.score}}
+        <button type="submit" class="fa fa-star fa-1x star-btn checked" 
+                style="color:#ffb627;" id="first"></button>)
+      </h3>
+    </div>
+    <div id="confirm-box"></div>
+    <input id="type" name="type" value="course" hidden>
+    <input id="score" name="score" value="{{course.score}}" hidden>
+  </div>
+  <br><br>
+
+  <br>
+
+  <div class="topics" id="sar">
+    <i class="fa fa-tasks topics-head-icon" aria-hidden="true"></i>
+    <h3 class="topics-head"> 
+      سرفصل ها 
+    </h3> 
+    <div class="course-progress">
+      <h3 style="display:inline;">{{ attend.progress }}% 
+        <h6 style="display:inline;">
+          کامل شده
+        </h6>
+      </h3>
+    </div>
+    <hr>
+    {% for lesson in lessons %}
+      <p><a href="{% url 'lesson' lesson.slug %}">{{forloop.counter}} - {{ lesson }} </a></p>
+    {% endfor %}
+      {% if attend %}
+        <form action="continue_course/" method="post">
+          {% csrf_token %}
+          <p><input class="btn btn-continue" type="submit" value=" ادامه یادگیری "></p>
+          <input name="course_id" value="{{course.id}}" hidden>
+        </form>
+      {% else %}
+        <form action="addcourse/" method="post">
+          {% csrf_token %}
+          <p><input class="btn btn-continue" type="submit" value=" افزودن به پروفایل "></p>
+        </form>
+      {% endif %}
+
+    
+  </div>
+
 
   {% if course.image %}
-    <img src="{{ course.image.url }} " height="200" width="200">
+  <div class="course-pic">
+    <img src="{{ course.image.url }}">
+  </div>
   {% endif %}
   <p>{{ course.video }}</p>
-  <h1>{{ course.name }}</h1>
-  <p>{{ course.body }}</p>
+  <h1 style="margin-right: 1rem;">{{ course.name }}</h1>
+  <div class="course-body">{{ course.body|linebreaks }}</div>
+
+
+<div class="course-body">
+<img src="/static/man.png" height="35" width="35" style=""></img>
   مدرس:
   {% for prof in prof %}
-    <p>{{ prof.name }}</p>
+    {{ prof.name }} ( <a href="#">  درباره مدرس  </a> )
     {% if prof.image %}
-      <img src="{{ prof.image.url }} " alt="prof image" height="200" width="200">
+      <img src="{{ prof.image.url }} " alt="professor image" height="200" width="200">
     {% endif %}
+    {{prof.degree|linebreaks}}
+    {{prof.bio|linebreaks}}
 
   {% endfor %} 
+
+</div>
 
   <form action="addcourse/" method="post">
     {% csrf_token %}
     <input type="hidden" value="{{course.id}}" name="course_id">  
-    <input type="submit" value=" افزودن دوره به پروفایل ">
+    <input type="submit" value=" افزودن دوره به پروفایل " class="btn btn-add">
   </form>
-  محتوای دوره : 
-{% for lesson in lessons %}
-<p>
-  <a href="{% url 'lesson' lesson.slug %}">{{ lesson }}</p>
+ 
 
-{% comment %} <p>
-  {% if lesson.file  %}
 
-    <a href="{{lesson.file.url}}">   مشاهده آنلاین فایل   </a> <p></p>
 
-    <a href="{{lesson.file.url}}" download>  دانلود فایل </a> 
 
-  {% endif %}<p>
+<br><br>
+<br><br>
 
-  {% if lesson.video  %}
+<h2 style="margin-right: 1rem;"> نظراتتان را با ما به اشتراک بگذارید. </h2>
+<br><br>
+<article class="contact-form" style="margin-right:5rem; margin-bottom:4rem;">
+<form action="{% url 'course_details' course.slug %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <input class="form-control" name="name" placeholder="نام" type="text" requierd>
+    <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
+    <textarea class="form-control" name="comment" placeholder="متن نظر " type="message" rows="10" requierd></textarea>
+  </div>
+  <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
+</form>
 
-  <a href="{% url 'course:lesson' lesson.slug %}">   مشاهده و دانلود فیلم آموزشی این جلسه   
-  </a>
+</article>
+<h2 style="margin-right:3rem;">   نظرات:   </h2>
+<br><br>
+{% for comment in comments %}
+<div class="comment">
+  {% comment %} <img src="/static/female.png" class="img-circle" height="65" width="65" alt="Avatar" style="display:inline;"> {% endcomment %}
+      <h4 class="comment-name"> {{ comment.name }}</h4>
+      <small class="comment-date"> {{ comment.date_added }}</small>
+    {{ comment.content|linebreaks }}
+    {% for answer in comment.CourseCommentAnswer_set.all %}
+    <div class="comment">
+      <h4 class="comment-name"> {{ answer.name }}</h4>
+      <small class="comment-date"> {{ answer.date_added }}</small>
+      {{ answer.content|linebreaks }}
+   
 
-{% endif %}  {% endcomment %}
-</p>
-</p>
+    </div>    
+{% endfor %}
+</div>
+<br id="footer">
+
+{% empty %}
+<div>
+    <p>  هنوز هیچ نظری وجود ندارد.  </p>
+</div>
 {% endfor %}
 
-<p>  <input type="submit" value=" ادامه یادگیری "></p>
+{% comment %} 
+<script>
+  function checkOffset1() {
+    if($('#sar').offset().top + $('#sar').height() 
+                                           >= $('#footer').offset().top )
+        $('#sar').css('position', 'absolute');
+    if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top)
+        $('#sar').css('position', 'fixed'); // restore when you scroll up
+}
+
+  $(document).scroll(function() {
+    checkOffset1();
+
+});</script> {% endcomment %}
+{% comment %} <script>
+function checkOffset() {
+  var a=$(document).scrollTop()+window.innerHeight;
+  var b=$('#footer').offset().top;
+  if (a<b) {
+    $('#sar').css('bottom', '10px');
+  } else {
+    $('#sar').css('bottom', (10+(a-b))+'px');
+  }
+}
+$(document).ready(checkOffset);
+$(document).scroll(checkOffset);
+
+</script> {% endcomment %}
+
+<script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
 
 {% endblock %}
