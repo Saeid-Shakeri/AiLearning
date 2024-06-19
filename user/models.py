@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 
-from course.models import Course
-
 # Create your models here.
 class User(AbstractUser):
     phone_regex = RegexValidator(
@@ -16,15 +14,6 @@ class User(AbstractUser):
     def __str__(self) -> str:
         return f"{self.username}"
 
-
-class Attend(models.Model):
-    user = models.ForeignKey(to=User,on_delete=models.CASCADE)
-    course = models.ForeignKey(to=Course,on_delete=models.PROTECT)
-    progress = models.DecimalField(max_digits=3,default=0,decimal_places=3)
-
-    
-    def __str__(self) -> str:
-        return f"{self.user}--{self.course}"
 
         
 
