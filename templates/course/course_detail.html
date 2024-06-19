@@ -96,20 +96,25 @@
   <div class="course-body">
     {{ course.body|linebreaks }}
   </div>
+  <div class="course-prof-body">
 
-  <div class="course-body">
-    <img src="/static/man.png" height="35" width="35" style=""></img>
+    <div class="prof-pic">
       مدرس:
-    {% for prof in prof %}
-      {{ prof.name }} ( <a href="#">  ارتباط با مدرس  </a> )
-      {% if prof.image %}
-        <img src="{{ prof.image.url }} " alt="professor image" height="200" width="200">
+      {% for prof in prof %}  
+        {% if prof.image %}
+          <img src="{{ prof.image.url }}" alt="professor image"></img>
+        {% else %}
+          <img src="/static/icons/man.png" alt="professor image"></img>
+        {% endif %}
+        {{ prof.name }} ( <a href="#">  ارتباط با مدرس  </a> )
+    </div>
+      {% if prof.degree %}
+        {{prof.degree|linebreaks}}
       {% endif %}
-      {{prof.degree|linebreaks}}
-      {{prof.bio|linebreaks}}
-
+      {% if prof.bio %}
+        {{prof.bio|linebreaks}}
+      {% endif %}
     {% endfor %} 
-
   </div>
 
   <form action="addcourse/" method="post">
@@ -123,7 +128,7 @@
 
   <h2 style="margin-right: 3rem;"> نظراتتان را با ما به اشتراک بگذارید. </h2>
   <br><br>
-  <article class="contact-form" style="margin-right:5rem; margin-bottom:4rem;">
+  <div class="contact-form" style="margin-right:5rem; margin-bottom:4rem;">
     <form action="{% url 'course_details' course.slug %}" method="post">
       {% csrf_token %}
       <div class="form-group">
@@ -133,7 +138,7 @@
       </div>
       <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
     </form>
-  </article>
+  </div>
   <h2 style="margin-right:3rem;">   نظرات:   </h2>
   <br><br>
   {% for comment in comments %}
