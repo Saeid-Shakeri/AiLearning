@@ -109,6 +109,17 @@ ul {
     background-color: var(--clr-grey-1);
 }
 
+/* 
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--clr-grey-1);
+    position: fixed;
+    width: 100%;
+} */
+
 li {
     float: left;
 
@@ -252,7 +263,7 @@ li a:hover {
         float: right;
         width: 16rem;
         height: 25rem;
-        padding: 1rem 1rem;
+        padding: 1rem;
     }
 
 }
@@ -416,7 +427,7 @@ Contact Us
 
 .contact-form {
     background: var(--clr-white);
-    border-radius: 0.5rem;
+    border-radius: 1.5rem;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
@@ -519,7 +530,7 @@ Comment section
 
 .comment {
     background-color: var(--clr-grey-10);
-    margin-right: 1rem;
+    margin-right: 4rem;
     width: 50%;
     height: auto;
     border: 1px solid #ccc;
@@ -542,22 +553,15 @@ Comment section
 
 .topics {
     background-color: var(--clr-grey-10);
-    /* display: inline; */
     color: var(--clr-grey-1);
-    width: 22rem;
+    width: 50%;
     height: auto;
-    position: sticky;
     border-radius: 1rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    /* left: 10%; */
-    overflow: hidden;
-    /* bottom:500px; */
-    margin-right: 52rem;
-    top:50px
+    margin-right: 4rem;
 }
 
-.topics-head-icon
- {
+.topics-head-icon {
     margin: 1rem 0.5rem 1rem 0;
 }
 
@@ -569,7 +573,7 @@ Comment section
 
 .course-progress {
     display: inline;
-    margin: 1rem 7rem 1rem 0;
+    margin: 1rem 14rem 1rem 0;
 }
 
 .topics a {
@@ -580,7 +584,7 @@ Comment section
 
 .course-body {
     background-color: var(--clr-grey-10);
-    margin-right: 1rem;
+    margin-right: 4rem;
     width: 50%;
     height: auto;
     border: 1px solid #ccc;
@@ -590,63 +594,108 @@ Comment section
 }
 
 .btn-continue {
-    margin: 1rem;
-    transform: translate(-38%, -5%);
+    margin-right: 10rem;
+    margin-bottom: 1rem;
+    /* transform: translate(-38%, -5%); */
     width: 50%;
+    border: none;
+
+    font-family: var(--ff-primary);
 }
 
-.btn-add {
-    margin: 1rem;
-    margin-right: 3rem;
-    width: 42rem;
-
-}
 
 .course-pic {
     background-color: var(--clr-grey-10);
-    margin-right: 1rem;
-    width: 25rem;
-    height: auto;
+    margin-right: 4rem;
+    width: 30rem;
+    height: 20rem;
     border: 1px solid #ccc;
-    padding: 1rem 1rem;
+    padding: 0.5rem;
     border-radius: 1.3rem;
     margin-bottom: 1rem;
 }
 
 .course-pic img {
-
     width: 100%;
-    height: 50%;
+    height: 100%;
     border-radius: 1.1rem;
 
 }
 
-.prof-details{
-
-}
-
-
-.course-prof-body{
+.course-prof-body {
     background-color: var(--clr-grey-10);
-    margin-right: 1rem;
+    margin-right: 4rem;
     width: 50%;
     height: auto;
     border: 1px solid #ccc;
     padding-right: 1rem;
+    padding-bottom: 1rem;
     border-radius: 1.3rem;
     margin-bottom: 1rem;
+
 }
 
 
-.prof-pic{
-   margin-bottom: 30px;
-   margin-right: 0.5rem;
+.prof-pic {
+    margin-right: 0.5rem;
 }
 
-.prof-pic img{
+.prof-pic img {
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     position: relative;
-    top:20px;
+    top: 15px;
+}
+
+.prof-pic a:hover {
+    text-decoration: underline;
+}
+
+
+.prof-pic a:visited {
+    color: #0000EE;
+}
+
+.prof-pic a:active {
+    color: var(--clr-primary)
+}
+
+.wrapper{
+    width: 70%;
+    margin-right: 3rem;
+}
+
+/* ===========
+Dashboard
+=========== */
+
+.vertical-menu {
+    width: 200px; /* Set a width if you like */
+    float: right;
+    height: 100%;
+    border: 1px solid #ccc;
+
+  }
+  
+  .vertical-menu a {
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 2px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .vertical-menu a:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
+  }
+  
+  .vertical-menu a.active {
+    background-color: #04AA6D; /* Add a green color to the "active/current" link */
+    color: white;
+  }
+
+
+.dashboard{
+    float: right;
 }
