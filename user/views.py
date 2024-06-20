@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 
 from .models import *
+from course.models import Attend,Course,Category
 
 logger = logging.getLogger('user')
 
@@ -85,8 +86,6 @@ def Login(request):
 
 
 
-
- 
 @login_required(login_url='/user/login/')
 def Logout(request):
     logout(request)
@@ -98,7 +97,13 @@ def dashboard(request):
     if request.method == 'GET':
         context ={}
         context["user"] = User.objects.get(id=request.user.id)
-        context ['courses'] = Attend.objects.filter(user=request.user)
+        context ["attended"] = Attend.objects.filter(user=request.user)
+        # course.id = Course.objects.filter()
+        # context ['similar'] = Category.objects.filter(id=)
+        # if context ["attended"]:
+        # print(context["attended"])
+        # context["attend"] = Attend.objects.filter(user=request.user.id)
+
         return render(request, "user/dashboard.html", context)
 
 
@@ -139,7 +144,6 @@ def edit_profile(request):
 
 
 
-
 @login_required(login_url='/user/login/')
 def change_password(request): 
 
@@ -173,5 +177,6 @@ def change_password(request):
             return render(request,'user/change_password.html',{'message':message,'user':request.user.id})
 
 
-            
-
+@login_required(login_url='/user/login/')
+def resetpass(request):
+    pass

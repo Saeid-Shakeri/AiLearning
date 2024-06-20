@@ -20,6 +20,7 @@
   <!-- end of navbar -->
 
 {% block content %}
+{% comment %} <div class="wrapper"> {% endcomment %}
   <br>
   <div style="direction: ltr;margin-right:1rem; display:inline; float:right;">
     {% if not rate %}
@@ -46,7 +47,42 @@
   </div>
   <br><br>
 
-  <br>
+  {% if course.image %}
+    <div class="course-pic">
+      <img src="{{ course.image.url }}" alt="course-img"></img>
+    </div>
+  {% endif %}
+  <div class="course-body">
+    <h2 style="margin-right: 1rem;">
+      {{ course.name }}
+    </h2>
+    {{ course.body|linebreaks }}
+  </div>
+  <div class="course-prof-body">
+
+    <div class="prof-pic">
+      مدرس:
+      {% for prof in prof %}  
+        {% if prof.image %}
+          <img src="{{ prof.image.url }}" alt="professor image"></img>
+        {% else %}
+          <img src="/static/icons/man.png" alt="professor image"></img>
+        {% endif %}
+        {{ prof.name }} ( <a href="#">  ارتباط با مدرس   </a> )
+    </div>
+    {% if prof.bio or prof.degree %}
+    <br>
+    {% endif %}
+      {% if prof.degree %}
+        {{prof.degree|linebreaks}}
+      {% endif %}
+      {% if prof.bio %}
+        {{prof.bio|linebreaks}}
+      {% endif %}
+    {% endfor %} 
+  </div>
+
+
 
   <div class="topics">
     <i class="fa fa-tasks topics-head-icon" aria-hidden="true"></i>
@@ -70,7 +106,9 @@
     {% if attend %}
       <form action="continue_course/" method="post">
         {% csrf_token %}
-        <p><input class="btn btn-continue" type="submit" value=" ادامه یادگیری "></p>
+        <p>
+          <input class="btn btn-continue" type="submit" value=" ادامه یادگیری ">
+        </p>
         <input name="course_id" value="{{course.id}}" hidden>
         <input name="attend_id" value="{{attend.id}}" hidden>
       </form>
@@ -84,46 +122,6 @@
 
   </div>
 
-  {% if course.image %}
-    <div class="course-pic">
-      <img src="{{ course.image.url }}">
-    </div>
-  {% endif %}
-  <p>{{ course.video }}</p>
-  <h1 style="margin-right: 1rem;">
-    {{ course.name }}
-  </h1>
-  <div class="course-body">
-    {{ course.body|linebreaks }}
-  </div>
-  <div class="course-prof-body">
-
-    <div class="prof-pic">
-      مدرس:
-      {% for prof in prof %}  
-        {% if prof.image %}
-          <img src="{{ prof.image.url }}" alt="professor image"></img>
-        {% else %}
-          <img src="/static/icons/man.png" alt="professor image"></img>
-        {% endif %}
-        {{ prof.name }} ( <a href="#">  ارتباط با مدرس  </a> )
-    </div>
-      {% if prof.degree %}
-        {{prof.degree|linebreaks}}
-      {% endif %}
-      {% if prof.bio %}
-        {{prof.bio|linebreaks}}
-      {% endif %}
-    {% endfor %} 
-  </div>
-
-  <form action="addcourse/" method="post">
-    {% csrf_token %}
-    <input type="submit" value=" افزودن دوره به پروفایل " class="btn btn-add">
-    <input type="hidden" value="{{course.id}}" name="course_id">  
-  </form>
-
-  <br><br>
   <br><br>
 
   <h2 style="margin-right: 3rem;"> نظراتتان را با ما به اشتراک بگذارید. </h2>
@@ -157,11 +155,11 @@
     </div>
     <br>
   {% empty %}
-    <div>
+    <div class="comment">
       <p>  هنوز هیچ نظری وجود ندارد.  </p>
     </div>
   {% endfor %}
 
   <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
-
+  {% comment %} </div> {% endcomment %}
 {% endblock %}
