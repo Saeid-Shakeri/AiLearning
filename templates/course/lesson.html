@@ -26,9 +26,11 @@ AiLearning | {{lesson.name}}
     {{lesson.name}}
 
     <p>
+        {% if lesson.video %}
     <video controls height="400" width="400">
         <source src="{{lesson.video.url}}" type="video/mp4">
     </video>
+    {% endif %}
     </p>
 {{lesson.body}}
     <p>
