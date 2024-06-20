@@ -172,6 +172,7 @@ if ( one ){
             const id = e.target.id
             const val_num = getNumericValue(val)
             const obj_type = $('input[name="type"]').val();
+          
             $.ajax({
                 type:'POST',
                 url:'/rate/',
@@ -188,9 +189,13 @@ if ( one ){
                         // confirmBox.innerHTML = '<h3>  قبلا امتیاز داده اید.! </h3>'
   
                      }
-                      else{
+                      else if ( response.success === 'true'){
+                        console.log(response.success)
                         alert(' .امتیاز شما ثبت شد!')
                       //  confirmBox.innerHTML = '<h3> امتیاز شما ثبت شد! </h3>'
+                      }
+                      else{
+                        alert('برای ثبت امتیاز ابتدا وارد حساب خود شوید.')
                       }
                 },
                 error:function(error){

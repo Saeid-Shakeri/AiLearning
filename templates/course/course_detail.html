@@ -12,7 +12,7 @@
       <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
       <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
       {% if user is None %}
-        <li><a  href="{% url 'login' %}"> ورود </a></li>
+        <li id="login"><a  href="{% url 'login' %}"> ورود </a></li>
         <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
       {% endif %}
     </ul>
@@ -137,11 +137,10 @@
       <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
     </form>
   </div>
-  <h2 style="margin-right:3rem;">   نظرات:   </h2>
-  <br><br>
+  <h2 style="margin-right:3rem;">   نظرات کاربران   </h2>
+  <br>
   {% for comment in comments %}
     <div class="comment">
-      {% comment %} <img src="/static/female.png" class="img-circle" height="65" width="65" alt="Avatar" style="display:inline;"> {% endcomment %}
       <h4 class="comment-name"> {{ comment.name }}</h4>
       <small class="comment-date"> {{ comment.date_added }}</small>
       {{ comment.content|linebreaks }}
@@ -153,13 +152,15 @@
         </div>
       {% endfor %}
     </div>
-    <br>
+
   {% empty %}
     <div class="comment">
-      <p>  هنوز هیچ نظری وجود ندارد.  </p>
+      <h5>
+        تا کنون نظری برای این دوره ثبت نشده است. 
+        برای ثبت نظر باید ابتدا در دوره ثبت نام کرده و دانشجوی دوره باشید. 
+      </h5>
     </div>
   {% endfor %}
 
   <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
-  {% comment %} </div> {% endcomment %}
 {% endblock %}
