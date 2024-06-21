@@ -137,7 +137,10 @@ li a {
 
 /* Change the link color to ... on hover */
 li a:hover {
-    background-color: #04AA6D;
+    color: #23527c;
+    /* background-color: #04AA6D; */
+    text-decoration: none;
+    background-color: #eee;
 
 }
 
@@ -190,7 +193,7 @@ li a:hover {
 .course-name {
     padding: 0rem 1.5rem;
     text-align: center;
-    /* margin: 1rem; */
+    /* margin: 3rem; */
 }
 
 .course-prof {
@@ -205,7 +208,7 @@ li a:hover {
     border: 1px solid #ccc;
     float: right;
     width: 16rem;
-    height: 16rem;
+    height: 25rem;
     padding: 1rem 1rem;
     transition: var(--transition);
     border-radius: 1.3rem;
@@ -254,6 +257,7 @@ li a:hover {
     .course-name {
         padding: 0rem 0rem 1.5rem 0rem;
         margin: 1rem;
+        margin-bottom: 1.5rem;
     }
 
 
@@ -262,7 +266,7 @@ li a:hover {
         border: 1px solid #ccc;
         float: right;
         width: 16rem;
-        height: 25rem;
+        height: 26rem;
         padding: 1rem;
     }
 
@@ -531,6 +535,7 @@ Comment section
 .comment {
     background-color: var(--clr-grey-10);
     margin-right: 4rem;
+    margin-bottom: 1rem;
     width: 50%;
     height: auto;
     border: 1px solid #ccc;
@@ -573,14 +578,21 @@ Comment section
 
 .course-progress {
     display: inline;
-    margin: 1rem 14rem 1rem 0;
+    margin: 1rem 27rem 1rem 0;
 }
 
 .topics a {
     text-decoration: none;
-    color: var(--clr-grey-1);
+    /* color: rgba(35, 89, 146, 0.89); */
+    color: #194268;
+    font-weight: 100;
 }
 
+.topics a:hover {
+    text-decoration: underline;
+    text-decoration-color: #194268;
+
+}
 
 .course-body {
     background-color: var(--clr-grey-10);
@@ -606,8 +618,9 @@ Comment section
 
 .course-pic {
     background-color: var(--clr-grey-10);
-    margin-right: 4rem;
-    width: 30rem;
+    margin-right: 8rem;
+    margin-top: 1.5rem;
+    width: 40%;
     height: 20rem;
     border: 1px solid #ccc;
     padding: 0.5rem;
@@ -661,41 +674,38 @@ Comment section
     color: var(--clr-primary)
 }
 
-.wrapper{
+.wrapper {
     width: 70%;
     margin-right: 3rem;
 }
 
-/* ===========
-Dashboard
-=========== */
-
-.vertical-menu {
-    width: 200px; /* Set a width if you like */
-    float: right;
-    height: 100%;
-    border: 1px solid #ccc;
-
-  }
-  
-  .vertical-menu a {
-    background-color: #eee; /* Grey background color */
-    color: black; /* Black text color */
-    display: block; /* Make the links appear below each other */
-    padding: 2px; /* Add some padding */
-    text-decoration: none; /* Remove underline from links */
-  }
-  
-  .vertical-menu a:hover {
-    background-color: #ccc; /* Dark grey background on mouse-over */
-  }
-  
-  .vertical-menu a.active {
-    background-color: #04AA6D; /* Add a green color to the "active/current" link */
-    color: white;
-  }
+/* 
+===========
+change password and edit profile
+=========== 
+*/
 
 
-.dashboard{
-    float: right;
+.forgot {
+    color: var(--clr-primary);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+}
+
+.forgot a {
+    color: var(--clr-primary);
+
+}
+
+.forgot:hover {
+    text-decoration: underline;
+}
+
+.change-pass {
+    text-align: center;
+}
+
+.change-pass::placeholder {
+    text-align: center;
+
 }
