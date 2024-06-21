@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>AiLearning</title>
 	<link rel="stylesheet" href="/static/css/signup-login.css">
+	<script type="text/javascript" src="/static/js/validateForm.js"></script>	
+
 </head>
 
 <body>
@@ -29,7 +31,8 @@
 		<div class="form-section">
 
 			<!-- login form -->
-            <form action="/user/login/" method="post">
+            <form action="/user/login/" method="post" name="login"
+			onsubmit="return validateForm('login')">
                 {% csrf_token %}
 
 			<div class="login-box">
@@ -48,7 +51,8 @@
 
 
 			<!-- signup form -->
-            <form action="/user/signup/" method="post">
+            <form action="/user/signup/" method="post" name="signup"
+			onsubmit="return validateForm('signup')">
                 {% csrf_token %}
                 <p>{{message}}</p>
 
@@ -60,7 +64,10 @@
 				<input type="email"
 					class="email ele"
 					placeholder="youremail@email.com"
-                    name="email">
+                    name="email"
+					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+					oninvalid="setCustomValidity('فرمت وارد شده نادرست است.')"
+					onchange="try{setCustomValidity('')}catch(e){}>
 				<input type="password"
 					class="password ele"
 					placeholder="password"
@@ -88,7 +95,8 @@
             slider.classList.remove("moveslider");
             formSection.classList.remove("form-section-move");
         });
-        </script>
+
+	</script>
 
 </body>
 </html>
