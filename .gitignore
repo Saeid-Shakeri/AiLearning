@@ -3,3 +3,4 @@ __pycache__/
 update-commit.sh
 
 my_env/
+general.log
