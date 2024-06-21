@@ -71,11 +71,12 @@ def Login(request):
                 login(request, authed_user)
                 return redirect('dashboard')
             u = User.objects.filter(email=email_username)
-            authed_user = authenticate(
-                        username=u[0].username, password=password)
-            if authed_user:
-                login(request, authed_user)
-                return redirect('dashboard')
+            if u :
+                authed_user = authenticate(
+                            username=u[0].username, password=password)
+                if authed_user:
+                    login(request, authed_user)
+                    return redirect('dashboard')
             else :
                 message = 'رمز عبور یا نام کاربری اشتباه است. دوباره تلاش کنید'
                 return render(request,'user/signup_login.html',{'message':message, 'user':request.user.id})
@@ -104,7 +105,7 @@ def dashboard(request):
         # print(context["attended"])
         # context["attend"] = Attend.objects.filter(user=request.user.id)
 
-        return render(request, "user/dashboard.html", context)
+        return render(request, "user/dashboard1.html", context)
 
 
 
@@ -119,6 +120,9 @@ def edit_profile(request):
     if request.method == 'POST':
         try: 
             username = request.POST.get('username')
+            if username == '':
+                message = ' نام کاربری نمیتواند خالی باشد.'
+                return render(request,'user/edit_profile.html',{'message':message}) 
             u = User.objects.filter(username=username)
             if username in u :
                 message = 'این نام کاربری موجود است لطفا یک نام دیگر را امتحان کنید.'
@@ -132,6 +136,9 @@ def edit_profile(request):
             if user.phone !=  request.POST.get("phone"):
                 user.phone = request.POST.get("phone")
             if user.email !=  request.POST.get("email"):
+                if request.POST.get("email") == '':
+                    message = 'ایمیل نمیتواند خالی باشد.'
+                    return render(request,'user/edit_profile.html',{'message':message}) 
                 user.email = request.POST.get("email")
             
             user.save()
