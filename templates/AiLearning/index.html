@@ -22,7 +22,7 @@
   <!-- end of header -->
   
   <br>
-  <h3 class="section-title">جدیدترین دوره ها :
+  <h3 class="section-title" style="display:block;">جدیدترین دوره ها :
   </h3>
   {% for c in course %}
     <div class="course">
@@ -42,16 +42,20 @@
           {% endif %}
         {% endfor %}
         <br><br>
-        <i class="fa-solid fa fa-graduation-cap"> </i>
-        {{c.attends}}
-        <div class="student">
-          دانشجو
-        </div>&nbsp; &nbsp;
-        <div style="direction:ltr; display:inline;">
-          <i class="fa fa-star star"></i>
-        </div> 
-        {{c.score}} 
-        <div class="rates-number">({{c.rates}})</div>
+        <div style="">
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>&nbsp; &nbsp;
+          <div style="float:left;position: relative; bottom: 5px;">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})</div>
+          </div>
+        </div>
       
       </a>
     </div>
@@ -64,10 +68,9 @@
     <br><br>
     <br><br>
     <br><br>
-    <br><br>
-    <br><br>
+    <br><br>  <br><br>
 
-    <h3 class="section-title">جدیدترین مقاله ها :</h3>
+  <h3 class="section-title">جدیدترین مقاله ها :</h3>
 
     {% for a in article %}
       <div class="course">
@@ -92,17 +95,20 @@
           {{a.readers}}
           <div class="student">
             خواننده
-          </div>&nbsp; &nbsp;
-          <div style="direction:ltr; display:inline;">
-            <i class="fa fa-star star"></i>
-          </div> 
-          {{a.score}} 
-          <div class="rates-number">({{a.rates}})</div>
+          </div>
+          <div style="float:left;position: relative; bottom: 4px;">
+
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{a.score}} 
+            <div class="rates-number">({{a.rates}})</div>
+          </div>
         
         </a>
       </div>
     {% endfor %}
-    
+    </p>
     <br><br>
     <br><br>
     <br><br>
@@ -136,12 +142,15 @@
         {{c.attends}}
         <div class="student">
           دانشجو
-        </div>&nbsp; &nbsp;
-        <div style="direction:ltr; display:inline;">
-           <i class="fa fa-star star"></i>
-        </div> 
-        {{c.score}} 
-        <div class="rates-number">({{c.rates}})</div>
+        </div>
+        <div style="float:left;position: relative; bottom: 4px;">
+
+          <div style="direction:ltr; display:inline;">
+            <i class="fa fa-star star"></i>
+          </div> 
+          {{c.score}} 
+          <div class="rates-number">({{c.rates}})</div>
+        </div>
       </a>
     </div>
     {% endfor %}
@@ -180,12 +189,15 @@
           {{a.readers}}
           <div class="student">
             خواننده
-          </div>&nbsp; &nbsp;
+          </div>
+          <div style="float:left;position: relative; bottom: 4px;">
+
           <div style="direction:ltr; display:inline;">
             <i class="fa fa-star star"></i>
           </div> 
           {{a.score}} 
           <div class="rates-number">({{a.rates}})</div>
+        </div>
         
         </a>
       </div>
