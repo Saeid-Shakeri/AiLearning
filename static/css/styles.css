@@ -349,6 +349,7 @@ footer {
 }
 
 
+
 #myBtn {
     display: none;
     position: fixed;
@@ -559,11 +560,11 @@ Comment section
 .topics {
     background-color: var(--clr-grey-10);
     color: var(--clr-grey-1);
-    width: 50%;
+    width: auto;
     height: auto;
     border-radius: 1rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    margin-right: 4rem;
+    /* margin-right: 4rem; */
 }
 
 .topics-head-icon {
@@ -578,12 +579,15 @@ Comment section
 
 .course-progress {
     display: inline;
-    margin: 1rem 27rem 1rem 0;
+    /* margin: 1rem 27rem 1rem 0; */
+    position: relative;
+    top: 13px;
+    left: 20px;
+    float: left;
 }
 
 .topics a {
     text-decoration: none;
-    /* color: rgba(35, 89, 146, 0.89); */
     color: #194268;
     font-weight: 100;
 }
@@ -596,18 +600,20 @@ Comment section
 
 .course-body {
     background-color: var(--clr-grey-10);
-    margin-right: 4rem;
-    width: 50%;
+    /* margin-right: 4rem; */
+    width: auto;
     height: auto;
     border: 1px solid #ccc;
-    padding: 1rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 1.3rem;
     margin-bottom: 1rem;
 }
 
 .btn-continue {
-    margin-right: 10rem;
-    margin-bottom: 1rem;
+    margin-right: 25%;
+    margin-bottom: 2rem;
+    /* margin-right: 10rem;
+    margin-bottom: 1rem; */
     /* transform: translate(-38%, -5%); */
     width: 50%;
     border: none;
@@ -618,10 +624,10 @@ Comment section
 
 .course-pic {
     background-color: var(--clr-grey-10);
-    margin-right: 8rem;
+    margin-right: 9rem;
     margin-top: 1.5rem;
-    width: 40%;
-    height: 20rem;
+    width: 70%;
+    height: 23rem;
     border: 1px solid #ccc;
     padding: 0.5rem;
     border-radius: 1.3rem;
@@ -637,8 +643,8 @@ Comment section
 
 .course-prof-body {
     background-color: var(--clr-grey-10);
-    margin-right: 4rem;
-    width: 50%;
+    /* margin-right: 4rem; */
+    width: auto;
     height: auto;
     border: 1px solid #ccc;
     padding-right: 1rem;
@@ -676,7 +682,7 @@ Comment section
 
 .wrapper {
     width: 70%;
-    margin-right: 3rem;
+    margin-right: 10rem;
 }
 
 /* 
@@ -697,7 +703,7 @@ change password and edit profile
 
 }
 
-.forgot:hover {
+.forgot a:hover {
     text-decoration: underline;
 }
 
@@ -709,3 +715,32 @@ change password and edit profile
     text-align: center;
 
 }
+
+.lesson-body {
+    background-color: var(--clr-grey-10);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    width: auto;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 1.3rem;
+}
+
+.lesson-video {
+    width: 100%;
+    height: auto;
+    border-radius: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.dashboard-icons {
+    /* color: var(--clr-white); */
+    position: relative;
+    top: 3px;
+    font-size: 3em;
+}
+
+/* a .dashboard-icons:hover{
+color: var(--clr-grey-1);
+} */
