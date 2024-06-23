@@ -24,12 +24,29 @@ class ArticleDetailView(View):
     
     def get(self, request, slug):
         article = Article.objects.get(slug=slug)
+        article.readers +=1
+        article.save()
         prof = article.author.all()
         context={
             'article':article, 'prof': prof
         }
         context["user"] = request.user.id
         context["rate"] = ArticleRates.objects.filter(user=request.user.id,article=article)
+        return render(request,'publication/article_detail.html',context)
+    
 
+    def post(self, request, slug):
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        comment = request.POST.get('comment')
+        ArticleComment.objects.create(name=name,email=email,content=comment,article=self)
+        prof = self.author.all()
+        comments = ArticleComment.objects.filter(article=self).order_by('-id')
+
+        context={
+            'article':self, 'prof': prof, 'comments':comments,
+        }
+        context["user"] = request.user.id
+        context["rate"] = ArticleRates.objects.filter(user=request.user.id,article=self)
         return render(request,'publication/article_detail.html',context)
 
