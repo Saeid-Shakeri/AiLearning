@@ -54,5 +54,23 @@ function validateForm(name) {
             return false;
             }
     }
+    // support.html
+    else if(name == 'support'){
+        let x = document.forms[name]["cat"].value;
+        if (x == "") {
+            alert(" موضوع نمی تواند خالی باشد!");
+            return false;
+            }
+            x = document.forms[name]["title"].value;
+            if (x == "") {
+            alert(" عنوان پیام نمیتواند خالی باشد!");
+            return false;
+            }  
+            x = document.forms[name]["message"].value;
+            if (x == "") {
+            alert(" متن پیام نمیتواند خالی باشد!");
+            return false;
+            }
+    }
 
 } 
