@@ -22,10 +22,9 @@
 {% block content %}
 <div class="wrapper">
   <br>
-  
-  
-  <div style="direction: ltr;">
     {% if not rate %}
+    <div style="direction: ltr; margin-right:9rem;">
+
       <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
       <form class="rate-form" action="" method="POST" id="{{course.id}}" style="margin: 0.5rem;
       float: right;">
@@ -37,21 +36,22 @@
         <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
       </form>
       <div style="float: right;
-      top: 13px;
-      position: relative;">
+        top: 13px;
+        position: relative;">
         <h3 style="font-weight:100;">
           ({{course.score}}
           <button type="submit" class="fa fa-star fa-1x star-btn checked" 
                   style="color:#ffb627;" id="first"></button>)
         </h3>
       </div>
+    </div>
     {% else %}
     <div style="direction: ltr;
-      margin-right: 9rem;
-      width: 70%;
-      float: right;
-      position: relative;
-      top: 30px;">
+        margin-right: 9rem;
+        width: 70%;
+        float: right;
+        position: relative;
+        top: 30px;">
       <h3 style="font-weight:100;">
         ({{course.score}}
         <button type="submit" class="fa fa-star fa-1x star-btn checked" 
@@ -59,10 +59,11 @@
       </h3>
     </div>
     {% endif %}
+
+
     <div id="confirm-box"></div>
     <input id="type" name="type" value="course" hidden>
     <input id="score" name="score" value="{{course.score}}" hidden>
-  </div>
   <br><br>
 
 

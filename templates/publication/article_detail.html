@@ -4,7 +4,6 @@
   AiLearning | {{article.slug}}
 {% endblock %}
 
-
     <!-- navbar -->
     {% block navbar %}
     <ul>
@@ -21,58 +20,171 @@
       <!-- end of navbar -->
 
 {% block content %}
-<br><br>
 
+<div class="wrapper">
+  <br>
+  <div style="margin-right:9rem">
 
-<div style="direction: ltr;margin-right:1rem; display:inline; float:right;">
-  {% if not rate %}
-    <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
-    <form class="rate-form" action="" method="POST" id="{{article.id}}" style="display:inline; margin:0.5rem;">
-      {% csrf_token %}
-      <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
-      <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
-      <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
-      <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
-      <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
-    </form>
-  {% endif %}
-  <div style="direction: ltr;margin-right:1rem; display:inline; float:right;">&nbsp;
-    <h3 style="display:inline; font-weight:100;">({{article.score}}
-    <button type="submit" class="fa fa-star fa-1x star-btn checked" style="color:#ffb627;" id="first"></button>)
-    </h3>
+    {% if not rate %}
+      <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
+      <form class="rate-form" action="" method="POST" id="{{article.id}}" style="margin: 0.5rem;
+      float: right;">
+        {% csrf_token %}
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
+        <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
+      </form>
+      <div style="float: right;
+      top: 13px;
+      position: relative;">
+        <h3 style="font-weight:100;">
+          ({{article.score}}
+          <button type="submit" class="fa fa-star fa-1x star-btn checked" 
+                  style="color:#ffb627;" id="first"></button>)
+        </h3>
+      </div>
+    {% else %}
+    <div style="direction: ltr;
+      margin-right: 9rem;
+      width: 70%;
+      float: right;
+      position: relative;
+      top: 30px;">
+      <h3 style="font-weight:100;">
+        ({{article.score}}
+        <button type="submit" class="fa fa-star fa-1x star-btn checked" 
+                style="color:#ffb627;" id="first"></button>)
+      </h3>
+    </div>
+    {% endif %}
   </div>
-  <div id="confirm-box"></div>
-  <input id="type" name="type" value="article" hidden>
-  <input id="score" name="score" value="{{course.score}}" hidden>
-</div>
-<br><br>
+    <div id="confirm-box"></div>
+    <input id="type" name="type" value="article" hidden>
+    <input id="score" name="score" value="{{article.score}}" hidden>
+  <br><br>
+
 
 
   {% if article.image %}
-      <img src="{{ article.image.url }} " height="300" width="300" alt="article-img">
+    <div class="course-pic" style="">
+      <img src="{{ article.image.url }}" alt="course-img"></img>
+    </div>
   {% endif %}
+  <div class="course-body">
+    <h2 style="margin-right: 1rem;">
+      {{ article.name }}
+    </h2>
+    {{ article.body|linebreaks }}
+  </div>
 
-  <h1>{{ article.name }}</h1>
-  <p>{{ article.body }}</p>
-  مدرس: <br>
-  {% for prof in prof %}
-    {{ prof.name }}  <br><br>
 
-    {% if prof.image %}
-      <img src="{{ prof.image.url }} " alt="prof-image" height="200" width="200">
-    {% endif %}
-    <br><br>
+
+  <div class="course-prof-body">
   
-  {% endfor %} 
-  <p>
-    {% if article.file  %}
-
-      <a href="{{article.file.url}}">  مشاهده آنلاین    </a> <p></p>
-
-      <a href="{{article.file.url}}" download>  دانلود  </a> 
-
+        
+    <div style="margin-right: 1rem;
+              margin-top: 1rem;">
+      {% if prof.all.count > 1 %}
+      مدرسان:
+      {% else %}
+      مدرس:
+      {% endif %}
+    </div>
+    {% for prof in prof %} 
+      <div class="prof-pic"> 
+        {% if prof.image %}
+          <img src="{{ prof.image.url }}" alt="professor image"></img>
+        {% else %}
+          <img src="/static/icons/man.png" alt="professor image"></img>
+        {% endif %}
+        {{ prof.name }} ( <a href="#">  ارتباط با مدرس   </a> )
+    </div>
+    {% if prof.bio or prof.degree %}
+    <br>
     {% endif %}
-  </p>
+      {% if prof.degree %}
+        {{prof.degree|linebreaks}}
+      {% endif %}
+      {% if prof.bio %}
+        {{prof.bio|linebreaks}}
+      {% endif %}
+    {% endfor %} 
+  </div>
+
+
+{% if article.file and article.video %}
+<br>
+<div class="forgot">
+    <a href="{{article.file.url}}">   <i class="fa fa-download" aria-hidden="true"></i>&nbsp;
+       برای مشاهده و دانلود فایل مقاله اینجا کلیک کنید. 
+    </a> <br><br>
+    <a href="{{article.video.url}}" download> 
+      <i class="fa fa-download" aria-hidden="true"></i>&nbsp; برای دانلود فیلم مقاله اینجا کلیک کنید. 
+    </a> <br>
+</div>
+{% elif article.file  %}
+<br>
+<div class="forgot">
+    <a href="{{article.file.url}}">  
+      <i class="fa fa-download" aria-hidden="true"></i>&nbsp;
+      برای مشاهده و دانلود فایل مقاله اینجا کلیک کنید. 
+    </a> <br>
+    {% comment %} <a href="{{lesson.file.url}}" download>  دانلود فایل </a>  {% endcomment %}
+</div>
+{% elif article.video %}
+<br>
+<div class="forgot">
+  <a href="{{article.video.url}}" download>  برای دانلود فیلم  مقاله اینجا کلیک کنید. </a> <br>
+</div>
+{% endif %}
+
+    <br>
+    <div>
+      <h2 style="margin-right: 3rem;"> دیدگاهتان را به اشتراک بگذارید. </h2>
+      <div class="contact-form" style="margin-right:5rem; margin-bottom:4rem; margin-top: 4rem;">
+        <form action="{% url 'article_details' article.slug %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <input class="form-control" name="name" placeholder="نام" type="text" requierd>
+            <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
+            <textarea class="form-control" name="comment" placeholder="متن نظر " type="message" rows="10" requierd></textarea>
+          </div>
+          <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
+        </form>
+      </div>
+    </div>
+      <h2 style="margin-right:3rem;">   نظرات کاربران   </h2>
+      <br>
+      {% for comment in comments %}
+        <div class="comment" style="width: 100%;
+        margin-right: 2rem;">
+          <h4 class="comment-name"> {{ comment.name }}</h4>
+          <small class="comment-date"> {{ comment.date_added }}</small>
+          {{ comment.content|linebreaks }}
+          {% for answer in comment.CourseCommentAnswer_set.all %}
+            <div class="comment">
+              <h4 class="comment-name"> {{ answer.name }}</h4>
+              <small class="comment-date"> {{ answer.date_added }}</small>
+              {{ answer.content|linebreaks }}
+            </div>
+          {% endfor %}
+        </div>
+    
+      {% empty %}
+        <div class="comment" style="width: 100%;
+        margin-right: 2rem;">
+          <h5>
+            تا کنون نظری برای این دوره ثبت نشده است. 
+            برای ثبت نظر باید ابتدا در دوره ثبت نام کرده و دانشجوی دوره باشید. 
+          </h5>
+        </div>
+      {% endfor %}
+
+
   <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
+</div>
+
 
 {% endblock %}

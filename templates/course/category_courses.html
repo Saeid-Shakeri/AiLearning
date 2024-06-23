@@ -4,46 +4,227 @@
   AiLearning | {{title}}
 {% endblock %}
 
-    <!-- navbar -->
-    {% block navbar %}
-      <ul>
-        <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
-        <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
-        <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
-        <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
-        {% if user is None %}
-          <li><a  href="{% url 'login' %}"> ورود </a></li>
-          <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
-        {% endif %}
-      </ul>
-    {% endblock %}
-      <!-- end of navbar -->
-<br><br>
+<!-- navbar -->
+{% block navbar %}
+  <ul>
+    <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+    <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+    <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+    <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
+    {% if user is None %}
+      <li><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+<!-- end of navbar -->
 {% block content %}
-<br> 
- 
-<h3 claas="section-title">  rekvle  </h3>
-<h3>
-{% for course in courses %}
-<div class="course">
+  {% if best_courses %}
+  <br>
+    <h3 class="section-title">   پر مخاطب ترین ها  </h3>
+    {% for c in best_courses %}
+      <div class="course">
+        <a href="{% url 'course_details' c.slug %}">
+          {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %} 
+          <h3 class="course-name"> {{c.name}}
+          </h3>
+          <div style="display:inline;"> مدرس :  
+          </div>
+          <div class="course-prof"> {{c.professor.all.0.name}} 
+          </div>
+          {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
 
-<a href="{% url 'course_details' course.slug %}">
-    {% if course.image %}
-        <img src="{{ course.image.url }} " height="200" width="200">
-    {% endif %} 
-    <h3 claas="course-name">{{course.name}}</h3>
-</a>
-</div>
 
-{% endfor %}
-</h3>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-  
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+
+  {% endif %}
+
+  {% if popular_courses %}
+
+    <h3 class="section-title">  محبوب ترین ها
+    </h3>
+    {% for c in popular_courses %}
+      <div class="course">
+        <a href="{% url 'course_details' c.slug %}">
+          {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %} 
+          <h3 class="course-name"> {{c.name}} 
+          </h3>
+          <div style="display:inline;"> مدرس :  
+          </div>
+          <div class="course-prof"> {{c.professor.all.0.name}} 
+          </div>
+          {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})</div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+  {% endif %}
+
+  {% if new_courses %}
+
+    <h3 class="section-title">جدیدترین ها
+    </h3>
+    {% for c in new_courses %}
+      <div class="course">
+        <a href="{% url 'course_details' c.slug %}">
+          {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %} 
+          <h3 class="course-name"> {{c.name}}
+          </h3>
+          <div style="display:inline;"> مدرس :  
+          </div>
+          <div class="course-prof"> {{c.professor.all.0.name}} 
+          </div>
+          {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+      
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+  {% endif %}
+
+  {% if course_list %}
+
+    <h3 class="section-title">   همه دوره ها
+    </h3>
+    {% for c in course_list %}
+      <div class="course">
+        <a href="{% url 'course_details' c.slug %}">
+          {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %} 
+          <h3 class="course-name"> {{c.name}} 
+          </h3>
+          <div style="display:inline;"> مدرس :  
+          </div>
+          <div class="course-prof"> {{c.professor.all.0.name}} 
+          </div>
+          {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %} 
+          
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+      <br><br>
+
+  {% else %}
+    <div class="no-course">
+       دوره ای وجود ندارد.
+    </div>
+  {% endif %}
+
 {% endblock %}
