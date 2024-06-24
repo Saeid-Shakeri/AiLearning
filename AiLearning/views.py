@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render,redirect
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+import logging
+
 from course.models import *
 from user.models import ContactUs
 from publication.models import *
-from django.contrib.auth.decorators import login_required
 
-import logging
 
 logger = logging.getLogger('ailearning')
 
@@ -30,7 +31,7 @@ def contactus(request):
         email = request.POST.get('email')
         context = request.POST.get('message')
         ContactUs.objects.create(name=name,email=email,context=context)
-        return HttpResponse('your message send successfuly!')
+        return redirect('index')
 
 
 
@@ -46,14 +47,11 @@ def course_rate(user, val, el_id):
         avg = (course.score * course.rates + int(val)) / (course.rates + 1)
         if Attend.objects.filter(user=user,course=course):
             pass
-        else :
+        else:
             course.add_attend()
 
-        course.rates += 1 
-        course.score = avg
-        course.save()
-        cat.calc_score()
-            
+        course.rates += 1
+        course.calc_score(avg)
         return True
 
 
@@ -95,6 +93,7 @@ def lesson_rate(user ,val , el_id):
     else :
         LessonRates.objects.create(user=user,lesson=lesson)
         avg = (lesson.score * lesson.rates + int(val)) / (lesson.rates + 1)
+        
         lesson.rates += 1 
         lesson.score = avg
         lesson.save()
