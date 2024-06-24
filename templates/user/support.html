@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+
+{% block tag %}
+
+<script type="text/javascript" src="/static/js/validateForm.js"></script> 
+
+{% endblock %}
+
+{% block title %}
+    AiLearnign | درخواست پشتیبانی
+{% endblock %}
+
+    <!-- navbar -->
+    {% block navbar %}
+        <ul>
+            <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+            <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+            <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+            <li style="float:right"><a class="active" href="{% url 'dashboard' %}"> داشبورد </a></li>
+        </ul>
+    {% endblock %}
+      <!-- end of navbar -->
+
+{% block content %}
+    
+    <div class="contact-form" style="margin-right:29%; margin-top:4rem; margin-bottom:4rem;">
+        {% if message %}
+            <p style=" padding-top: 1rem;">{{message}}</p>
+        {% endif %}
+
+        <form action="" method="post" name="support" onsubmit="return validateForm('support')">
+            {% csrf_token %}
+            <div class="form-group">
+                <select class="form-control" name="cat">
+                    <option value="" disabled selected>   موضوع پیام را انتخاب کنید.  </option>
+                    {% for c in cat %}
+                        <option value="{{c}}">
+                            {{forloop.counter}} - 
+                            {{c}}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input class="form-control" name="title" placeholder="عنوان پیام" type="text" requierd>
+                <textarea class="form-control" name="message" placeholder="متن پیام" type="message" rows="10" requierd></textarea>
+            </div>
+            
+            <button class="btn submit-btn" type="submit"> ارسال  </button>
+        </form>
+
+    </div>
+{% endblock %}
