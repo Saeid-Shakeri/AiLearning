@@ -1,15 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-
-
 
 from .models import *
 
-
 # Create your views here.
+
 class ArticleListView(ListView):
     model = Article
     
@@ -38,7 +36,7 @@ class ArticleDetailView(View):
         }
         context["user"] = request.user.id
         context["rate"] = ArticleRates.objects.filter(user=request.user.id,article=article)
-        context["comments"] = ArticleComment.objects.filter(article=article).order_by('-id')
+        context["comments"] = ArticleComment.objects.filter(article=article,checked=True).order_by('-id')
 
         return render(request,'publication/article_detail.html',context)
     
@@ -50,7 +48,7 @@ class ArticleDetailView(View):
         article = Article.objects.get(slug=slug)
         ArticleComment.objects.create(name=name,email=email,content=comment,article=article)
         prof = article.author.all()
-        comments = ArticleComment.objects.filter(article=article).order_by('-id')
+        comments = ArticleComment.objects.filter(article=article,checked=True).order_by('-id')
 
         context={
             'article':article, 'prof': prof, 'comments':comments,
