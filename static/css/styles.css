@@ -188,7 +188,18 @@ li a:hover {
     padding: 2rem;
 }
 
-
+.no-course {
+    background-color: var(--clr-grey-10);
+    width: 50%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 1.3rem;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 15rem;
+    margin-right: 20rem;
+    padding: 2rem;
+}
 
 .course-name {
     padding: 0rem 1.5rem;
@@ -212,8 +223,10 @@ li a:hover {
     padding: 1rem 1rem;
     transition: var(--transition);
     border-radius: 1.3rem;
-
+    overflow-x: auto;
+    overflow-y: auto;
 }
+
 
 .course a:link {
     color: var(--clr-grey-1);
@@ -235,6 +248,12 @@ li a:hover {
     height: 50%;
     border-radius: 1.1rem;
 
+}
+
+.course-rates {
+    float: left;
+    position: relative;
+    bottom: 4px;
 }
 
 .student {
@@ -744,3 +763,70 @@ change password and edit profile
 /* a .dashboard-icons:hover{
 color: var(--clr-grey-1);
 } */
+
+.user-pic {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.user-pic img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    /* position: relative;
+    top: 15px; */
+    /* margin-bottom: 0.5rem; */
+
+}
+
+.user-name {
+    color: var(--clr-white);
+    text-align: center;
+    margin-bottom: 3.5rem;
+
+}
+
+.table {
+    margin-bottom: 12rem;
+    border: #194268;
+    border: 1px solid;
+    text-align: center;
+    overflow-x: auto;
+
+}
+
+th,
+td {
+    padding: 15px;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #0FA16C;
+    color: white;
+}
+
+.actions {
+    float: left;
+    position: relative;
+    bottom: 20px;
+}
+
+.actions a {
+    color: #04AA6D;
+
+}
+
+.rate-avg {
+    direction: ltr;
+    margin-right: 9rem;
+    width: 70%;
+    float: right;
+    position: relative;
+    top: 23px;
+}
