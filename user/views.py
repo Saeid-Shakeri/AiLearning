@@ -7,7 +7,14 @@ from .models import *
 from course.models import Attend,Course,Category
 
 logger = logging.getLogger('user')
+cat_choices = (
+    ("course", "دوره ها"),
+    ("article", "مقاله ها"),
+    ("prof", "اساتید"),
+    ("lesson", "دروس"),
+    ("another", "چیز دیگری"),
 
+)
 
 
 def signup(request):
@@ -97,7 +104,7 @@ def Logout(request):
 def dashboard(request):
     if request.method == 'GET':
         context ={}
-        context["user"] = User.objects.get(id=request.user.id)
+        context["user"] = request.user
         context ["attended"] = Attend.objects.filter(user=request.user)
         # course.id = Course.objects.filter()
         # context ['similar'] = Category.objects.filter(id=)
@@ -187,3 +194,43 @@ def change_password(request):
 @login_required(login_url='/user/login/')
 def resetpass(request):
     pass
+
+
+@login_required(login_url='/user/login/')
+def message(request):
+    context = {}
+    context["user"] = request.user.id
+    context["message"] = Message.objects.filter(user=request.user)
+    return render(request,'user/messages.html', context)
+
+
+
+
+@login_required(login_url='/user/login/')
+def support(request):
+    if request.method == "GET":
+        context = {}
+        l = []
+        cat = cat_choices
+        for c in cat:
+            ca = c[1]
+            l.append(ca)
+        logger.warning(l)
+        context['cat'] = l
+        return render(request,'user/support.html', context)
+
+    if request.method == "POST":
+        cat = request.POST.get('cat')
+        logger.warning(cat)
+        for c in cat_choices:
+            if c[1] == cat:
+                cat = c[0]
+                logger.warning(cat)
+                break
+
+        title = request.POST.get('title')
+        context = request.POST.get('message')
+        Message.objects.create(user=request.user,category=cat,context=context,title=title)
+
+        return redirect('dashboard')
+
