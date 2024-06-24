@@ -43,12 +43,15 @@ class ArticleRates(models.Model):
 
 
 class ArticleComment(models.Model):
+    name = models.CharField(max_length=50)
     content = models.CharField(max_length=250, null=True, help_text="Comment text")
     email = models.EmailField()
     reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     article = models.ForeignKey(to=Article,on_delete=models.PROTECT, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
+    date_added = models.DateField(auto_now_add=True)
     rates = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(to=User,related_name="article_likes",null=True,blank=True)
+    dislikes = models.ManyToManyField(to=User,related_name="article_dislikes",null=True,blank=True)
     score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
@@ -62,3 +65,9 @@ class ArticleComment(models.Model):
 
     def __str__(self):
         return f"Comment: {self.content}"
+    
+    def number_of_likes(self):
+        return self.likes.count()
+    
+    def number_of_dislikes(self):
+        return self.dislikes.count()
