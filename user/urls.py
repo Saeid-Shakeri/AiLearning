@@ -10,6 +10,8 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/profile/', edit_profile, name='edit_profile'),
     path('dashboard/password/', change_password, name='change_password'),
+    path('message/', message, name="message"),
+    path('support/', support, name="support"),
     # path('dashboard/courses/',courses, name='courses'),
 
 
