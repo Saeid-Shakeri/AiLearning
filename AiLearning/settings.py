@@ -3,6 +3,7 @@ JAZZMIN_SETTINGS = {
     "site_title": "Ai Learning",
 
     # Title on the brand, and login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Ai Learning",
     "site_header": "Ai Learning",
     "site_logo": 'logo.png',
     # Welcome text on the login screen
@@ -18,7 +19,8 @@ JAZZMIN_SETTINGS = {
     "user_avatar": None,
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["course.Course", "course.Lesson", "publication"],
+    "order_with_respect_to": ["course","course.Course", "course.CourseComment" ,
+                              "course.Lesson","course.LessonComment", "user"],
 
     # Links to put along the top menu
     "topmenu_links": [
@@ -61,8 +63,11 @@ JAZZMIN_SETTINGS = {
         "course.Lesson": "fa fa-book",
         "course.Category": "fa fa-clone",
         "user.User": "fas fa-address-card",
+        "user.Message":"fas fa-comments",
+        "user.ContactUS":"fas fa-comment-alt",
         "course.Professor": "fa fa-regular fa-user",
-        
+        "course.CourseComment":"fas fa-comment",
+        "course.LessonComment":"fas fa-comment",
 
     },
     # Icons that are used when one is not manually specified
