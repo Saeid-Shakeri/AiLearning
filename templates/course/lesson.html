@@ -127,8 +127,6 @@ AiLearning | {{lesson.name}}
               </form>
             </div>
 
-
-
             <h2 style="margin-right:3rem;">   نظرات کاربران   </h2>
             <br>
             {% for comment in comments %}
@@ -136,6 +134,14 @@ AiLearning | {{lesson.name}}
                 <h4 class="comment-name"> {{ comment.name }}</h4>
                 <small class="comment-date"> {{ comment.date_added }}</small>
                 {{ comment.content|linebreaks }}
+                <div class="actions">
+
+                  {{comment.number_of_likes}}<a href="{% url 'like_lessonomment' comment.id %}">
+                    <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+    
+                  {{comment.number_of_dislikes}}<a href="{% url 'dislike_lessoncomment' comment.id%}" style="color: #d40349;">
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+                </div>
                 {% for answer in comment.CourseCommentAnswer_set.all %}
                   <div class="comment">
                     <h4 class="comment-name"> {{ answer.name }}</h4>

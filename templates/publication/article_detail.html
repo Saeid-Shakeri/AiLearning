@@ -23,9 +23,10 @@
 
 <div class="wrapper">
   <br>
-  <div style="margin-right:9rem">
 
     {% if not rate %}
+    <div style="direction: ltr; margin-right:9rem;">
+
       <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
       <form class="rate-form" action="" method="POST" id="{{article.id}}" style="margin: 0.5rem;
       float: right;">
@@ -45,6 +46,7 @@
                   style="color:#ffb627;" id="first"></button>)
         </h3>
       </div>
+    </div>
     {% else %}
     <div style="direction: ltr;
       margin-right: 9rem;
@@ -59,7 +61,6 @@
       </h3>
     </div>
     {% endif %}
-  </div>
     <div id="confirm-box"></div>
     <input id="type" name="type" value="article" hidden>
     <input id="score" name="score" value="{{article.score}}" hidden>
@@ -163,6 +164,14 @@
           <h4 class="comment-name"> {{ comment.name }}</h4>
           <small class="comment-date"> {{ comment.date_added }}</small>
           {{ comment.content|linebreaks }}
+          <div class="actions">
+
+            {{comment.number_of_likes}}<a href="{% url 'like_articlecomment' comment.id %}">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+
+            {{comment.number_of_dislikes}}<a href="{% url 'dislike_articlecomment' comment.id%}" style="color: #d40349;">
+              <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+    </div>
           {% for answer in comment.CourseCommentAnswer_set.all %}
             <div class="comment">
               <h4 class="comment-name"> {{ answer.name }}</h4>

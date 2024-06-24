@@ -137,6 +137,7 @@
       <p><a href="{% url 'get_lesson' lesson.slug %}">{{forloop.counter}} - {{ lesson }} </a></p>
     {% endfor %}
     {% if attend %}
+      {% if attend.progress != 100 %}
       <form action="continue_course/" method="post">
         {% csrf_token %}
         <p>
@@ -145,6 +146,13 @@
         <input name="course_id" value="{{course.id}}" hidden>
         <input name="attend_id" value="{{attend.id}}" hidden>
       </form>
+      {% else %}
+      <p>
+        <input class="btn btn-continue" type="submit" value="کامل شده">
+      </p>
+
+
+      {% endif %}
     {% else %}
       <form action="addcourse/" method="post">
         {% csrf_token %}
@@ -180,13 +188,27 @@
     margin-right: 2rem;">
       <h4 class="comment-name"> {{ comment.name }}</h4>
       <small class="comment-date"> {{ comment.date_added }}</small>
+
+
+      
+
+
       {{ comment.content|linebreaks }}
-      {% for answer in comment.CourseCommentAnswer_set.all %}
-        <div class="comment">
-          <h4 class="comment-name"> {{ answer.name }}</h4>
-          <small class="comment-date"> {{ answer.date_added }}</small>
-          {{ answer.content|linebreaks }}
-        </div>
+      <div class="actions">
+
+              {{comment.number_of_likes}}<a href="{% url 'like_coursecomment' comment.id %}">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+
+              {{comment.number_of_dislikes}}<a href="{% url 'dislike_coursecomment' comment.id%}" style="color: #d40349;">
+                <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+      </div>
+
+          {% for answer in comment.CourseCommentAnswer_set.all %}
+            <div class="comment">
+              <h4 class="comment-name"> {{ answer.name }}</h4>
+              <small class="comment-date"> {{ answer.date_added }}</small>
+              {{ answer.content|linebreaks }}
+            </div>
       {% endfor %}
     </div>
 
