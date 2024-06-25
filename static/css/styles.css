@@ -413,7 +413,9 @@ Contact Us
 }
 
 .contact {
-    background: var(--clr-grey-10);
+    background: var(--clr-primary-light);
+    padding: 20px;
+    margin: 20px;
 
 }
 
@@ -436,8 +438,9 @@ Contact Us
 
 .contect-item {
     margin-bottom: 1.7rem;
-    padding: 5px 5px;
+    padding: 5px;
 }
+
 
 .contact-title {
     color: var(--clr-primary);
@@ -820,6 +823,18 @@ th {
 .actions a {
     color: #04AA6D;
 
+}
+
+.edit-profile-form {
+    background: var(--clr-white);
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+    max-width: 35rem;
+    margin-right: 29%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .rate-avg {
