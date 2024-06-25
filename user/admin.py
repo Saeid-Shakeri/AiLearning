@@ -1,7 +1,19 @@
 from django.contrib import admin
-from .models import User
+from .models import User, ContactUs, Message
 # Register your models here.
 
 @admin.register(User)
-class Userdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
+    exclude =('password','groups',)
     search_fields = ['username']
+
+
+@admin.register(Message)
+class Message(admin.ModelAdmin):
+    search_fields = ['title']
+
+
+
+@admin.register(ContactUs)
+class Contact(admin.ModelAdmin):
+    search_fields = ['name']

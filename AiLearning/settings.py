@@ -20,7 +20,8 @@ JAZZMIN_SETTINGS = {
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["course","course.Course", "course.CourseComment" ,
-                              "course.Lesson","course.LessonComment", "user"],
+                              "course.Lesson","course.LessonComment", "user",
+                              "publication.Article",],
 
     # Links to put along the top menu
     "topmenu_links": [
@@ -59,6 +60,7 @@ JAZZMIN_SETTINGS = {
     # for the full list of 5.13.0 free icon classes
     "icons": {
         "publication.Article": "fa fa-university",
+        "publication.ArticleComment":"fas fa-comment",
         "course.Course": "fa fa-th-list",
         "course.Lesson": "fa fa-book",
         "course.Category": "fa fa-clone",
