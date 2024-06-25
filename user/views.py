@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 
 from .models import *
-from course.models import Attend,Course,Category
+from course.models import Attend
 
 logger = logging.getLogger('user')
 cat_choices = (
@@ -13,7 +13,6 @@ cat_choices = (
     ("prof", "اساتید"),
     ("lesson", "دروس"),
     ("another", "چیز دیگری"),
-
 )
 
 
@@ -106,13 +105,7 @@ def dashboard(request):
         context ={}
         context["user"] = request.user
         context ["attended"] = Attend.objects.filter(user=request.user)
-        # course.id = Course.objects.filter()
-        # context ['similar'] = Category.objects.filter(id=)
-        # if context ["attended"]:
-        # print(context["attended"])
-        # context["attend"] = Attend.objects.filter(user=request.user.id)
-
-        return render(request, "user/dashboard1.html", context)
+        return render(request, "user/dashboard.html", context)
 
 
 
@@ -157,7 +150,6 @@ def edit_profile(request):
 
 
 
-
 @login_required(login_url='/user/login/')
 def change_password(request): 
 
@@ -199,10 +191,8 @@ def resetpass(request):
 @login_required(login_url='/user/login/')
 def message(request):
     context = {}
-    context["user"] = request.user.id
     context["message"] = Message.objects.filter(user=request.user)
     return render(request,'user/messages.html', context)
-
 
 
 
