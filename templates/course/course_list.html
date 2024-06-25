@@ -2,25 +2,26 @@
 
 {% block title %} AiLearning | Courses {% endblock %}
 
-  <!-- navbar -->
-  {% block navbar %}
-    <ul>
-      <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
-      <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
-      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
-      <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
-      {% if user is None %}
-        <li><a  href="{% url 'login' %}"> ورود </a></li>
-        <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
-      {% endif %}
-    </ul>
-    {% endblock %}
-      <!-- end of navbar -->
-{% block content %}
-<br>
+<!-- navbar -->
+{% block navbar %}
+  <ul>
+    <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+    <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+    <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+    <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
+    {% if user is None %}
+      <li><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+<!-- end of navbar -->
 
-<h3 class="section-title">   پر مخاطب ترین ها:  </h3>
-{% for c in best_courses %}
+{% block content %}
+  <br>
+  <div style="overflow-x:auto;">
+    <h3 class="section-title">   پر مخاطب ترین ها:  </h3>
+    {% for c in best_courses %}
       <div class="course">
         <a href="{% url 'course_details' c.slug %}">
           {% if c.image %}
@@ -43,76 +44,60 @@
           <div class="student">
             دانشجو
           </div>
-          <div style="float:left;position: relative; bottom: 4px;">
-
-          <div style="direction:ltr; display:inline;">
-            <i class="fa fa-star star"></i>
-          </div> 
-          {{c.score}} 
-          <div class="rates-number">({{c.rates}})</div>
-        </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})</div>
+          </div>
         </a>
       </div>
     {% endfor %}
-  
-
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-
-
-<h3 class="section-title">  محبوب ترین ها:  </h3>
-{% for c in popular_courses %}
-<div class="course">
-  <a href="{% url 'course_details' c.slug %}">
-    {% if c.image %}
-      <img src="{{ c.image.url }} ">
-    {% endif %} 
-    <h3 class="course-name"> {{c.name}} </h3>
-    <div style="display:inline;"> مدرس :  
-    </div>
-    <div class="course-prof"> {{c.professor.all.0.name}} 
-    </div>
-    {% for prof in c.professor.all %} 
-      {% if prof.name == c.professor.all.0.name %}
-      {% else %} 
-        <div class="course-prof"> - {{prof.name}} </div>
-      {% endif %}
-    {% endfor %}
-    <br><br>
-    <i class="fa-solid fa fa-graduation-cap"> </i>
-    {{c.attends}}
-    <div class="student">
-      دانشجو
-    </div>
-    <div style="float:left;position: relative; bottom: 4px;">
-
-    <div style="direction:ltr; display:inline;">
-      <i class="fa fa-star star"></i>
-    </div> 
-    {{c.score}} 
-    <div class="rates-number">({{c.rates}})</div>
+    
   </div>
-  </a>
-</div>
-{% endfor %}
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
 
+  <br><br>
 
+  <div style="overflow-x:auto;">
+
+    <h3 class="section-title">  محبوب ترین ها:  </h3>
+    {% for c in popular_courses %}
+      <div class="course">
+        <a href="{% url 'course_details' c.slug %}">
+          {% if c.image %}
+            <img src="{{ c.image.url }} ">
+          {% endif %} 
+          <h3 class="course-name"> {{c.name}} </h3>
+          <div style="display:inline;"> مدرس :  
+          </div>
+          <div class="course-prof"> {{c.professor.all.0.name}} 
+          </div>
+          {% for prof in c.professor.all %} 
+            {% if prof.name == c.professor.all.0.name %}
+            {% else %} 
+              <div class="course-prof"> - {{prof.name}} </div>
+            {% endif %}
+          {% endfor %}
+          <br><br>
+          <i class="fa-solid fa fa-graduation-cap"> </i>
+          {{c.attends}}
+          <div class="student">
+            دانشجو
+          </div>
+          <div class="course-rates">
+            <div style="direction:ltr; display:inline;">
+              <i class="fa fa-star star"></i>
+            </div> 
+            {{c.score}} 
+            <div class="rates-number">({{c.rates}})</div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>    
+  <br><br>
+  <div style="overflow-x:auto;">
     <h3 class="section-title">جدیدترین ها:
     </h3>
     {% for c in new_courses %}
@@ -138,47 +123,36 @@
           <div class="student">
             دانشجو
           </div>
-          <div style="float:left;position: relative; bottom: 4px;">
-
+          <div class="course-rates">
             <div style="direction:ltr; display:inline;">
               <i class="fa fa-star star"></i>
             </div> 
             {{c.score}} 
             <div class="rates-number">({{c.rates}})</div>
           </div>
-        
         </a>
       </div>
     {% endfor %}
-  
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-
-
-    <h3 class="section-title">   همه دوره ها:  </h3>
-    {% for c in course_list %}
-          <div class="course">
-            <a href="{% url 'course_details' c.slug %}">
-              {% if c.image %}
-                <img src="{{ c.image.url }} ">
-              {% endif %} 
-              <h3 class="course-name"> {{c.name}} </h3>
-              <div style="display:inline;"> مدرس :  
-              </div>
-              <div class="course-prof"> {{c.professor.all.0.name}} 
-              </div>
-              {% for prof in c.professor.all %} 
-                {% if prof.name == c.professor.all.0.name %}
-                {% else %} 
-                  <div class="course-prof"> - {{prof.name}} </div>
-                {% endif %}
+  </div>
+  <br><br>
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">   همه دوره ها:  </h3>
+      {% for c in course_list %}
+        <div class="course">
+          <a href="{% url 'course_details' c.slug %}">
+            {% if c.image %}
+              <img src="{{ c.image.url }} ">
+            {% endif %} 
+            <h3 class="course-name"> {{c.name}} </h3>
+            <div style="display:inline;"> مدرس :  
+            </div>
+            <div class="course-prof"> {{c.professor.all.0.name}} 
+            </div>
+            {% for prof in c.professor.all %} 
+              {% if prof.name == c.professor.all.0.name %}
+              {% else %} 
+                 <div class="course-prof"> - {{prof.name}} </div>
+              {% endif %}
               {% endfor %}
               <br><br>
               <i class="fa-solid fa fa-graduation-cap"> </i>
@@ -186,32 +160,17 @@
               <div class="student">
                 دانشجو
               </div>
-              <div style="float:left;position: relative; bottom: 4px;">
-
+              <div class="course-rates">
                 <div style="direction:ltr; display:inline;">
                   <i class="fa fa-star star"></i>
-                </div> 
-                {{c.score}} 
-                <div class="rates-number">({{c.rates}})</div>
-              </div>
-            
-            </a>
-          </div>
-        {% endfor %}
-      
-    
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-
-<br><br>
-
-
-
+              </div> 
+              {{c.score}} 
+              <div class="rates-number">({{c.rates}})</div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  <br><br>
+  <br><br>
 {% endblock %}

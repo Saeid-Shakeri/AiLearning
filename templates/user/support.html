@@ -23,9 +23,9 @@
 
 {% block content %}
     
-    <div class="contact-form" style="margin-right:29%; margin-top:4rem; margin-bottom:4rem;">
+    <div class="edit-profile-form">
         {% if message %}
-            <p style=" padding-top: 1rem;">{{message}}</p>
+            <p style="padding-top: 1rem;">{{message}}</p>
         {% endif %}
 
         <form action="" method="post" name="support" onsubmit="return validateForm('support')">
@@ -40,12 +40,12 @@
                         </option>
                     {% endfor %}
                 </select>
-                <input class="form-control" name="title" placeholder="عنوان پیام" type="text" requierd>
-                <textarea class="form-control" name="message" placeholder="متن پیام" type="message" rows="10" requierd></textarea>
+                <input class="form-control" name="title" placeholder="عنوان پیام" 
+                        type="text" requierd>
+                <textarea class="form-control" name="message" placeholder="متن پیام"
+                            type="message" rows="10" requierd></textarea>
             </div>
-            
             <button class="btn submit-btn" type="submit"> ارسال  </button>
         </form>
-
     </div>
 {% endblock %}

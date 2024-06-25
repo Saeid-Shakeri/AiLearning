@@ -20,9 +20,13 @@
     {% endblock %}
   </head>
   <body>
-    <button onclick="topFunction()" id="myBtn" 
-            style="font-size:2.5rem; width:4rem; height:4rem; padding: none; border-radius:3rem;">
-            &#8593;</button>
+    <button onclick="topFunction()" id="myBtn" style="font-size: 3rem;
+              width: 4rem;
+              height: 4rem;
+              padding: none;
+              border-radius: 100%;"">
+            &#8593;
+    </button>
     <!-- navbar -->
     {% block navbar %}
       <ul>
@@ -31,8 +35,8 @@
         <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
         <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
         {% if user is None %}
-        <li><a  href="{% url 'login' %}"> ورود </a></li>
-        <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+          <li><a  href="{% url 'login' %}"> ورود </a></li>
+          <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
         {% endif %}
       </ul>
     {% endblock %}
@@ -85,6 +89,5 @@
       </footer>
       <!-- end of footer -->
     {% endblock %}
-
   </body>
 </html>

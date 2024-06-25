@@ -1,226 +1,209 @@
 {% extends "base/base.html" %}
 
+{% block tag %}
+{% load jalali_tags %}
+{% endblock %}
 {% block title %}
   AiLearning | {{course.name}}
 {% endblock %}
 
-  <!-- navbar -->
-  {% block navbar %}
-    <ul id="navbar">
-      <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
-      <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
-      <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
-      <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
-      {% if user is None %}
-        <li id="login"><a  href="{% url 'login' %}"> ورود </a></li>
-        <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
-      {% endif %}
-    </ul>
-  {% endblock %}
-  <!-- end of navbar -->
+<!-- navbar -->
+{% block navbar %}
+  <ul id="navbar">
+    <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+    <li style="float:right"><a class="active" href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+    <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+    <li style="float:right"><a href="{% url 'dashboard' %}"> داشبورد </a></li>
+    {% if user is None %}
+      <li id="login"><a  href="{% url 'login' %}"> ورود </a></li>
+      <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
+    {% endif %}
+  </ul>
+{% endblock %}
+<!-- end of navbar -->
 
 {% block content %}
-<div class="wrapper">
-  <br>
-    {% if not rate %}
-    <div style="direction: ltr; margin-right:9rem;">
-
-      <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
-      <form class="rate-form" action="" method="POST" id="{{course.id}}" style="margin: 0.5rem;
-      float: right;">
-        {% csrf_token %}
-        <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
-        <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
-        <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
-        <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
-        <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
-      </form>
-      <div style="float: right;
-        top: 13px;
-        position: relative;">
-        <h3 style="font-weight:100;">
-          ({{course.score}}
-          <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                  style="color:#ffb627;" id="first"></button>)
-        </h3>
-      </div>
-    </div>
-    {% else %}
-    <div style="direction: ltr;
-        margin-right: 9rem;
-        width: 70%;
-        float: right;
-        position: relative;
-        top: 30px;">
-      <h3 style="font-weight:100;">
-        ({{course.score}}
-        <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                style="color:#ffb627;" id="first"></button>)
-      </h3>
-    </div>
-    {% endif %}
+  <div class="wrapper">
+      <br>
+      {% if not rate %}
+        <div style="direction: ltr; margin-right:9rem;">
+          <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
+          <form class="rate-form" action="" method="POST" id="{{course.id}}" style="margin: 0.5rem;
+                  float: right;">
+            {% csrf_token %}
+            <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
+            <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
+            <button type="submit" class="fa fa-star fa-2x star-btn" id="third"></button>
+            <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
+            <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
+          </form>
+          <div style="float: right;
+                top: 13px;
+                position: relative;">
+            <h3 style="font-weight:100;">
+              ({{course.score}}
+              <button type="submit" class="fa fa-star fa-1x star-btn checked" 
+                      style="color:#ffb627;" id="first"></button>)
+            </h3>
+          </div>
+        </div>
+      {% else %}
+        <div class="rate-avg">
+          <h3 style="font-weight:100;">
+            ({{course.score}}
+            <button type="submit" class="fa fa-star fa-1x star-btn checked" 
+                    style="color:#ffb627;" id="first"></button>)
+          </h3>
+        </div>
+      {% endif %}
 
 
     <div id="confirm-box"></div>
     <input id="type" name="type" value="course" hidden>
     <input id="score" name="score" value="{{course.score}}" hidden>
-  <br><br>
+    <br><br>
 
 
-
-
-  {% if course.image %}
-    <div class="course-pic" style="">
-      <img src="{{ course.image.url }}" alt="course-img"></img>
+    {% if course.image %}
+      <div class="course-pic" style="">
+        <img src="{{ course.image.url }}" alt="course-img"></img>
+      </div>
+    {% endif %}
+    <div class="course-body">
+      <h2 style="margin-right: 1rem;">
+        {{ course.name }}
+      </h2>
+      {{ course.body|linebreaks }}
     </div>
-  {% endif %}
-  <div class="course-body">
-    <h2 style="margin-right: 1rem;">
-      {{ course.name }}
-    </h2>
-    {{ course.body|linebreaks }}
-  </div>
 
 
 
-  <div class="course-prof-body">
+    <div class="course-prof-body">
   
-      
-<div style="margin-right: 1rem;
-          margin-top: 1rem;">
-{% if prof.all.count > 1 %}
-مدرسان:
-{% else %}
-مدرس:
-{% endif %}
-</div>
-      {% for prof in prof %} 
-      <div class="prof-pic"> 
-        {% if prof.image %}
-          <img src="{{ prof.image.url }}" alt="professor image"></img>
+            
+      <div style="margin-right: 1rem;
+                  margin-top: 1rem;">
+        {% if prof.all.count > 1 %}
+          مدرسان:
         {% else %}
-          <img src="/static/icons/man.png" alt="professor image"></img>
+          مدرس:
         {% endif %}
-        {{ prof.name }} ( <a href="#">  ارتباط با مدرس   </a> )
+      </div>
+      {% for prof in prof %} 
+        <div class="prof-pic"> 
+          {% if prof.image %}
+            <img src="{{ prof.image.url }}" alt="professor image"></img>
+          {% else %}
+            <img src="/static/images/man.png" alt="professor image"></img>
+          {% endif %}
+          {{ prof.name }} ( <a href="#">  ارتباط با مدرس   </a> )
+        </div>
+        {% if prof.bio or prof.degree %}
+          <br>
+        {% endif %}
+        {% if prof.degree %}
+          {{prof.degree|linebreaks}}
+        {% endif %}
+        {% if prof.bio %}
+          {{prof.bio|linebreaks}}
+        {% endif %}
+      {% endfor %} 
     </div>
-    {% if prof.bio or prof.degree %}
-    <br>
-    {% endif %}
-      {% if prof.degree %}
-        {{prof.degree|linebreaks}}
+
+    <div class="topics">
+      <i class="fa fa-tasks topics-head-icon" aria-hidden="true"></i>
+      <h3 class="topics-head"> 
+        سرفصل ها 
+      </h3> 
+      {% if attend %}
+        <div class="course-progress">
+          <h3 style="display:inline;">
+            {{ attend.progress }}% 
+            <h6 style="display:inline;">
+              کامل شده
+            </h6>
+          </h3>
+        </div>
       {% endif %}
-      {% if prof.bio %}
-        {{prof.bio|linebreaks}}
-      {% endif %}
-    {% endfor %} 
-  </div>
+      <hr>
+      {% for lesson in lessons %}
+        <p><a href="{% url 'get_lesson' lesson.slug %}">{{forloop.counter}} - {{ lesson.name }} 
 
-
-
-  <div class="topics">
-    <i class="fa fa-tasks topics-head-icon" aria-hidden="true"></i>
-    <h3 class="topics-head"> 
-      سرفصل ها 
-    </h3> 
-    {% if attend %}
-      <div class="course-progress">
-        <h3 style="display:inline;">
-          {{ attend.progress }}% 
-          <h6 style="display:inline;">
-            کامل شده
-          </h6>
-        </h3>
-      </div>
-    {% endif %}
-    <hr>
-    {% for lesson in lessons %}
-      <p><a href="{% url 'get_lesson' lesson.slug %}">{{forloop.counter}} - {{ lesson }} </a></p>
-    {% endfor %}
-    {% if attend %}
-      {% if attend.progress != 100 %}
-      <form action="continue_course/" method="post">
-        {% csrf_token %}
-        <p>
-          <input class="btn btn-continue" type="submit" value=" ادامه یادگیری ">
-        </p>
-        <input name="course_id" value="{{course.id}}" hidden>
-        <input name="attend_id" value="{{attend.id}}" hidden>
-      </form>
-      {% else %}
-      <p>
-        <input class="btn btn-continue" type="submit" value="کامل شده">
-      </p>
-
-
-      {% endif %}
-    {% else %}
-      <form action="addcourse/" method="post">
-        {% csrf_token %}
-        <p><input class="btn btn-continue" type="submit" value=" افزودن به پروفایل "></p>
-        <input name="course_id" value="{{course.id}}" hidden>
-      </form>
-    {% endif %}
-
-  </div>
-
-  <br><br>
-  <br><br>
-
-  <br>
-<div style="">
-  <h2 style="margin-right: 3rem;"> دیدگاهتان را به اشتراک بگذارید. </h2>
-  <div class="contact-form" style="margin-right:5rem; margin-bottom:4rem; margin-top: 4rem;">
-    <form action="{% url 'course_details' course.slug %}" method="post">
-      {% csrf_token %}
-      <div class="form-group">
-        <input class="form-control" name="name" placeholder="نام" type="text" requierd>
-        <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
-        <textarea class="form-control" name="comment" placeholder="متن نظر " type="message" rows="10" requierd></textarea>
-      </div>
-      <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
-    </form>
-  </div>
-</div>
-  <h2 style="margin-right:3rem;">   نظرات کاربران   </h2>
-  <br>
-  {% for comment in comments %}
-    <div class="comment" style="width: 100%;
-    margin-right: 2rem;">
-      <h4 class="comment-name"> {{ comment.name }}</h4>
-      <small class="comment-date"> {{ comment.date_added }}</small>
-
-
-      
-
-
-      {{ comment.content|linebreaks }}
-      <div class="actions">
-
-              {{comment.number_of_likes}}<a href="{% url 'like_coursecomment' comment.id %}">
-                <i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
-
-              {{comment.number_of_dislikes}}<a href="{% url 'dislike_coursecomment' comment.id%}" style="color: #d40349;">
-                <i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
-      </div>
-
-          {% for answer in comment.CourseCommentAnswer_set.all %}
-            <div class="comment">
-              <h4 class="comment-name"> {{ answer.name }}</h4>
-              <small class="comment-date"> {{ answer.date_added }}</small>
-              {{ answer.content|linebreaks }}
-            </div>
+        </a></p>
       {% endfor %}
+      {% if attend %}
+        {% if attend.progress != 100 %}
+        <form action="continue_course/" method="post">
+          {% csrf_token %}
+          <p>
+            <input class="btn btn-continue" type="submit" value=" ادامه یادگیری ">
+          </p>
+          <input name="course_id" value="{{course.id}}" hidden>
+          <input name="attend_id" value="{{attend.id}}" hidden>
+        </form>
+        {% else %}
+        <p>
+          <input class="btn btn-continue" type="submit" value="کامل شده">
+        </p>
+
+        {% endif %}
+      {% else %}
+        <form action="addcourse/" method="post">
+          {% csrf_token %}
+          <p><input class="btn btn-continue" type="submit" value=" افزودن به پروفایل "></p>
+          <input name="course_id" value="{{course.id}}" hidden>
+        </form>
+      {% endif %}
+
     </div>
 
-  {% empty %}
-    <div class="comment" style="width: 100%;
-    margin-right: 2rem;">
-      <h5>
-        تا کنون نظری برای این دوره ثبت نشده است. 
-        برای ثبت نظر باید ابتدا در دوره ثبت نام کرده و دانشجوی دوره باشید. 
-      </h5>
+    <br><br>
+    <br><br>
+    <div>
+      <h2 style="margin-right: 3rem;"> دیدگاهتان را به اشتراک بگذارید. </h2>
+      <div class="contact-form" style="margin-right:5rem; margin-bottom:4rem; margin-top: 4rem;">
+        <form action="{% url 'course_details' course.slug %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <input class="form-control" name="name" placeholder="نام" type="text" requierd>
+            <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
+            <textarea class="form-control" name="comment" placeholder="متن نظر " type="message" rows="10" requierd></textarea>
+          </div>
+          <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
+        </form>
+      </div>
     </div>
-  {% endfor %}
+    <h2 style="margin-right:3rem;">   نظرات کاربران   </h2>
+    <br>
+    {% for comment in comments %}
+      {% if comment.checked %}
+        <div class="comment" style="width: 100%;
+          margin-right: 2rem;">
+          <h4 class="comment-name"> {{ comment.name }}</h4>
+          <small class="comment-date"> {{ comment.date_added|to_jalali:'%y/%m/%d' }}</small>
+          {{ comment.content|linebreaks }}
+          <div class="actions">
+            {{comment.number_of_likes}}
+            <a href="{% url 'like_coursecomment' comment.id %}">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </a>
+            {{comment.number_of_dislikes}}
+            <a href="{% url 'dislike_coursecomment' comment.id%}" style="color: #d40349;">
+                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+    {% empty %}
+      <div class="comment" style="width: 100%;
+        margin-right: 2rem;">
+          <h5>
+            تا کنون نظری برای این دوره ثبت نشده است. 
+            برای ثبت نظر باید ابتدا در دوره ثبت نام کرده و دانشجوی دوره باشید. 
+          </h5>
+      </div>
+    {% endfor %}
   </div>
   <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
 {% endblock %}
