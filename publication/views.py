@@ -67,6 +67,8 @@ def like_articlecomment(request,id):
         comment.likes.add(request.user)
         if comment.dislikes.filter(id=request.user.id).exists():
             comment.dislikes.remove(request.user)
+    else:
+        comment.likes.remove(request.user)
     slug = comment.article.slug
     return HttpResponseRedirect(reverse('article_details', args=[slug]))
 
@@ -78,5 +80,7 @@ def dislike_articlecomment(request, id):
         comment.dislikes.add(request.user)
         if comment.likes.filter(id=request.user.id).exists():
             comment.likes.remove(request.user)
+    else:
+        comment.dislikes.remove(request.user)
     slug = comment.article.slug
     return HttpResponseRedirect(reverse('article_details', args=[slug]))
