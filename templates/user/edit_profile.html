@@ -1,30 +1,25 @@
 {% extends "base/base.html" %}
 
 {% block title %}
-AiLearning | ویرایش پروفایل
+    AiLearning | ویرایش پروفایل
 {% endblock %}
-
-    <!-- navbar -->
-    {% block navbar %}
-        <ul>
-            <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
-            <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
-            <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
-            <li style="float:right"><a class="active" href="{% url 'dashboard' %}"> داشبورد </a></li>
-            {% if user is None %}
-            <li><a  href="{% url 'login' %}"> ورود </a></li>
-            <li><a  href="{% url 'signup' %}"> ثبت نام </a></li>
-            {% endif %}
-        </ul>
-    {% endblock %}
-      <!-- end of navbar -->
+<!-- navbar -->
+{% block navbar %}
+    <ul>
+        <li style="float:right"><a href="{% url 'index' %}"> صفحه اصلی </a></li>
+        <li style="float:right"><a href="{% url 'courses' %}"> دوره های آموزشی</a></li>
+        <li style="float:right"><a href="{% url 'article_list' %}">  مقاله ها  </a></li>
+        <li style="float:right"><a class="active" href="{% url 'dashboard' %}"> داشبورد </a></li>
+    </ul>
+{% endblock %}
+<!-- end of navbar -->
 
 {% block content %}
 
-    <div class="contact-form" style="margin-right:29%; margin-top:4rem; margin-bottom:4rem;">
+    <div class="edit-profile-form">
 
         {% if message %}
-            <p style=" padding-top: 1rem;">{{message}}</p>
+            <p style="padding-top: 1rem;">{{message}}</p>
         {% endif %}
 
         <form action="" method="post">
@@ -33,40 +28,45 @@ AiLearning | ویرایش پروفایل
 
                 <label for="username"> نام کاربری </label>
                 <input id="username" type="text" name="username" 
-                            placeholder="{% if user.username %} {{user.username}} {% else %}  نام کاربری خود را وارد کنید {% endif %}" 
-                            value="{{user.username}}"
-                            class="form-control change-pass">
+                        placeholder="{% if user.username %} {{user.username}} 
+                        {% else %}  نام کاربری خود را وارد کنید {% endif %}" 
+                        value="{{user.username}}"
+                        class="form-control change-pass">
                 <label for="first">نام </label>
                 <input id="first" type="text" name="first_name" 
-                            placeholder="{% if user.first_name %} {{user.first_name}} {% else %}  نام خود را وارد کنید {% endif %}" 
-                            value="{{user.first_name}}"
-                            class="form-control change-pass">
+                        placeholder="{% if user.first_name %} {{user.first_name}}
+                        {% else %}  نام خود را وارد کنید {% endif %}" 
+                        value="{{user.first_name}}"
+                        class="form-control change-pass">
                 <label for="last"> نام خانوادگی </label>
                 <input id="last" type="text" name="last_name" 
-                            placeholder="{% if user.last_name %} {{user.last_name}} {% else %}  نام خانوادگی خود را وارد کنید {% endif %}" 
-                            value="{{user.last_name}}"
-                            class="form-control change-pass">
+                        placeholder="{% if user.last_name %} {{user.last_name}}
+                        {% else %}  نام خانوادگی خود را وارد کنید {% endif %}" 
+                        value="{{user.last_name}}"
+                        class="form-control change-pass">
                 <label for="email"> ایمیل </label>
                 <input id="email" type="email" name="email" 
-                            placeholder="{% if user.email %} {{user.email}} {% else %}  ایمیل خود را وارد کنید {% endif %}" 
-                            value="{{user.email}}" 
-                            class="form-control change-pass"
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                            oninvalid="setCustomValidity('فرمت وارد شده نادرست است.')"
-                            onchange="try{setCustomValidity('')}catch(e){}">
+                        placeholder="{% if user.email %} {{user.email}} 
+                        {% else %}  ایمیل خود را وارد کنید {% endif %}" 
+                        value="{{user.email}}" 
+                        class="form-control change-pass"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        oninvalid="setCustomValidity('فرمت وارد شده نادرست است.')"
+                        onchange="try{setCustomValidity('')}catch(e){}">
                 <label for="phone"> شماره تلفن </label>
                 <input id="phone" type="text" name="phone" 
-                            placeholder="{% if user.phone %} {{user.phone}} {% else %} شماره همراه خود را وارد کنید {% endif %}" 
-                            value="{{user.phone}}"
-                            class="form-control change-pass"
-                            pattern="[0]{1}[9]{1}[0-9]{9}"
-                            oninvalid="setCustomValidity('شماره تلفن همراه باید با 09 شروع شود و یازده رقم باشد.')"
-                            onchange="try{setCustomValidity('')}catch(e){}">
+                        placeholder="{% if user.phone %} {{user.phone}} 
+                        {% else %} شماره همراه خود را وارد کنید {% endif %}" 
+                        value="{{user.phone}}"
+                        class="form-control change-pass"
+                        pattern="[0]{1}[9]{1}[0-9]{9}"
+                        oninvalid="setCustomValidity('شماره تلفن همراه باید با 09 شروع شود و یازده رقم باشد.')"
+                        onchange="try{setCustomValidity('')}catch(e){}">
                 <br>
-                <input style="margin-bottom:1.5rem;" class="btn" type="submit" value= "اعمال تغییرات">
+                <input style="margin-bottom:1.5rem;" class="btn" type="submit" 
+                value= "اعمال تغییرات">
             </div>
         </form>
 
     </div>
-
 {% endblock %}
