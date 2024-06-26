@@ -253,7 +253,7 @@ li a:hover {
 .course-rates {
     float: left;
     position: relative;
-    bottom: 4px;
+    /* bottom: 4px; */
 }
 
 .student {
@@ -261,9 +261,16 @@ li a:hover {
     display: inline;
 }
 
+.course-star {
+    direction: ltr;
+    display: inline;
+}
+
 .star {
     color: var(--clr-primary-light);
     padding: 0.5rem;
+    direction: ltr;
+    display: inline;
 }
 
 .rates-number {
@@ -511,13 +518,6 @@ Contact Us
     border: 0;
 }
 
-/* ****************** */
-
-
-
-
-
-
 
 /* 
 ==============
@@ -525,7 +525,6 @@ Contact Us
 Course Detail page
 
 ============== */
-
 
 
 .center {
@@ -555,15 +554,23 @@ Comment section
 =========== 
 */
 
+.contact-comment {
+    margin-right: 5rem;
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+}
+
 .comment {
     background-color: var(--clr-grey-10);
-    margin-right: 4rem;
+    /* margin-right: 4rem; */
     margin-bottom: 1rem;
-    width: 50%;
+    /* width: 50%; */
     height: auto;
     border: 1px solid #ccc;
     padding: 1rem 1rem;
     border-radius: 1.3rem;
+    width: 100%;
+    margin-right: 2rem;
 
 }
 
@@ -577,7 +584,23 @@ Comment section
 }
 
 
+.actions {
+    float: left;
+    position: relative;
+    bottom: 20px;
+}
 
+.actions a {
+    color: #04AA6D;
+
+}
+
+.red {
+    color: #d40349;
+}
+
+
+/* ********************* */
 
 .topics {
     background-color: var(--clr-grey-10);
@@ -634,12 +657,8 @@ Comment section
 .btn-continue {
     margin-right: 25%;
     margin-bottom: 2rem;
-    /* margin-right: 10rem;
-    margin-bottom: 1rem; */
-    /* transform: translate(-38%, -5%); */
     width: 50%;
     border: none;
-
     font-family: var(--ff-primary);
 }
 
@@ -649,7 +668,7 @@ Comment section
     margin-right: 9rem;
     margin-top: 1.5rem;
     width: 70%;
-    height: 23rem;
+    height: 25rem;
     border: 1px solid #ccc;
     padding: 0.5rem;
     border-radius: 1.3rem;
@@ -814,17 +833,6 @@ th {
     color: white;
 }
 
-.actions {
-    float: left;
-    position: relative;
-    bottom: 20px;
-}
-
-.actions a {
-    color: #04AA6D;
-
-}
-
 .edit-profile-form {
     background: var(--clr-white);
     border-radius: 1.5rem;
@@ -844,4 +852,35 @@ th {
     float: right;
     position: relative;
     top: 23px;
+}
+
+.rate {
+    direction: ltr;
+    margin-right: 9rem;
+}
+
+.rate-form {
+    margin: 0.5rem;
+    float: right;
+}
+
+.rated-lesson {
+    direction: ltr;
+    margin-right: 0rem;
+    width: 70%;
+    float: right;
+    position: relative;
+    top: 30px;
+
+}
+
+.rated {
+    float: right;
+    top: 13px;
+    position: relative;
+}
+
+.teacher {
+    margin-right: 1rem;
+    margin-top: 1rem;
 }

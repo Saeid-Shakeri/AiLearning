@@ -26,10 +26,9 @@
   <div class="wrapper">
       <br>
       {% if not rate %}
-        <div style="direction: ltr; margin-right:9rem;">
+        <div class="rate">
           <h4>به این آموزش چه امتیازی می‌دهید؟ </h4>
-          <form class="rate-form" action="" method="POST" id="{{course.id}}" style="margin: 0.5rem;
-                  float: right;">
+          <form class="rate-form" action="" method="POST" id="{{course.id}}" name="star-rate">
             {% csrf_token %}
             <button type="submit" class="fa fa-star fa-2x star-btn" id="first"></button>
             <button type="submit" class="fa fa-star fa-2x star-btn" id="second"></button>
@@ -37,9 +36,7 @@
             <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
             <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
           </form>
-          <div style="float: right;
-                top: 13px;
-                position: relative;">
+          <div class="rated">
             <h3 style="font-weight:100;">
               ({{course.score}}
               <button type="submit" class="fa fa-star fa-1x star-btn checked" 
@@ -65,7 +62,7 @@
 
 
     {% if course.image %}
-      <div class="course-pic" style="">
+      <div class="course-pic">
         <img src="{{ course.image.url }}" alt="course-img"></img>
       </div>
     {% endif %}
@@ -76,13 +73,8 @@
       {{ course.body|linebreaks }}
     </div>
 
-
-
     <div class="course-prof-body">
-  
-            
-      <div style="margin-right: 1rem;
-                  margin-top: 1rem;">
+      <div class="teacher">
         {% if prof.all.count > 1 %}
           مدرسان:
         {% else %}
@@ -133,7 +125,7 @@
       {% endfor %}
       {% if attend %}
         {% if attend.progress != 100 %}
-        <form action="continue_course/" method="post">
+        <form action="continue_course/" method="post" name="continue-course">
           {% csrf_token %}
           <p>
             <input class="btn btn-continue" type="submit" value=" ادامه یادگیری ">
@@ -148,7 +140,7 @@
 
         {% endif %}
       {% else %}
-        <form action="addcourse/" method="post">
+        <form action="addcourse/" method="post" name="add-course">
           {% csrf_token %}
           <p><input class="btn btn-continue" type="submit" value=" افزودن به پروفایل "></p>
           <input name="course_id" value="{{course.id}}" hidden>
@@ -158,15 +150,19 @@
     </div>
 
     <br><br>
-    <br><br>
+    <br>
     <div>
       <h2 style="margin-right: 3rem;"> دیدگاهتان را به اشتراک بگذارید. </h2>
-      <div class="contact-form" style="margin-right:5rem; margin-bottom:4rem; margin-top: 4rem;">
-        <form action="{% url 'course_details' course.slug %}" method="post">
+      <div class="contact-form contact-comment">
+        <form action="{% url 'course_details' course.slug %}" method="post"
+          name="course" onsubmit="return validateForm('course')">
           {% csrf_token %}
           <div class="form-group">
             <input class="form-control" name="name" placeholder="نام" type="text" requierd>
-            <input class="form-control" name="email" placeholder="ایمیل" type="email" requierd>
+            <input class="form-control" name="email" placeholder="ایمیل" type="email" 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        oninvalid="setCustomValidity('فرمت وارد شده نادرست است.')"
+                        onchange="try{setCustomValidity('')}catch(e){}" requierd>
             <textarea class="form-control" name="comment" placeholder="متن نظر " type="message" rows="10" requierd></textarea>
           </div>
           <button class="btn submit-btn" type="submit"> ثبت نظر   </button>
@@ -188,22 +184,24 @@
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </a>
             {{comment.number_of_dislikes}}
-            <a href="{% url 'dislike_coursecomment' comment.id%}" style="color: #d40349;">
-                    <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+            <a href="{% url 'dislike_coursecomment' comment.id%}">
+                    <i class="fa fa-thumbs-down red" aria-hidden="true"></i>
             </a>
           </div>
         </div>
       {% endif %}
 
     {% empty %}
-      <div class="comment" style="width: 100%;
-        margin-right: 2rem;">
+      <div class="comment">
           <h5>
             تا کنون نظری برای این دوره ثبت نشده است. 
             برای ثبت نظر باید ابتدا در دوره ثبت نام کرده و دانشجوی دوره باشید. 
           </h5>
       </div>
+      <br>
     {% endfor %}
   </div>
   <script type="text/javascript" src="/static/js/calculate-rates.js" defer></script>
+  <script type="text/javascript" src="/static/js/validateForm.js"></script> 
+
 {% endblock %}

@@ -20,7 +20,7 @@
   
   <br>
   <div style="overflow-x:auto;">
-    <h3 class="section-title" style="display:block;">جدیدترین دوره ها :
+    <h3 class="section-title">جدیدترین دوره ها :
     </h3>
     {% for c in course %}
       <div class="course">
@@ -46,8 +46,8 @@
             <div class="student">
               دانشجو
             </div>&nbsp; &nbsp;
-            <div style="float:left;position: relative; bottom: 5px;">
-              <div style="direction:ltr; display:inline;">
+            <div class="course-rates">
+              <div class="course-star">
                 <i class="fa fa-star star"></i>
               </div> 
               {{c.score}} 
@@ -87,9 +87,8 @@
           <div class="student">
             خواننده
           </div>
-          <div style="float:left;position: relative; bottom: 4px;">
-
-            <div style="direction:ltr; display:inline;">
+          <div class="course-rates">
+            <div class="course-star">
               <i class="fa fa-star star"></i>
             </div> 
             {{a.score}} 
@@ -127,9 +126,8 @@
           <div class="student">
             دانشجو
           </div>
-          <div style="float:left;position: relative; bottom: 4px;">
-
-            <div style="direction:ltr; display:inline;">
+          <div class="course-rates">
+            <div class="course-star">
               <i class="fa fa-star star"></i>
             </div> 
             {{c.score}} 
@@ -167,10 +165,9 @@
           <div class="student">
             خواننده
           </div>
-          <div style="float:left;position: relative; bottom: 4px;">
-
-          <div style="direction:ltr; display:inline;">
-            <i class="fa fa-star star"></i>
+          <div class="course-rates">
+            <div class="course-star">
+              <i class="fa fa-star star"></i>
           </div> 
           {{a.score}} 
           <div class="rates-number">({{a.rates}})</div>
