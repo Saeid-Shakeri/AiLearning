@@ -11,32 +11,36 @@ from .models import *
 
 
 def get_lesson(request, slug):
-    lesson = Lesson.objects.get(slug=slug)
-    if request.method == 'POST':
-        name = (request.POST.get('name')).strip()
-        if name :
-            email = (request.POST.get('email')).strip()
-            comment = (request.POST.get('comment')).strip()
-            LessonComment.objects.create(name=name,email=email,content=comment,lesson=lesson)
-    context = {
-       'lesson' : lesson
-    }
-    context["user"] = request.user.id
-    context['comments'] = LessonComment.objects.filter(lesson=lesson,checked=True).order_by('-id')
-    context["rate"] = LessonRates.objects.filter(user=request.user.id,lesson=lesson)
-    if request.user.id :
-        temp = lesson 
-        attend = Attend.objects.get(user=request.user,course=lesson.course)
-        lessons = Lesson.objects.filter(course=lesson.course).count()
-        lesson = Lesson.objects.filter(course=lesson.course)
-        i = ceil(attend.progress * lessons / 100)
-        if i != lessons:
-            if lesson[i] == temp:
-                i += 1
-                attend.progress = i/lessons * 100
-                attend.save()
-    return render(request,'course/lesson.html',context)
- 
+    try: 
+        lesson = Lesson.objects.get(slug=slug)
+        if request.method == 'POST':
+            name = (request.POST.get('name')).strip()
+            if name :
+                email = (request.POST.get('email')).strip()
+                comment = (request.POST.get('comment')).strip()
+                LessonComment.objects.create(name=name,email=email,content=comment,lesson=lesson)
+        context = {
+        'lesson' : lesson
+        }
+        context["user"] = request.user.id
+        context['comments'] = LessonComment.objects.filter(lesson=lesson,checked=True).order_by('-id')
+        context["rate"] = LessonRates.objects.filter(user=request.user.id,lesson=lesson)
+        if request.user.id :
+            temp = lesson 
+            attend = Attend.objects.get(user=request.user,course=lesson.course)
+            lessons = Lesson.objects.filter(course=lesson.course).count()
+            lesson = Lesson.objects.filter(course=lesson.course)
+            i = ceil(attend.progress * lessons / 100)
+            if i != lessons:
+                if lesson[i] == temp:
+                    i += 1
+                    attend.progress = i/lessons * 100
+                    attend.save()
+        return render(request,'course/lesson.html',context)
+    except Exception as e:
+        logger.warning(f'get_lesson view: {str(e)}')
+        return HttpResponseNotFound("A problem occurred. please try again later")         
+
 
 
 class CourseListView(ListView):
@@ -54,26 +58,30 @@ class CourseListView(ListView):
 
 
 def CourseDetailView(request, slug):
-    course = Course.objects.get(slug=slug)
-    if request.method == 'POST':
-        name = (request.POST.get('name')).strip()
-        email = (request.POST.get('email')).strip()
-        comment = (request.POST.get('comment')).strip()
-        CourseComment.objects.create(name=name,email=email,content=comment,course=course)
-    prof = course.professor.all()
-    lessons = Lesson.objects.filter(course=course.id)
-    comments = CourseComment.objects.filter(course=course,checked=True).order_by('-id')
-    # commentanswer = CourseCommentAnswer.objects.filter(comment=comment)
-    context={
-        'course': course, 'prof': prof, 'lessons': lessons, 'comments': comments,
-        # 'commentanswer':commentanswer,
-    }
-    context["user"] = request.user.id
-    context["rate"] = CourseRates.objects.filter(user=request.user.id,course=course)
-    attend = Attend.objects.filter(user=request.user.id,course=course)[:1]
-    if attend:
-        context["attend"] = list(Attend.objects.filter(user=request.user.id,course=course)[:1])[0]
-    return render(request,'course/course_detail.html',context)
+    try: 
+        course = Course.objects.get(slug=slug)
+        if request.method == 'POST':
+            name = (request.POST.get('name')).strip()
+            email = (request.POST.get('email')).strip()
+            comment = (request.POST.get('comment')).strip()
+            CourseComment.objects.create(name=name,email=email,content=comment,course=course)
+        prof = course.professor.all()
+        lessons = Lesson.objects.filter(course=course.id)
+        comments = CourseComment.objects.filter(course=course,checked=True).order_by('-id')
+        # commentanswer = CourseCommentAnswer.objects.filter(comment=comment)
+        context={
+            'course': course, 'prof': prof, 'lessons': lessons, 'comments': comments,
+            # 'commentanswer':commentanswer,
+        }
+        context["user"] = request.user.id
+        context["rate"] = CourseRates.objects.filter(user=request.user.id,course=course)
+        attend = Attend.objects.filter(user=request.user.id,course=course)[:1]
+        if attend:
+            context["attend"] = list(Attend.objects.filter(user=request.user.id,course=course)[:1])[0]
+        return render(request,'course/course_detail.html',context)
+    except Exception as e:
+        logger.warning(f'CourseDetailView view: {str(e)}')
+        return HttpResponseNotFound("A problem occurred. please try again later")         
 
 
 
@@ -119,31 +127,35 @@ class CategoryListView(ListView):
 
 
     def get(self, request):
-        context = {}
-        attend = []
-        context['user'] = request.user.id
-        context ['category_list'] = Category.objects.all()
-        for c in context ['category_list']:
-            course = Course.objects.filter(category=c)
-            a = 0
-            for i in course:
-                a += i.attends
-            attend.append(a)
-        zipped_catlist = zip(attend,context['category_list'])
-        context ['attend'] = attend
-        context ['zipped_catlist'] = zipped_catlist
-        context ['popular'] = Category.objects.order_by('-score')[:5]
-        attend = []
-        for c in context ['popular']:
-            course = Course.objects.filter(category=c)
-            a = 0
-            for i in course:
-                a += i.attends
-            attend.append(a)
-        zipped_poplist = zip(attend,context['popular'])
-        context ['zipped_poplist'] = zipped_poplist
+        try:
+            context = {}
+            attend = []
+            context['user'] = request.user.id
+            context ['category_list'] = Category.objects.all()
+            for c in context ['category_list']:
+                course = Course.objects.filter(category=c)
+                a = 0
+                for i in course:
+                    a += i.attends
+                attend.append(a)
+            zipped_catlist = zip(attend,context['category_list'])
+            context ['attend'] = attend
+            context ['zipped_catlist'] = zipped_catlist
+            context ['popular'] = Category.objects.order_by('-score')[:5]
+            attend = []
+            for c in context ['popular']:
+                course = Course.objects.filter(category=c)
+                a = 0
+                for i in course:
+                    a += i.attends
+                attend.append(a)
+            zipped_poplist = zip(attend,context['popular'])
+            context ['zipped_poplist'] = zipped_poplist
 
-        return render(request, 'course/category_list.html',context)
+            return render(request, 'course/category_list.html',context)
+        except Exception as e:
+            logger.warning(f'CategoryListView def get: {str(e)}')
+            return HttpResponseNotFound("A problem occurred. please try again later")         
 
 
 def category_courses(request, slug):
