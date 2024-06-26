@@ -72,5 +72,23 @@ function validateForm(name) {
             return false;
             }
     }
+    // lesson - course_details - article_details
+    else if (name == 'lesson' || name == 'course' || name == 'article'){
+        let x = document.forms[name]["name"].value;
+        if (x == "") {
+            alert(" نام نمی تواند خالی باشد!");
+            return false;
+            }
+            x = document.forms[name]["email"].value;
+            if (x == "") {
+            alert("ایمیل نمیتواند خالی باشد!");
+            return false;
+            }  
+            x = document.forms[name]["comment"].value;
+            if (x == "") {
+            alert(" متن نظر نمیتواند خالی باشد!");
+            return false;
+            }
+    }
 
 } 
