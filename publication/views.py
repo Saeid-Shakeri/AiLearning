@@ -15,11 +15,8 @@ class ArticleListView(ListView):
     def get(self, request):
         context = {}
         context ['user'] = request.user.id
-        article_list = Article.objects.order_by('-date')
-        popular_article = Article.objects.order_by('-score')
-
-        context ['article_list'] = article_list
-        context ['popular_article'] = popular_article
+        context ['article_list'] = Article.objects.order_by('-date')
+        context ['popular_article'] = Article.objects.order_by('-score')[:5]
         return render(request,'publication/article_list.html',context)
 
 
