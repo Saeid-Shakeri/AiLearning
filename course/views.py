@@ -13,7 +13,9 @@ from .models import *
 def get_lesson(request, slug):
     try: 
         lesson = Lesson.objects.get(slug=slug)
+        flag = False
         if request.method == 'POST':
+            flag = True
             name = (request.POST.get('name')).strip()
             if name :
                 email = (request.POST.get('email')).strip()
@@ -26,16 +28,18 @@ def get_lesson(request, slug):
         context['comments'] = LessonComment.objects.filter(lesson=lesson,checked=True).order_by('-id')
         context["rate"] = LessonRates.objects.filter(user=request.user.id,lesson=lesson)
         if request.user.id :
-            temp = lesson 
+            # temp = lesson 
             attend = Attend.objects.get(user=request.user,course=lesson.course)
             lessons = Lesson.objects.filter(course=lesson.course).count()
-            lesson = Lesson.objects.filter(course=lesson.course)
+            temp = Lesson.objects.filter(course=lesson.course)
             i = ceil(attend.progress * lessons / 100)
             if i != lessons:
-                if lesson[i] == temp:
+                if temp[i] == lesson:
                     i += 1
                     attend.progress = i/lessons * 100
                     attend.save()
+        if flag:
+            return HttpResponseRedirect(reverse('get_lesson',args=[lesson.slug]))
         return render(request,'course/lesson.html',context)
     except Exception as e:
         logger.warning(f'get_lesson view: {str(e)}')
@@ -60,7 +64,9 @@ class CourseListView(ListView):
 def CourseDetailView(request, slug):
     try: 
         course = Course.objects.get(slug=slug)
+        flag = False
         if request.method == 'POST':
+            flag = True
             name = (request.POST.get('name')).strip()
             email = (request.POST.get('email')).strip()
             comment = (request.POST.get('comment')).strip()
@@ -78,6 +84,8 @@ def CourseDetailView(request, slug):
         attend = Attend.objects.filter(user=request.user.id,course=course)[:1]
         if attend:
             context["attend"] = list(Attend.objects.filter(user=request.user.id,course=course)[:1])[0]
+        if flag:
+            return HttpResponseRedirect(reverse('course_details',args=[course.slug]))
         return render(request,'course/course_detail.html',context)
     except Exception as e:
         logger.warning(f'CourseDetailView view: {str(e)}')

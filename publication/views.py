@@ -52,8 +52,7 @@ class ArticleDetailView(View):
         }
         context["user"] = request.user.id
         context["rate"] = ArticleRates.objects.filter(user=request.user.id,article=article)
-        return render(request,'publication/article_detail.html',context)
-
+        return HttpResponseRedirect(reverse('article_details',args=[article.slug]))
 
 
 
