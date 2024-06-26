@@ -152,7 +152,7 @@ def category_courses(request, slug):
         'title':slug,
     }
     context["user"] = request.user.id
-    context ['new_courses'] = Course.objects.filter(category=cat).order_by('-date')
+    context ['new_courses'] = Course.objects.filter(category=cat).order_by('-date')[:5]
     context ['popular_courses'] = Course.objects.filter(category=cat).order_by('-score')[:5]
     context ['best_courses'] = Course.objects.filter(category=cat).order_by('-attends')[:5]
     context ['course_list'] = Course.objects.filter(category=cat).order_by('date')
