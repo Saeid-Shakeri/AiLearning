@@ -13,10 +13,10 @@ from .models import *
 def get_lesson(request, slug):
     lesson = Lesson.objects.get(slug=slug)
     if request.method == 'POST':
-        name = request.POST.get('name')
+        name = (request.POST.get('name')).strip()
         if name :
-            email = request.POST.get('email')
-            comment = request.POST.get('comment')
+            email = (request.POST.get('email')).strip()
+            comment = (request.POST.get('comment')).strip()
             LessonComment.objects.create(name=name,email=email,content=comment,lesson=lesson)
     context = {
        'lesson' : lesson
@@ -56,9 +56,9 @@ class CourseListView(ListView):
 def CourseDetailView(request, slug):
     course = Course.objects.get(slug=slug)
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        comment = request.POST.get('comment')
+        name = (request.POST.get('name')).strip()
+        email = (request.POST.get('email')).strip()
+        comment = (request.POST.get('comment')).strip()
         CourseComment.objects.create(name=name,email=email,content=comment,course=course)
     prof = course.professor.all()
     lessons = Lesson.objects.filter(course=course.id)

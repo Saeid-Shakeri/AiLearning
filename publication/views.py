@@ -42,9 +42,9 @@ class ArticleDetailView(View):
     
 
     def post(self, request, slug):
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        comment = request.POST.get('comment')
+        name = (request.POST.get('name')).strip()
+        email = (request.POST.get('email')).strip()
+        comment = (request.POST.get('comment')).strip()
         article = Article.objects.get(slug=slug)
         ArticleComment.objects.create(name=name,email=email,content=comment,article=article)
         prof = article.author.all()

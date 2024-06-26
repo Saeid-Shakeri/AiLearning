@@ -26,26 +26,26 @@ def signup(request):
 
     elif request.method == 'POST':
         try : 
-            username = request.POST.get('username')
+            username = (request.POST.get('username')).strip()
             u = User.objects.filter(username=username)
             for i in u:
                 if username == i.username:
                     message = 'این نام کاربری موجود است لطفا یک نام دیگر را امتحان کنید.'
-                    return render(request,'user/signup_login.html',{'message':message,'user':request.user.id})
-            email = request.POST.get('email')
+                    return render(request,'user/signup_login.html',{'message':message})
+            email = (request.POST.get('email')).strip()
             u = User.objects.filter(email=email)
             for i in u :
                 if email == i.email :
                     message = 'این ایمیل موجود است لطفا یک ایمیل دیگر را امتحان کنید.'
-                    return render(request,'user/signup_login.html',{'message':message,'user':request.user.id})
-            password1 = request.POST.get('password1')
+                    return render(request,'user/signup_login.html',{'message':message})
+            password1 = (request.POST.get('password1')).strip()
             # if len(str(password1)) < 8:
             #     message = 'رمز عبور نباید کمتر از 8 کاراکتر باشد. یک رمز دیگر بسازید.'
             #     return render(request,'user/signup_login.html',{'message':message,'user':request.user.id})
-            password2 = request.POST.get('password2')
+            password2 = (request.POST.get('password2')).strip()
             if password1 != password2 :
                 message = 'رمز عبور مطابقت ندارد دوباره تلاش کنید.'
-                return render(request,'user/signup_login.html',{'message':message,'user':request.user.id})
+                return render(request,'user/signup_login.html',{'message':message})
             user = User.objects.create(username=username,email=email)
             user.set_password(password1)
             user.save()
@@ -54,7 +54,7 @@ def signup(request):
         except Exception as e:
             message = 'A problem occurred. please try again later'
             logger.warning(f'signup view: {str(e)}')
-            return render(request,'user/signup_login.html',{'message':message,'user':request.user.id})
+            return render(request,'user/signup_login.html',{'message':message})
 
 
 
@@ -68,8 +68,8 @@ def Login(request):
 
     elif request.method == 'POST':
         try: 
-            email_username = request.POST.get('email_username')
-            password = request.POST.get('password')
+            email_username = (request.POST.get('email_username')).strip()
+            password = (request.POST.get('password')).strip()
 
             authed_user = authenticate(
                         username=email_username, password=password)
@@ -119,7 +119,7 @@ def edit_profile(request):
 
     if request.method == 'POST':
         try: 
-            username = request.POST.get('username')
+            username = (request.POST.get('username')).strip()
             if username == '':
                 message = ' نام کاربری نمیتواند خالی باشد.'
                 return render(request,'user/edit_profile.html',{'message':message}) 
@@ -129,18 +129,17 @@ def edit_profile(request):
                 return render(request,'user/edit_profile.html',{'message':message}) 
             else :
                 user.username = username
-            if user.first_name !=  request.POST.get("first_name"):
-                user.first_name = request.POST.get("first_name")
-            if user.last_name != request.POST.get("last_name"):
-                user.last_name = request.POST.get("last_name")
-            if user.phone !=  request.POST.get("phone"):
-                user.phone = request.POST.get("phone")
-            if user.email !=  request.POST.get("email"):
-                if request.POST.get("email") == '':
+            if user.first_name != (request.POST.get("first_name")).strip():
+                user.first_name = (request.POST.get("first_name")).strip()
+            if user.last_name != (request.POST.get("last_name")).strip():
+                user.last_name = (request.POST.get("last_name")).strip()
+            if user.phone !=  (request.POST.get("phone")).strip():
+                user.phone = (request.POST.get("phone")).strip()
+            if user.email !=  (request.POST.get("email")).strip():
+                if (request.POST.get("email")).strip() == '':
                     message = 'ایمیل نمیتواند خالی باشد.'
                     return render(request,'user/edit_profile.html',{'message':message}) 
-                user.email = request.POST.get("email")
-            
+                user.email = (request.POST.get("email")).strip()
             user.save()
             return redirect('dashboard')  
         except Exception as e:
@@ -160,16 +159,16 @@ def change_password(request):
 
     elif request.method == 'POST':
         try:
-            oldpassword = request.POST.get('oldpassword')
+            oldpassword = (request.POST.get('oldpassword')).strip()
             user = request.user
             if  not user.check_password(oldpassword) :
                 message = 'رمز قبلی را اشتباه نوشته اید. دوباره تلاش کنید. '
                 return render(request,'user/change_password.html',{'message':message})
-            password1 = request.POST.get('password1')
+            password1 = (request.POST.get('password1')).strip()
             if len(str(password1)) < 8:
                 message = 'رمز عبور نباید کمتر از 8 کاراکتر باشد. یک رمز دیگر بسازید.'
                 return render(request,'user/change_password.html',{'message':message})
-            password2 = request.POST.get('password2')
+            password2 = (request.POST.get('password2')).strip()
             if password1 != password2 :
                 message = 'رمز عبور جدید مطابقت ندارد دوباره تلاش کنید.'
                 return render(request,'user/change_password.html',{'message':message})
@@ -205,21 +204,19 @@ def support(request):
         for c in cat:
             ca = c[1]
             l.append(ca)
-        logger.warning(l)
         context['cat'] = l
         return render(request,'user/support.html', context)
 
     if request.method == "POST":
         cat = request.POST.get('cat')
-        logger.warning(cat)
         for c in cat_choices:
             if c[1] == cat:
                 cat = c[0]
                 logger.warning(cat)
                 break
 
-        title = request.POST.get('title')
-        context = request.POST.get('message')
+        title = (request.POST.get('title')).strip()
+        context = (request.POST.get('message')).strip()
         Message.objects.create(user=request.user,category=cat,context=context,title=title)
 
         return redirect('dashboard')
