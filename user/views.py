@@ -212,7 +212,6 @@ def support(request):
         for c in cat_choices:
             if c[1] == cat:
                 cat = c[0]
-                logger.warning(cat)
                 break
 
         title = (request.POST.get('title')).strip()
