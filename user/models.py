@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-# from 
 
 # Create your models here.
 
@@ -36,9 +35,10 @@ class User(AbstractUser):
 class Message(models.Model):
     title = models.CharField(max_length=50)
     context = models.TextField()
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     checked = models.BooleanField(default=False)
     reply = models.TextField(null=True,blank=True)
+    reply_date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User,on_delete=models.CASCADE)
     category = models.CharField(choices=cat_choices,default="another",max_length=20)
 
