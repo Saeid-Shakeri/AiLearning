@@ -11,6 +11,7 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Message)
 class Message(admin.ModelAdmin):
     search_fields = ['title']
+    exclude = ('reply_date','date')
 
 
 
