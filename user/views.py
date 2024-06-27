@@ -182,7 +182,7 @@ def change_password(request):
             return render(request,'user/change_password.html',{'message':message,'user':request.user.id})
 
 
-@login_required(login_url='/user/login/')
+
 def resetpass(request):
     pass
 
@@ -190,7 +190,7 @@ def resetpass(request):
 @login_required(login_url='/user/login/')
 def message(request):
     context = {}
-    context["message"] = Message.objects.filter(user=request.user)
+    context["message"] = Message.objects.filter(user=request.user).order_by('-date')
     return render(request,'user/messages.html', context)
 
 
