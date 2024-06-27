@@ -815,6 +815,7 @@ color: var(--clr-grey-1);
     border: 1px solid;
     text-align: center;
     overflow-x: auto;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
 
 }
 
@@ -883,4 +884,8 @@ th {
 .teacher {
     margin-right: 1rem;
     margin-top: 1rem;
+}
+
+.table-btn{
+    width: max-content;
 }
