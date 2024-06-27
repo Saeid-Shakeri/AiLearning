@@ -23,7 +23,7 @@
 
 {% block content %}
   {% if message %}
-    <div class="wrapper" style="overflow-x:auto;position:relative;right:90px;">
+    <div class="wrapper"  style="overflow-x:auto;position:relative;right:2rem;">
       <h2 style="margin-top:5rem;margin-bottom:2rem;">  سابقه پیام های شما  </h2>
       <table class="table">
         <thead>
@@ -32,6 +32,7 @@
             <th>عنوان پیام</th>
             <th>تاریخ ارسال</th>
             <th> پاسخ </th>
+            <th>   تاریخ پاسخگویی  </th>
             <th> متن پیام </th>
           </tr>
         </thead>
@@ -40,20 +41,29 @@
             <tr>
               <td>{{m.get_category_display }}</td>
               <td>{{m.title}}</td>
-              <td>{{m.date|to_jalali:'%y/%m/%d'}}</td>
+              <td>{{m.date|to_jalali:'%y/%m/%d _ %H:%M:%S'}}</td>
               <td>
                 {% if m.reply %}
-                  <form action="" method="post" name="answer" onsubmit="return show(name)">
+                  <form action="" method="post" name="{{m.reply}}" onsubmit="return show_answer(name)">
                     {% csrf_token %}
-                    <button type="submit" class="btn" name="answer" value="{{m.reply}}">  مشاهده پاسخ   </button>
+                    <button type="submit" class="btn table-btn" name="answer" value="{{m.reply}}">  مشاهده پاسخ   </button>
                   </form>
                 {% else %}
                   هنوز پاسخی داده نشده است.
                 {% endif %}
               </td>
+               <td>
+                {% if m.reply %}
+                {{ m.reply_date|to_jalali:'%y/%m/%d _ %H:%M:%S'}}
+
+                {% else %}
+                  هنوز پاسخی داده نشده است.
+                {% endif %}
+              </td>
+              
               <td>
-                <form action="" method="post" name="question" onsubmit="return show(name)">
-                  <button type="submit" class="btn" name="question" value="{{m.context}}">
+                <form action="" method="post" name="{{m.context}}" onsubmit="return show_question(name)">
+                  <button type="submit" class="btn table-btn" name="question" value="{{m.context}}">
                         مشاهده متن پیام
                   </button>
                 </form>
