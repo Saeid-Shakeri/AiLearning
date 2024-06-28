@@ -19,33 +19,118 @@
   <!-- end of header -->
   
   <br>
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">جدیدترین دوره ها :
-    </h3>
-    {% for c in course %}
-      <div class="course">
-        <a href="{% url 'course_details' c.slug %}">
-          {% if c.image %}
-            <img src="{{ c.image.url }} ">
-          {% endif %} 
-          <h3 class="course-name" style="overflow-x:auto;"> {{c.name}} </h3>
-          <div style="display:inline;"> مدرس :  
-          </div>
-          <div class="course-prof"> {{c.professor.all.0.name}} 
-          </div>
-          {% for prof in c.professor.all %} 
-            {% if prof.name == c.professor.all.0.name %}
-            {% else %} 
-              <div class="course-prof"> - {{prof.name}} </div>
-            {% endif %}
-          {% endfor %}
-          <br><br>
-          <div>
+  {% if course %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">جدیدترین دوره ها :
+      </h3>
+      {% for c in course %}
+        <div class="course">
+          <a href="{% url 'course_details' c.slug %}">
+            {% if c.image %}
+              <img src="{{ c.image.url }} ">
+            {% endif %} 
+            <h3 class="course-name" style="overflow-x:auto;"> {{c.name}} </h3>
+            <div style="display:inline;"> مدرس :  
+            </div>
+            <div class="course-prof"> {{c.professor.all.0.name}} 
+            </div>
+            {% for prof in c.professor.all %} 
+              {% if prof.name == c.professor.all.0.name %}
+              {% else %} 
+                <div class="course-prof"> - {{prof.name}} </div>
+              {% endif %}
+            {% endfor %}
+            <br><br>
+            <div>
+              <i class="fa-solid fa fa-graduation-cap"> </i>
+              {{c.attends}}
+              <div class="student">
+                دانشجو
+              </div>&nbsp; &nbsp;
+              <div class="course-rates">
+                <div class="course-star">
+                  <i class="fa fa-star star"></i>
+                </div> 
+                {{c.score}} 
+                <div class="rates-number">({{c.rates}})</div>
+              </div>
+            </div>
+          
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <br><br>
+  {% endif %}
+
+  {% if article %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">جدیدترین مقاله ها :</h3>
+      {% for a in article %}
+        <div class="course">
+          <a href="{% url 'article_details' a.slug %}">
+            {% if a.image %}
+              <img src="{{ a.image.url }}">
+            {% endif %} 
+            <h3 class="course-name"> {{a.name}} </h3>
+
+            <div style="display:inline;"> نویسنده :  
+            </div>
+            <div class="course-prof"> {{a.author.all.0.name}} 
+            </div>
+            {% for prof in a.author.all %} 
+              {% if prof.name == a.author.all.0.name %}
+              {% else %} 
+                <div class="course-prof"> - {{prof.name}} </div>
+              {% endif %}
+            {% endfor %}
+            <br><br>
+            <i class="bi bi-book-half"></i>
+            {{a.readers}}
+            <div class="student">
+              خواننده
+            </div>
+            <div class="course-rates">
+              <div class="course-star">
+                <i class="fa fa-star star"></i>
+              </div> 
+              {{a.score}} 
+              <div class="rates-number">({{a.rates}})</div>
+            </div>
+          
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <br><br>
+  {% endif %}
+
+  {% if popular_courses %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">محبوب ترین دوره ها :</h3>
+      {% for c in popular_courses %}
+        <div class="course">
+          <a href="{% url 'course_details' c.slug %}">
+            {% if c.image %}
+              <img src="{{ c.image.url }} ">
+            {% endif %} 
+            <h3 class="course-name"> {{c.name}} </h3>
+            <div style="display:inline;"> مدرس :  
+            </div>
+            <div class="course-prof"> {{c.professor.all.0.name}} 
+            </div>
+            {% for prof in c.professor.all %} 
+              {% if prof.name == c.professor.all.0.name %}
+              {% else %} 
+                <div class="course-prof"> - {{prof.name}} </div>
+              {% endif %}
+            {% endfor %}
+            <br><br>
             <i class="fa-solid fa fa-graduation-cap"> </i>
             {{c.attends}}
             <div class="student">
               دانشجو
-            </div>&nbsp; &nbsp;
+            </div>
             <div class="course-rates">
               <div class="course-star">
                 <i class="fa fa-star star"></i>
@@ -53,130 +138,52 @@
               {{c.score}} 
               <div class="rates-number">({{c.rates}})</div>
             </div>
-          </div>
-        
-        </a>
-      </div>
-    {% endfor %}
-  </div>
-  <br><br>
+          </a>
+        </div>
+        {% endfor %}
+    </div>
+    <br><br>
+  {% endif %}
+  {% if popular_articles %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">محبوب ترین مقاله ها :</h3>
+      {% for a in popular_articles %}
+        <div class="course">
+          <a href="{% url 'article_details' a.slug %}">
+            {% if a.image %}
+              <img src="{{ a.image.url }}">
+            {% endif %} 
+            <h3 class="course-name"> {{a.name}} </h3>
 
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">جدیدترین مقاله ها :</h3>
-    {% for a in article %}
-      <div class="course">
-        <a href="{% url 'article_details' a.slug %}">
-          {% if a.image %}
-            <img src="{{ a.image.url }}">
-          {% endif %} 
-          <h3 class="course-name"> {{a.name}} </h3>
-
-          <div style="display:inline;"> نویسنده :  
-          </div>
-          <div class="course-prof"> {{a.author.all.0.name}} 
-          </div>
-          {% for prof in a.author.all %} 
-            {% if prof.name == a.author.all.0.name %}
-            {% else %} 
-              <div class="course-prof"> - {{prof.name}} </div>
-            {% endif %}
-          {% endfor %}
-          <br><br>
-          <i class="bi bi-book-half"></i>
-          {{a.readers}}
-          <div class="student">
-            خواننده
-          </div>
-          <div class="course-rates">
-            <div class="course-star">
-              <i class="fa fa-star star"></i>
+            <div style="display:inline;"> نویسنده :  
+            </div>
+            <div class="course-prof"> {{a.author.all.0.name}} 
+            </div>
+            {% for prof in a.author.all %} 
+              {% if prof.name == a.author.all.0.name %}
+              {% else %} 
+                <div class="course-prof"> - {{prof.name}} </div>
+              {% endif %}
+            {% endfor %}
+            <br><br>
+            <i class="bi bi-book-half"></i>
+            {{a.readers}}
+            <div class="student">
+              خواننده
+            </div>
+            <div class="course-rates">
+              <div class="course-star">
+                <i class="fa fa-star star"></i>
             </div> 
             {{a.score}} 
             <div class="rates-number">({{a.rates}})</div>
           </div>
-        
-        </a>
-      </div>
-    {% endfor %}
-   </div>
-  <br><br>
-
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">محبوب ترین دوره ها :</h3>
-    {% for c in popular_courses %}
-      <div class="course">
-        <a href="{% url 'course_details' c.slug %}">
-          {% if c.image %}
-            <img src="{{ c.image.url }} ">
-          {% endif %} 
-          <h3 class="course-name"> {{c.name}} </h3>
-          <div style="display:inline;"> مدرس :  
-          </div>
-          <div class="course-prof"> {{c.professor.all.0.name}} 
-          </div>
-          {% for prof in c.professor.all %} 
-            {% if prof.name == c.professor.all.0.name %}
-            {% else %} 
-              <div class="course-prof"> - {{prof.name}} </div>
-            {% endif %}
-          {% endfor %}
-          <br><br>
-          <i class="fa-solid fa fa-graduation-cap"> </i>
-          {{c.attends}}
-          <div class="student">
-            دانشجو
-          </div>
-          <div class="course-rates">
-            <div class="course-star">
-              <i class="fa fa-star star"></i>
-            </div> 
-            {{c.score}} 
-            <div class="rates-number">({{c.rates}})</div>
-          </div>
-        </a>
-      </div>
-      {% endfor %}
-  </div>
-  <br><br>
-
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">محبوب ترین مقاله ها :</h3>
-    {% for a in popular_articles %}
-      <div class="course">
-        <a href="{% url 'article_details' a.slug %}">
-          {% if a.image %}
-            <img src="{{ a.image.url }}">
-          {% endif %} 
-          <h3 class="course-name"> {{a.name}} </h3>
-
-          <div style="display:inline;"> نویسنده :  
-          </div>
-          <div class="course-prof"> {{a.author.all.0.name}} 
-          </div>
-          {% for prof in a.author.all %} 
-            {% if prof.name == a.author.all.0.name %}
-            {% else %} 
-              <div class="course-prof"> - {{prof.name}} </div>
-            {% endif %}
-          {% endfor %}
-          <br><br>
-          <i class="bi bi-book-half"></i>
-          {{a.readers}}
-          <div class="student">
-            خواننده
-          </div>
-          <div class="course-rates">
-            <div class="course-star">
-              <i class="fa fa-star star"></i>
-          </div> 
-          {{a.score}} 
-          <div class="rates-number">({{a.rates}})</div>
+          
+          </a>
         </div>
-        
-        </a>
+      {% endfor %}
       </div>
-    {% endfor %}
-    </div>
+      {% endif %}
 
   <br><br>
 {% endblock %}

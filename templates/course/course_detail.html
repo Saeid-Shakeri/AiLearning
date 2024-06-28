@@ -81,6 +81,7 @@
           مدرس:
         {% endif %}
       </div>
+      
       {% for prof in prof %} 
         <div class="prof-pic"> 
           {% if prof.image %}
@@ -99,6 +100,7 @@
         {% if prof.bio %}
           {{prof.bio|linebreaks}}
         {% endif %}
+        <br>
       {% endfor %} 
     </div>
 

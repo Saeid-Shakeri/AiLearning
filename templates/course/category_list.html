@@ -20,66 +20,70 @@
 
 {% block content %}
   <br>
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">  محبوب ترین دسته بندی ها:  </h3>
-    {% for i, c in zipped_poplist %}
-      <div class="course">
-        <a href="{% url 'category_courses' c.slug %}">
-          {% if c.image %}
-            <img src="{{ c.image.url }} " height="200" width="200" />
-          {% endif %}
-          <h3 class="course-name">{{ c.name }}
-          </h3>
-          <br><br>
-          <div>
-            <i class="fa-solid fa fa-graduation-cap"> </i>
-            {{i}}
-            <div class="student">
-              دانشجو
-            </div>&nbsp; &nbsp;
-            <div class="course-rates">
-              <div class="course-star">
-                <i class="fa fa-star star"></i>
-              </div> 
-              {{c.score}} 
-              <div class="rates-number">({{c.rates}})</div>
+  {% if zipped_poplist %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">  محبوب ترین دسته بندی ها </h3>
+      {% for i, c in zipped_poplist %}
+        <div class="course">
+          <a href="{% url 'category_courses' c.slug %}">
+            {% if c.image %}
+              <img src="{{ c.image.url }} " height="200" width="200" />
+            {% endif %}
+            <h3 class="course-name">{{ c.name }}
+            </h3>
+            <br><br>
+            <div>
+              <i class="fa-solid fa fa-graduation-cap"> </i>
+              {{i}}
+              <div class="student">
+                دانشجو
+              </div>&nbsp; &nbsp;
+              <div class="course-rates">
+                <div class="course-star">
+                  <i class="fa fa-star star"></i>
+                </div> 
+                {{c.score}} 
+                <div class="rates-number">({{c.rates}})</div>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
-  <br>
-  <div style="overflow-x:auto;">
-    <h3 class="section-title">  همه دسته بندی ها:  </h3>
-    {% for i,c in zipped_catlist %}
-      <div class="course">
-        <a href="{% url 'category_courses' c.slug %}">
-          {% if c.image %}
-            <img src="{{ c.image.url }} " height="200" width="200" />
-          {% endif %}
-          <h3 class="course-name">{{ c.name }}
-          </h3>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    <br>
+  {% endif %}
+  {% if zipped_catlist %}
+    <div style="overflow-x:auto;">
+      <h3 class="section-title">  همه دسته بندی ها </h3>
+      {% for i,c in zipped_catlist %}
+        <div class="course">
+          <a href="{% url 'category_courses' c.slug %}">
+            {% if c.image %}
+              <img src="{{ c.image.url }} " height="200" width="200" />
+            {% endif %}
+            <h3 class="course-name">{{ c.name }}
+            </h3>
 
-          <br><br>
+            <br><br>
 
-          <div>
-            <i class="fa-solid fa fa-graduation-cap"> </i>
-            {{ i }}           
-            <div class="student">
-              دانشجو
+            <div>
+              <i class="fa-solid fa fa-graduation-cap"> </i>
+              {{ i }}           
+              <div class="student">
+                دانشجو
+              </div>
+              <div class="course-rates">
+                <div class="course-star">
+                  <i class="fa fa-star star"></i>
+                </div> 
+                {{c.score}} 
+                <div class="rates-number">({{c.rates}})</div>
+              </div>
             </div>
-            <div class="course-rates">
-              <div class="course-star">
-                <i class="fa fa-star star"></i>
-              </div> 
-              {{c.score}} 
-              <div class="rates-number">({{c.rates}})</div>
-            </div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
   <br><br>
 {% endblock %}

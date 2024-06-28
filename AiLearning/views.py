@@ -42,12 +42,9 @@ def course_rate(user, val, el_id):
     if d >= 1:
         return False
     else :
-        cat = course.category
         CourseRates.objects.create(user=user,course=course)
         avg = (course.score * course.rates + int(val)) / (course.rates + 1)
-        if Attend.objects.filter(user=user,course=course):
-            pass
-        else:
+        if not Attend.objects.filter(user=user,course=course).exists():
             course.add_attend()
 
         course.rates += 1
