@@ -1,4 +1,4 @@
-from typing import Any
+from django.utils import timezone
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -42,14 +42,14 @@ class Category(models.Model):
     name = models.CharField(max_length=50, help_text="Name of Category")
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Parent Category', null=True, blank=True)
     image = models.FileField(null=True, default=None, upload_to='media/category/', blank=True)
-    rates = models.PositiveIntegerField(default=0)
+    slug = models.SlugField(unique=True)
+    rates = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)])
     score = models.FloatField(default=0,
         validators=[
             MinValueValidator(0),
             MaxValueValidator(5),
         ]
     )
-    slug = models.SlugField(unique=True)
 
     class Meta:
         verbose_name = 'Category'
@@ -63,7 +63,7 @@ class Category(models.Model):
         for c in k:
             a += c.score
 
-        self.score = a/n
+        self.score = a/n 
         self.rates += 1
         self.save()
 
@@ -87,7 +87,7 @@ class Course(models.Model):
     file = models.FileField(null=True,blank=True,upload_to='media/course/course/file/')
     body = models.TextField()
     professor = models.ManyToManyField(to=Professor)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     slug = models.SlugField(unique=True)
     attends = models.PositiveIntegerField(default=0)
     rates = models.PositiveIntegerField(default=0)
@@ -103,7 +103,8 @@ class Course(models.Model):
     def calc_score(self, avg):
         self.score = round(avg, 1)
         self.save()
-        self.category.calc_score()
+        cat = self.category
+        cat.calc_score()
 
 
     def add_attend(self):
@@ -139,7 +140,7 @@ class Lesson(models.Model):
     image = models.ImageField(null=True, default=None, upload_to='media/course/lesson/image/', blank=True)
     file = models.FileField(null=True,blank=True,upload_to='media/course/lesson/file/')
     body = models.TextField( null=True, blank=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
     slug = models.SlugField(unique=True)
     video = models.FileField(null=True,blank=True,upload_to='media/course/lesson/video/')
@@ -190,7 +191,7 @@ class CourseComment(models.Model):
     content = models.TextField(help_text="Comment text")
     email = models.EmailField()
     name = models.CharField(max_length=50,default='admin')
-    course = models.ForeignKey(to=Course, on_delete=models.PROTECT, null=True, blank=True)
+    course = models.ForeignKey(to=Course, on_delete=models.CASCADE, null=True, blank=True)
     date_added = models.DateField(auto_now_add=True)
     # rates = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(to=User,related_name="course_likes",null=True,blank=True)
@@ -242,7 +243,7 @@ class LessonComment(models.Model):
     content = models.TextField(help_text="Comment text")
     email = models.EmailField()
     name = models.CharField(max_length=50,default='admin')
-    lesson = models.ForeignKey(to=Lesson, on_delete=models.PROTECT,null=True, blank=True)
+    lesson = models.ForeignKey(to=Lesson, on_delete=models.CASCADE,null=True, blank=True)
     date_added = models.DateField(auto_now_add=True)
     checked = models.BooleanField(default=False)
     # rates = models.PositiveIntegerField(default=0)

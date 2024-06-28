@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from course.models import Professor, Category
 from django.core.validators import MaxValueValidator, MinValueValidator
 from user.models import User
@@ -9,7 +10,7 @@ class Article(models.Model):
     name = models.CharField(max_length=150,help_text='The titile of Article')
     body = models.TextField( null=True, blank=True)
     author = models.ManyToManyField(to=Professor)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now())
     file = models.FileField(null=True,blank=True,upload_to='media/article/file/')
     image = models.ImageField(null=True,blank=True,upload_to='media/article/image/')
     category = models.ForeignKey(to=Category,on_delete=models.PROTECT,null=True)
@@ -48,7 +49,7 @@ class ArticleComment(models.Model):
     email = models.EmailField()
     # reply = models.ForeignKey('self',on_delete=models.CASCADE,null=True, blank=True)
     checked = models.BooleanField(default=False)
-    article = models.ForeignKey(to=Article,on_delete=models.PROTECT, null=True, blank=True)
+    article = models.ForeignKey(to=Article,on_delete=models.CASCADE, null=True, blank=True)
     date_added = models.DateField(auto_now_add=True)
     # rates = models.PositiveIntegerField(default=0)
     likes = models.ManyToManyField(to=User,related_name="article_likes",null=True,blank=True)
