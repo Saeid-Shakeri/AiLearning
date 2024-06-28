@@ -10,7 +10,7 @@ class ArticleCommentInline(admin.StackedInline):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleCommentInline] 
-    exclude = ('score','readers','rates',)
+    exclude = ('score','readers','rates','date')
     search_fields = ['name']
 
 

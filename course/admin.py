@@ -6,7 +6,7 @@ from .models import Lesson, Category, Course, LessonComment, CourseComment, Prof
 class InlineLesson(admin.StackedInline):
     model = Lesson
     extra = 0
-    exclude = ('score','rates','attends',)
+    exclude = ('score','rates','attends','date')
 
 
 class CourseCommentInline(admin.StackedInline):
@@ -18,7 +18,7 @@ class CourseCommentInline(admin.StackedInline):
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     inlines = [InlineLesson,CourseCommentInline] 
-    exclude = ('score','rates','attends',)
+    exclude = ('score','rates','attends','date',)
     search_fields = ['name']
 
 
@@ -40,7 +40,7 @@ class LessonCommentInline(admin.StackedInline):
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     inlines = [LessonCommentInline] 
-    exclude = ('score','rates',)
+    exclude = ('score','rates','date')
     search_fields = ['name']
 
 
@@ -52,7 +52,7 @@ class LessonComment(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    exclude = ('score','rates',)
+    exclude = ('score','rates')
     search_fields = ['name']
 
 
