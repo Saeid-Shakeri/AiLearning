@@ -105,7 +105,7 @@ def continue_course(request, **kwargs):
             return HttpResponse('you complete the course')
         lesson = Lesson.objects.filter(course=course)
         if lesson[i]:
-            return get_lesson(request, lesson[i].slug)
+            return HttpResponseRedirect(reverse('get_lesson',args=[lesson[i].slug]))
         else:
             return HttpResponse('you complete the course')
     except Exception as e:
