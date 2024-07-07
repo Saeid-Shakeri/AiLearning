@@ -1,8 +1,42 @@
 from django.utils import timezone
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+import random
+import string
+from unidecode import unidecode
+from django.utils.text import slugify
 
 from user.models import User
+
+
+
+# Create your models here.
+
+
+def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
+def unique_slug_generator(instance, new_slug=None):
+    """
+    This is for a Django project and it assumes your instance 
+    has a model with a slug field and a name character (char) field.
+    """
+    if new_slug is not None:
+        slug = new_slug
+    else:
+        slug = slugify(unidecode(instance.name))
+
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(slug=slug).exists()
+    if qs_exists:
+        new_slug = "{slug}-{randstr}".format(
+                    slug=slug,
+                    randstr=random_string_generator(size=5)
+                )
+        return unique_slug_generator(instance, new_slug=new_slug)
+    return slug
+
 
 class Professor(models.Model):
     name = models.CharField(max_length=50)
@@ -42,7 +76,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50, help_text="Name of Category")
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='Parent Category', null=True, blank=True)
     image = models.FileField(null=True, default=None, upload_to='media/category/', blank=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True,blank=True)
     rates = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)])
     score = models.FloatField(default=0,
         validators=[
@@ -69,6 +103,8 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.score = round(self.score, 1)
+        if self.slug is None:
+            self.slug = unique_slug_generator(self)
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -88,7 +124,7 @@ class Course(models.Model):
     body = models.TextField()
     professor = models.ManyToManyField(to=Professor)
     date = models.DateTimeField(default=timezone.now())
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True,null=True,blank=True)
     attends = models.PositiveIntegerField(default=0)
     rates = models.PositiveIntegerField(default=0)
     score = models.FloatField(default=0,
@@ -116,6 +152,8 @@ class Course(models.Model):
 
     def save(self, *args, **kwargs):
         self.score = round(self.score, 1)
+        if self.slug is None:
+            self.slug = unique_slug_generator(self)
         super(Course, self).save(*args, **kwargs)
 
 
@@ -142,7 +180,7 @@ class Lesson(models.Model):
     body = models.TextField( null=True, blank=True)
     date = models.DateTimeField(default=timezone.now())
     course = models.ForeignKey(to=Course,on_delete=models.CASCADE,blank=True,null=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True,blank=True)
     video = models.FileField(null=True,blank=True,upload_to='media/course/lesson/video/')
     rates = models.PositiveIntegerField(default=0)
     score = models.FloatField(default=0,
@@ -155,6 +193,8 @@ class Lesson(models.Model):
 
     def save(self, *args, **kwargs):
         self.score = round(self.score, 1)
+        if self.slug is None:
+            self.slug = unique_slug_generator(self)
         super(Lesson, self).save(*args, **kwargs)
 
     class Meta:
