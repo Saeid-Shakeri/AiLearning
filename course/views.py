@@ -27,17 +27,19 @@ def get_lesson(request, slug):
         context["user"] = request.user.id
         context['comments'] = LessonComment.objects.filter(lesson=lesson,checked=True).order_by('-id')
         context["rate"] = LessonRates.objects.filter(user=request.user.id,lesson=lesson)
-        if request.user.id :
-            # temp = lesson 
-            attend = Attend.objects.get(user=request.user,course=lesson.course)
-            lessons = Lesson.objects.filter(course=lesson.course).count()
-            temp = Lesson.objects.filter(course=lesson.course)
-            i = ceil(attend.progress * lessons / 100)
-            if i != lessons:
-                if temp[i] == lesson:
-                    i += 1
-                    attend.progress = i/lessons * 100
-                    attend.save()
+        if request.user.id:
+            try : 
+                attend = Attend.objects.get(user=request.user,course=lesson.course)
+                lessons = Lesson.objects.filter(course=lesson.course).count()
+                temp = Lesson.objects.filter(course=lesson.course)
+                i = ceil(attend.progress * lessons / 100)
+                if i != lessons:
+                    if temp[i] == lesson:
+                        i += 1
+                        attend.progress = i/lessons * 100
+                        attend.save()
+            except Exception as e:
+                pass
         if flag:
             return HttpResponseRedirect(reverse('get_lesson',args=[lesson.slug]))
         return render(request,'course/lesson.html',context)
