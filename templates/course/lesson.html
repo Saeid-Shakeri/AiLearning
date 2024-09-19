@@ -36,22 +36,22 @@
           <button type="submit" class="fa fa-star fa-2x star-btn" id="fourth"></button>
           <button type="submit" class="fa fa-star fa-2x star-btn" id="fifth"></button>
         </form>
-        <div style="float: right;
-           top: 12px;
-            position: relative;"> 
+        <div class="rated"> 
           <h3 style="font-weight:100;">
-            ({{lesson.score}}
-            <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                  style="color:#ffb627;" id="first"></button>)
+            (
+              {{lesson.score}}
+              <button type="submit" class="fa fa-star fa-1x star-btn checked" id="first"></button>
+            )
           </h3>
         </div>
       </div>
     {% else %}
       <div class="rated-lesson">          
         <h3 style="font-weight:100;">
-          ({{lesson.score}}
-          <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                 style="color:#ffb627;" id="first"></button>)
+          (
+            {{lesson.score}}
+            <button type="submit" class="fa fa-star fa-1x star-btn checked" id="first"></button>
+          )
         </h3>
       </div>
     {% endif %}
@@ -97,7 +97,6 @@
       <div class="forgot">
         <a href="{{lesson.file.url}}">  <i class="fa fa-download" aria-hidden="true"></i>&nbsp;
             برای مشاهده و دانلود فایل آموزشی اینجا کلیک کنید. </a> <br>
-             {% comment %} <a href="{{lesson.file.url}}" download>  دانلود فایل </a>  {% endcomment %}
        </div>
     {% elif lesson.video %}
       <br>
@@ -109,7 +108,7 @@
       <h2 style="margin-right: 3rem;"> دیدگاهتان را با ما به اشتراک بگذارید. </h2>
       <div class="contact-form contact-comment">
         <form action="{% url 'get_lesson' lesson.slug %}" method="post" 
-        name="lesson" onsubmit="return validateForm('lesson')">
+          name="lesson" onsubmit="return validateForm('lesson')">
           {% csrf_token %}
             <div class="form-group">
               <input class="form-control" name="name" placeholder="نام" type="text" requierd>
@@ -126,7 +125,7 @@
       <br>
       {% for comment in comments %}
         {% if comment.checked %}
-          <div class="comment" style="width:100%;margin-right:2rem;">
+          <div class="comment">
             <h4 class="comment-name"> {{ comment.name }}</h4>
               <small class="comment-date"> {{ comment.date_added|to_jalali:'%y/%m/%d' }}</small>
               {{ comment.content|linebreaks }}

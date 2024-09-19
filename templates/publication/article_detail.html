@@ -40,18 +40,20 @@
         </form>
         <div class="rated">
           <h3 style="font-weight:100;">
-            ({{article.score}}
-            <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                    style="color:#ffb627;" id="first"></button>)
+            (
+              {{article.score}}
+              <button type="submit" class="fa fa-star fa-1x star-btn checked" id="first"></button>
+            )
           </h3>
         </div>
       </div>
     {% else %}
       <div class="rate-avg">
         <h3 style="font-weight:100;">
-          ({{article.score}}
-          <button type="submit" class="fa fa-star fa-1x star-btn checked" 
-                  style="color:#ffb627;" id="first"></button>)
+          (
+            {{article.score}}
+            <button type="submit" class="fa fa-star fa-1x star-btn checked" id="first"></button>
+          )
         </h3>
       </div>
     {% endif %}
@@ -150,8 +152,7 @@
     <br>
     {% for comment in comments %}
       {% if comment.checked %}
-        <div class="comment" style="width: 100%;
-          margin-right: 2rem;">
+        <div class="comment">
           <h4 class="comment-name"> {{ comment.name }}</h4>
           <small class="comment-date"> {{ comment.date_added|to_jalali:'%y/%m/%d' }}</small>
           {{ comment.content|linebreaks }}
