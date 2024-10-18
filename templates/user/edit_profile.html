@@ -57,7 +57,6 @@
                 <input id="phone" type="text" name="phone" 
                         placeholder="{% if user.phone %} {{user.phone}} 
                         {% else %} شماره همراه خود را وارد کنید {% endif %}" 
-                        value="{{user.phone}}"
                         class="form-control change-pass"
                         pattern="[0]{1}[9]{1}[0-9]{9}"
                         oninvalid="setCustomValidity('شماره تلفن همراه باید با 09 شروع شود و یازده رقم باشد.')"
