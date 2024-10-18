@@ -4,3 +4,5 @@ update-commit.sh
 
 my_env/
 general.log
+media/
+db.sqlite3
