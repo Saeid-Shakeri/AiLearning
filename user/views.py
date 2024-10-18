@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 
 from .models import *
+from .tasks import *
 from course.models import Attend
 
 logger = logging.getLogger('user')
@@ -49,6 +50,8 @@ def signup(request):
             user = User.objects.create(username=username,email=email)
             user.set_password(password1)
             user.save()
+            # change_name.delay(user.email) # just for test
+            # send_verification_email.delay(user.email) # enable email configuration
             login(request, user)
             return redirect('dashboard')
         except Exception as e:
@@ -124,9 +127,10 @@ def edit_profile(request):
                 message = ' نام کاربری نمیتواند خالی باشد.'
                 return render(request,'user/edit_profile.html',{'message':message}) 
             u = User.objects.filter(username=username)
-            if username in u :
-                message = 'این نام کاربری موجود است لطفا یک نام دیگر را امتحان کنید.'
-                return render(request,'user/edit_profile.html',{'message':message}) 
+            for i in u :
+                if username == i.username:
+                    message = 'این نام کاربری موجود است لطفا یک نام دیگر را امتحان کنید.'
+                    return render(request,'user/edit_profile.html',{'message':message}) 
             else :
                 user.username = username
             if user.first_name != (request.POST.get("first_name")).strip():
